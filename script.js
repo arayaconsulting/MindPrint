@@ -21,7 +21,6 @@ const introContainer = document.getElementById('intro-container');
 const scanContainer = document.getElementById('scan-container');
 const resultContainer = document.getElementById('result-container');
 const userForm = document.getElementById('user-form');
-const userNameInput = document.getElementById('user-name');
 const daySelect = document.getElementById('day');
 const monthSelect = document.getElementById('month');
 const yearSelect = document.getElementById('year');
@@ -32,7 +31,6 @@ const restartButton = document.getElementById('restart-button');
 const fingerprintScanner = document.getElementById('fingerprint-scanner');
 const scanText = document.getElementById('scan-text');
 const scanLoadingText = document.getElementById('scan-loading-text');
-const startButton = document.getElementById('start-button');
 
 // Fungsi Utama
 function populateDateFields() {
@@ -75,22 +73,21 @@ function calculateNumerology(dateString) {
     return reduceToSingleDigit(sum);
 }
 
-function startScan(event) {
-    event.preventDefault();
+function startScan() {
     if (currentFingerIndex < fingers.length) {
-        scanLoadingText.textContent = `Sedang memproses **${fingers[currentFingerIndex]}**...`;
+        scanText.textContent = `Sedang memindai **${fingers[currentFingerIndex]}** Anda...`;
         fingerprintScanner.classList.add('scanning');
-        
+
         setTimeout(() => {
             fingerprintScanner.classList.remove('scanning');
             currentFingerIndex++;
             if (currentFingerIndex < fingers.length) {
-                scanLoadingText.textContent = `Silakan letakkan **jari ${fingers[currentFingerIndex]}** Anda.`;
+                scanText.textContent = `Silakan letakkan **jari ${fingers[currentFingerIndex]}** Anda.`;
             } else {
-                scanLoadingText.textContent = "Semua jari sudah dipindai. Menganalisis...";
+                scanText.textContent = "Semua jari sudah dipindai. Menganalisis...";
                 setTimeout(showResult, 2000);
             }
-        }, 3000); // Durasi pemindaian per jari
+        }, 2000); // Durasi pemindaian per jari
     }
 }
 
@@ -116,10 +113,10 @@ function restartApp() {
 // Event Listeners
 userForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    userName = userNameInput.value;
-    const day = daySelect.value;
-    const month = monthSelect.value;
-    const year = yearSelect.value;
+    userName = userForm.querySelector('#user-name').value;
+    const day = userForm.querySelector('#day').value;
+    const month = userForm.querySelector('#month').value;
+    const year = userForm.querySelector('#year').value;
     
     if (!day || !month || !year) {
         alert("Mohon lengkapi tanggal lahir Anda.");
@@ -127,17 +124,16 @@ userForm.addEventListener('submit', function(event) {
     }
     
     birthDate = `${year}-${month}-${day}`;
-    bloodType = bloodTypeSelect.value;
+    bloodType = userForm.querySelector('#blood-type').value;
     
     introContainer.classList.add('hidden');
     scanContainer.classList.remove('hidden');
     
-    scanText.textContent = "Silakan Letakkan Jari Anda";
-    scanLoadingText.textContent = `Silakan letakkan **ibu jari** Anda di area ini.`;
-
-    fingerprintScanner.addEventListener('click', startScan);
-    fingerprintScanner.addEventListener('touchstart', startScan);
+    scanText.textContent = `Silakan letakkan **${fingers[currentFingerIndex]}** Anda.`;
 });
+
+fingerprintScanner.addEventListener('mousedown', startScan);
+fingerprintScanner.addEventListener('touchstart', startScan);
 
 restartButton.addEventListener('click', restartApp);
 
