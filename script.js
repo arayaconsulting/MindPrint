@@ -22,6 +22,7 @@ const introContainer = document.getElementById('intro-container');
 const scanContainer = document.getElementById('scan-container');
 const resultContainer = document.getElementById('result-container');
 const userForm = document.getElementById('user-form');
+const userNameInput = document.getElementById('user-name');
 const daySelect = document.getElementById('day');
 const monthSelect = document.getElementById('month');
 const yearSelect = document.getElementById('year');
@@ -78,7 +79,7 @@ function startScan(event) {
     if (isScanning) return;
     
     isScanning = true;
-    scanText.textContent = `Sedang memindai **${fingers[currentFingerIndex]}**...`;
+    scanText.textContent = `Sedang memindai **${fingers[currentFingerIndex]}** Anda...`;
     fingerprintScanner.classList.add('scanning');
 
     setTimeout(() => {
@@ -115,8 +116,8 @@ function restartApp() {
     resultContainer.classList.add('hidden');
     introContainer.classList.remove('hidden');
     userForm.reset();
+    fingerprintScanner.classList.remove('scanning');
     currentFingerIndex = 0;
-    isScanning = false;
 }
 
 // Event Listeners
