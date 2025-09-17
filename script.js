@@ -11,12 +11,12 @@ const mindprintDescriptions = {
     9: { title: "Si Adaptif" }
 };
 
-// Variabel Kontrol
+const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
+let currentFingerIndex = 0;
 let userName = "";
 let birthDate = "";
 let bloodType = "";
 
-// Dapatkan Elemen HTML
 const introContainer = document.getElementById('intro-container');
 const scanContainer = document.getElementById('scan-container');
 const resultContainer = document.getElementById('result-container');
@@ -30,7 +30,9 @@ const resultTitle = document.getElementById('result-title');
 const resultDescription = document.getElementById('result-description');
 const restartButton = document.getElementById('restart-button');
 const fingerprintScanner = document.getElementById('fingerprint-scanner');
+const scanText = document.getElementById('scan-text');
 const scanLoadingText = document.getElementById('scan-loading-text');
+const startButton = document.getElementById('start-button');
 
 // Fungsi Utama
 function populateDateFields() {
@@ -73,13 +75,23 @@ function calculateNumerology(dateString) {
     return reduceToSingleDigit(sum);
 }
 
-function startScan() {
-    if (fingerprintScanner.classList.contains('scanning')) return;
-    
-    scanLoadingText.textContent = "Sedang memproses...";
-    fingerprintScanner.classList.add('scanning');
-    
-    setTimeout(showResult, 7000);
+function startScan(event) {
+    event.preventDefault();
+    if (currentFingerIndex < fingers.length) {
+        scanLoadingText.textContent = `Sedang memproses **${fingers[currentFingerIndex]}**...`;
+        fingerprintScanner.classList.add('scanning');
+        
+        setTimeout(() => {
+            fingerprintScanner.classList.remove('scanning');
+            currentFingerIndex++;
+            if (currentFingerIndex < fingers.length) {
+                scanLoadingText.textContent = `Silakan letakkan **jari ${fingers[currentFingerIndex]}** Anda.`;
+            } else {
+                scanLoadingText.textContent = "Semua jari sudah dipindai. Menganalisis...";
+                setTimeout(showResult, 2000);
+            }
+        }, 3000); // Durasi pemindaian per jari
+    }
 }
 
 function showResult() {
@@ -98,6 +110,7 @@ function restartApp() {
     introContainer.classList.remove('hidden');
     userForm.reset();
     fingerprintScanner.classList.remove('scanning');
+    currentFingerIndex = 0;
 }
 
 // Event Listeners
@@ -118,11 +131,13 @@ userForm.addEventListener('submit', function(event) {
     
     introContainer.classList.add('hidden');
     scanContainer.classList.remove('hidden');
-    scanLoadingText.textContent = "Silakan letakkan jari Anda di area ini.";
-});
+    
+    scanText.textContent = "Silakan Letakkan Jari Anda";
+    scanLoadingText.textContent = `Silakan letakkan **ibu jari** Anda di area ini.`;
 
-fingerprintScanner.addEventListener('mousedown', startScan);
-fingerprintScanner.addEventListener('touchstart', startScan);
+    fingerprintScanner.addEventListener('click', startScan);
+    fingerprintScanner.addEventListener('touchstart', startScan);
+});
 
 restartButton.addEventListener('click', restartApp);
 
