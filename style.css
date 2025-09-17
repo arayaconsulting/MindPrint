@@ -9,8 +9,8 @@
     --light-text-color: #666;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --hover-color: #0096C7;
-    --scan-color-start: #ffffff; /* Warna awal putih */
-    --scan-color-end: #28a745; /* Warna akhir hijau */
+    --scan-color-start: #ffffff;
+    --scan-color-end: #28a745;
 }
 
 body {
@@ -123,22 +123,22 @@ input:focus, select:focus {
     align-items: center;
     overflow: hidden;
     cursor: pointer;
-    transition: background-color 7s linear;
-    background-color: var(--scan-color-start); /* Warna awal */
+    transition: background-color 7s linear, box-shadow 7s linear; /* Animasi background */
+    background-color: var(--scan-color-start);
 }
 
 .fingerprint-image {
     width: 80%;
     height: 80%;
+    position: relative;
+    z-index: 2;
     filter: grayscale(100%);
-    transition: filter 7s linear;
-    -webkit-user-drag: none;
-    -webkit-touch-callout: none;
     pointer-events: none;
 }
 
 .fingerprint-scanner.scanning {
-    background-color: var(--scan-color-end); /* Warna akhir */
+    background-color: var(--scan-color-end);
+    box-shadow: 0 0 20px 5px var(--scan-color-end);
 }
 
 #scan-loading-text {
