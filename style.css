@@ -9,7 +9,6 @@
     --light-text-color: #666;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --hover-color: #0096C7;
-    --scan-color: #28a745;
 }
 
 body {
@@ -110,17 +109,10 @@ input:focus, select:focus {
     flex: 1;
 }
 
-#finger-scanners-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 40px 0;
-    flex-wrap: wrap;
-}
-
 .fingerprint-scanner {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+    margin: 40px auto 20px;
     position: relative;
     border: 2px solid var(--primary-color);
     border-radius: 50%;
@@ -129,34 +121,20 @@ input:focus, select:focus {
     align-items: center;
     overflow: hidden;
     cursor: pointer;
-    filter: grayscale(100%);
-    transition: all 0.5s ease;
-}
-
-.fingerprint-scanner.active {
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 15px var(--secondary-color);
-}
-
-.fingerprint-scanner.scanned {
-    filter: grayscale(0%) hue-rotate(120deg);
-}
-
-.fingerprint-scanner p {
-    position: absolute;
-    top: -20px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--primary-color);
 }
 
 .fingerprint-image {
     width: 80%;
     height: 80%;
-    user-select: none;
+    filter: grayscale(100%);
+    transition: filter 2s linear;
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
     pointer-events: none;
+}
+
+.fingerprint-scanner.scanning .fingerprint-image {
+    filter: grayscale(0%) hue-rotate(120deg);
 }
 
 #scan-loading-text {
