@@ -11,16 +11,17 @@ const mindprintDescriptions = {
     9: { title: "Si Adaptif" }
 };
 
-const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
-let currentFingerIndex = 0;
+// Variabel Kontrol
 let userName = "";
 let birthDate = "";
 let bloodType = "";
 
+// Dapatkan Elemen HTML
 const introContainer = document.getElementById('intro-container');
 const scanContainer = document.getElementById('scan-container');
 const resultContainer = document.getElementById('result-container');
 const userForm = document.getElementById('user-form');
+const userNameInput = document.getElementById('user-name');
 const daySelect = document.getElementById('day');
 const monthSelect = document.getElementById('month');
 const yearSelect = document.getElementById('year');
@@ -28,10 +29,8 @@ const bloodTypeSelect = document.getElementById('blood-type');
 const resultTitle = document.getElementById('result-title');
 const resultDescription = document.getElementById('result-description');
 const restartButton = document.getElementById('restart-button');
-const scanText = document.getElementById('scan-text');
+const fingerprintScanner = document.getElementById('fingerprint-scanner');
 const scanLoadingText = document.getElementById('scan-loading-text');
-
-const fingerScanners = document.querySelectorAll('.fingerprint-scanner');
 
 // Fungsi Utama
 function populateDateFields() {
@@ -74,26 +73,13 @@ function calculateNumerology(dateString) {
     return reduceToSingleDigit(sum);
 }
 
-function handleFingerScan(event) {
-    const fingerIndex = Number(event.currentTarget.id.split('-')[1]);
-
-    if (fingerIndex === currentFingerIndex) {
-        event.currentTarget.classList.add('scanned');
-        event.currentTarget.classList.remove('active');
-
-        currentFingerIndex++;
-
-        if (currentFingerIndex < fingers.length) {
-            scanLoadingText.textContent = `Silakan letakkan **jari ${fingers[currentFingerIndex]}** Anda.`;
-            fingerScanners[currentFingerIndex].classList.add('active');
-        } else {
-            scanLoadingText.textContent = "Semua jari sudah dipindai. Menganalisis...";
-            setTimeout(showResult, 2000);
-        }
-    } else {
-        // Beri tahu pengguna bahwa mereka menekan jari yang salah
-        alert(`Mohon sentuh ${fingers[currentFingerIndex]} terlebih dahulu.`);
-    }
+function startScan() {
+    if (fingerprintScanner.classList.contains('scanning')) return;
+    
+    scanLoadingText.textContent = "Sedang memproses...";
+    fingerprintScanner.classList.add('scanning');
+    
+    setTimeout(showResult, 7000);
 }
 
 function showResult() {
@@ -111,21 +97,16 @@ function restartApp() {
     resultContainer.classList.add('hidden');
     introContainer.classList.remove('hidden');
     userForm.reset();
-    
-    fingerScanners.forEach(finger => {
-        finger.classList.remove('scanned');
-        finger.classList.remove('active');
-    });
-    currentFingerIndex = 0;
+    fingerprintScanner.classList.remove('scanning');
 }
 
 // Event Listeners
 userForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    userName = userForm.querySelector('#user-name').value;
-    const day = userForm.querySelector('#day').value;
-    const month = userForm.querySelector('#month').value;
-    const year = userForm.querySelector('#year').value;
+    userName = userNameInput.value;
+    const day = daySelect.value;
+    const month = monthSelect.value;
+    const year = yearSelect.value;
     
     if (!day || !month || !year) {
         alert("Mohon lengkapi tanggal lahir Anda.");
@@ -133,21 +114,15 @@ userForm.addEventListener('submit', function(event) {
     }
     
     birthDate = `${year}-${month}-${day}`;
-    bloodType = userForm.querySelector('#blood-type').value;
+    bloodType = bloodTypeSelect.value;
     
     introContainer.classList.add('hidden');
     scanContainer.classList.remove('hidden');
-    
-    // Mulai proses pemindaian
-    scanText.textContent = "Silakan Letakkan Jari Anda";
-    scanLoadingText.textContent = `Silakan letakkan **ibu jari** Anda di area ini.`;
-    fingerScanners[0].classList.add('active'); // Aktifkan jari pertama
+    scanLoadingText.textContent = "Silakan letakkan jari Anda di area ini.";
 });
 
-fingerScanners.forEach(finger => {
-    finger.addEventListener('click', handleFingerScan);
-    finger.addEventListener('touchstart', handleFingerScan);
-});
+fingerprintScanner.addEventListener('mousedown', startScan);
+fingerprintScanner.addEventListener('touchstart', startScan);
 
 restartButton.addEventListener('click', restartApp);
 
