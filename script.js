@@ -108,7 +108,7 @@ function showResult() {
     const numerologyNumber = calculateNumerology(birthDate);
     const mindprintResult = mindprintDescriptions[numerologyNumber].title;
 
-    resultTitle.textContent = `Hasil MindPrint Anda: ${mindprintResult}`;
+    resultTitle.textContent = `Hasil MindPrint ${userName}: ${mindprintResult}`;
     resultDescription.textContent = "Untuk penjelasan lebih detail dari kepribadian tersebut, akan dijelaskan dalam sesi bersama Mas Ali Mahfud.";
 }
 
