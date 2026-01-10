@@ -190,15 +190,30 @@ function showResult() {
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
+    
     const opt = {
-        margin: 0,
+        margin: 0, // Menghilangkan margin bawaan PDF agar bingkai tidak terpotong
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+        html2canvas: { 
+            scale: 2, // Kualitas tinggi
+            useCORS: true, 
+            logging: false,
+            width: 1080, // Mengunci lebar sesuai template
+            height: 760  // Mengunci tinggi sesuai template
+        },
+        jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'landscape',
+            compress: true
+        },
         pagebreak: { mode: 'avoid-all' }
     };
-    html2pdf().set(opt).from(el).save().then(() => el.style.display = 'none');
+
+    html2pdf().set(opt).from(el).save().then(() => {
+        el.style.display = 'none';
+    });
 });
 
 document.getElementById('user-form').addEventListener('submit', (e) => {
