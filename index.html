@@ -52,11 +52,11 @@
         <button id="restart-button">Ulangi Tes</button>
     </div>
 
-<div id="certificate-template" style="display: none; width: 1080px; height: 760px; background: #fff; position: relative; box-sizing: border-box; padding: 30px 50px; border: 20px solid #1a3a5a; color: #333; overflow: hidden;">
-    
-    <div style="position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 3px solid #d4af37; pointer-events: none; z-index: 5;"></div>
-    
-    ...
+    <div id="certificate-template" style="display: none; width: 1080px; height: 740px; background: #fff; position: relative; box-sizing: border-box; padding: 25px 45px; border: 18px solid #1a3a5a; color: #333; overflow: hidden;">
+        
+        <div style="position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 3px solid #d4af37; pointer-events: none; z-index: 5;"></div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.03; pointer-events: none; z-index: 0; background-image: url('logo.png'); background-size: 120px; background-repeat: repeat; transform: rotate(-15deg) scale(1.5);"></div>
 
         <div style="position: relative; z-index: 10;">
             <div style="text-align: center; margin-bottom: 10px;">
@@ -90,26 +90,29 @@
                 </div>
             </div>
             <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: flex-end;">
-    <div style="font-size: 9px; color: #666;">
-        <p style="margin: 1px 0;">ID MindPrint: <strong id="cert-id"></strong></p>
-        <p style="margin: 1px 0;">Tanggal: <span id="cert-date"></span></p>
-        <p style="margin: 1px 0; color: #d4af37; font-weight: bold;">Araya Consulting - Personality Development Specialist</p>
+                <div style="font-size: 9px; color: #666;">
+                    <p style="margin: 1px 0;">ID MindPrint: <strong id="cert-id"></strong></p>
+                    <p style="margin: 1px 0;">Tanggal: <span id="cert-date"></span></p>
+                    <p style="margin: 1px 0; color: #d4af37; font-weight: bold;">Araya Consulting - Personality Development Specialist</p>
+                </div>
+                
+                <div style="text-align: center; min-width: 200px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                    <p style="margin: 0 0 35px 0; font-size: 11px;">Disahkan oleh,</p>
+                    
+                    <div style="position: relative; margin-bottom: 2px; padding-bottom: 3px; width: fit-content;">
+                        <strong style="font-size: 16px; color: #1a3a5a; text-transform: uppercase; font-family: 'Times New Roman', serif; display: block;">
+                            ALI MAHFUD
+                        </strong>
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; border-bottom: 2px solid #1a3a5a;"></div>
+                    </div>
+                    
+                    <span style="color: #d4af37; font-weight: bold; font-size: 10px; display: block; margin: 0; padding: 0; line-height: 1;">
+                        Founder Araya Consulting
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
-    
-<div style="text-align: center; min-width: 200px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
-    <p style="margin: 0 0 35px 0; font-size: 11px;">Disahkan oleh,</p>
-    
-    <div style="position: relative; margin-bottom: 2px; padding-bottom: 3px; width: fit-content;">
-        <strong style="font-size: 16px; color: #1a3a5a; text-transform: uppercase; font-family: 'Times New Roman', serif; display: block;">
-            ALI MAHFUD
-        </strong>
-        <div style="position: absolute; bottom: 0; left: 0; width: 100%; border-bottom: 2px solid #1a3a5a;"></div>
-    </div>
-    
-    <span style="color: #d4af37; font-weight: bold; font-size: 10px; display: block; margin: 0; padding: 0; line-height: 1;">
-        Founder Araya Consulting
-    </span>
-</div>
 
     <script src="script.js"></script>
 </body>
