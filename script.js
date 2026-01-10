@@ -196,7 +196,10 @@ function showResult() {
 // PDF DOWNLOAD (LOCKED TO 1080x740)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
+    
+    // Pastikan elemen terlihat sejenak agar library bisa mengambil "potret"
     el.style.display = 'block';
+    
     const opt = {
         margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
@@ -205,14 +208,22 @@ document.getElementById('download-btn').addEventListener('click', () => {
             scale: 2, 
             useCORS: true, 
             logging: false,
+            // KUNCI RESOLUSI: Menjamin hasil identik di semua perangkat (Tablet/HP/PC)
             windowWidth: 1080,
+            windowHeight: 740,
             width: 1080,
-            height: 740
+            height: 740,
+            scrollX: 0,
+            scrollY: 0
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true },
+        // MENCEGAH PEMOTONGAN HALAMAN SECARA PAKSA
         pagebreak: { mode: 'avoid-all' }
     };
-    html2pdf().set(opt).from(el).save().then(() => el.style.display = 'none');
+
+    html2pdf().set(opt).from(el).save().then(() => {
+        el.style.display = 'none'; // Sembunyikan kembali setelah selesai
+    });
 });
 
 document.getElementById('user-form').addEventListener('submit', (e) => {
@@ -225,4 +236,6 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
+
+// Jalankan inisialisasi tanggal
 populateDateFields();
