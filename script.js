@@ -1,3 +1,7 @@
+/**
+ * DATA STRATEGIS MINDPRINT - ARAYA CONSULTING
+ * Berbasis Analisis Numerologi Karakter
+ */
 const mindprintDescriptions = {
     1: { 
         title: "Si Konseptor Reflektif",
@@ -106,19 +110,18 @@ let userName = "";
 let birthDate = "";
 let isScanning = false;
 
+// INITIALIZATION
 function populateDateFields() {
-    const d = document.getElementById('day');
-    const m = document.getElementById('month');
-    const y = document.getElementById('year');
+    const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
     if(!d || !m || !y) return;
     d.innerHTML = '<option value="" disabled selected>Hari</option>';
     m.innerHTML = '<option value="" disabled selected>Bulan</option>';
     y.innerHTML = '<option value="" disabled selected>Tahun</option>';
     for(let i=1; i<=31; i++) d.innerHTML += `<option value="${String(i).padStart(2,'0')}">${i}</option>`;
-    const months = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-    months.forEach((mon, i) => m.innerHTML += `<option value="${String(i+1).padStart(2,'0')}">${mon}</option>`);
-    const currentYear = new Date().getFullYear();
-    for(let i=currentYear; i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
+    ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"].forEach((mon,i) => {
+        m.innerHTML += `<option value="${String(i+1).padStart(2,'0')}">${mon}</option>`;
+    });
+    for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
 function calculateNumerology(dateString) {
@@ -132,22 +135,23 @@ function generateCertificateID() {
     return `MP/${new Date().getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
+// SCANNING
 function handleScanStart(e) {
     if (e) e.preventDefault();
     if (isScanning) return;
     isScanning = true;
-    const scanner = document.getElementById('fingerprint-scanner');
-    const text = document.getElementById('scan-text');
-    text.textContent = `Memindai ${fingers[currentFingerIndex]}...`;
-    scanner.classList.add('scanning');
+    const s = document.getElementById('fingerprint-scanner');
+    const t = document.getElementById('scan-text');
+    t.textContent = `Memindai ${fingers[currentFingerIndex]}...`;
+    s.classList.add('scanning');
     setTimeout(() => {
-        scanner.classList.remove('scanning');
+        s.classList.remove('scanning');
         isScanning = false;
         if (currentFingerIndex < fingers.length - 1) {
-            text.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL.`;
+            t.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL.`;
             document.getElementById('next-finger-button').classList.remove('hidden'); 
         } else {
-            text.textContent = "MENGANALISIS MINDPRINT...";
+            t.textContent = "MENGANALISIS MINDPRINT...";
             setTimeout(showResult, 1500);
         }
     }, 2000);
@@ -165,11 +169,13 @@ document.getElementById('next-finger-button').addEventListener('click', function
     document.getElementById('scan-text').textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
+// RESULTS
 function showResult() {
     document.getElementById('scan-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
+
     document.getElementById('result-title').textContent = data.title;
     document.getElementById('result-description').textContent = data.intisari;
 
@@ -177,7 +183,7 @@ function showResult() {
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
     document.getElementById('cert-success').textContent = data.successHabit;
-    document.getElementById('cert-relationship').textContent = data.relationship;
+    document.getElementById('cert-relationship').textContent = data.relationship || "Bangun harmoni melalui komunikasi yang tepat.";
     document.getElementById('cert-communication').textContent = data.communication;
     document.getElementById('cert-study').textContent = data.study;
     document.getElementById('cert-positif').textContent = data.positif;
@@ -187,33 +193,26 @@ function showResult() {
     document.getElementById('cert-id').textContent = generateCertificateID();
 }
 
+// PDF DOWNLOAD (LOCKED TO 1080x740)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
-    
     const opt = {
-        margin: 0, // Menghilangkan margin bawaan PDF agar bingkai tidak terpotong
+        margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 1 },
         html2canvas: { 
-            scale: 2, // Kualitas tinggi
+            scale: 2, 
             useCORS: true, 
             logging: false,
-            width: 1080, // Mengunci lebar sesuai template
-            height: 760  // Mengunci tinggi sesuai template
+            windowWidth: 1080,
+            width: 1080,
+            height: 740
         },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
-            orientation: 'landscape',
-            compress: true
-        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true },
         pagebreak: { mode: 'avoid-all' }
     };
-
-    html2pdf().set(opt).from(el).save().then(() => {
-        el.style.display = 'none';
-    });
+    html2pdf().set(opt).from(el).save().then(() => el.style.display = 'none');
 });
 
 document.getElementById('user-form').addEventListener('submit', (e) => {
