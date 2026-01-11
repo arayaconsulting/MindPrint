@@ -1,6 +1,6 @@
 /**
  * FINAL SCRIPT MINDPRINT - ARAYA CONSULTING
- * Fokus: Intisari Mendalam (Termasuk Blind Spot Tersirat) & PDF Anti-Potong
+ * Fokus: Branding MindPrint & Optimasi Layout A4
  */
 
 const mindprintDescriptions = {
@@ -12,7 +12,7 @@ const mindprintDescriptions = {
         communication: "Berikan data logis dan hargai ruang privasinya untuk berpikir.",
         study: "Mendalami struktur dan skema logika secara spesifik.",
         positif: "Analitis, objektif, disiplin, pakar.",
-        negatif: "Kaku, dingin, terlalu kritis, dan sinis terhadap ide tidak logis.",
+        negatif: "Kaku, kaku, terlalu kritis, dan sinis.",
         karir: "Ilmuwan, Auditor, Programmer, Analis Data."
     },
     2: { 
@@ -23,7 +23,7 @@ const mindprintDescriptions = {
         communication: "Sentuh perasaannya terlebih dahulu sebelum masuk ke topik teknis.",
         study: "Melalui diskusi kelompok dan mengajar kembali kepada orang lain.",
         positif: "Komunikatif, empatik, persuasif.",
-        negatif: "Subjektif, moody, haus pujian, dan mudah kehilangan fokus.",
+        negatif: "Subjektif, moody, haus pujian.",
         karir: "Politisi, Motivator, Leader, HR Manager."
     },
     3: { 
@@ -34,7 +34,7 @@ const mindprintDescriptions = {
         communication: "Gunakan instruksi yang praktis, konkret, dan langkah demi langkah.",
         study: "Latihan fisik berulang (drilling) dan menghafal data detail.",
         positif: "Teliti, disiplin tinggi, produktif.",
-        negatif: "Kaku, sulit adaptasi, lambat berubah, dan terlalu prosedural.",
+        negatif: "Kaku, sulit adaptasi, lambat berubah.",
         karir: "Atlet, Manajer Operasional, Akuntan."
     },
     4: { 
@@ -45,7 +45,7 @@ const mindprintDescriptions = {
         communication: "Langsung pada manfaat praktis dan keuntungan yang akan didapat.",
         study: "Learning by doing dan simulasi langsung di lapangan.",
         positif: "Cekatan, gesit, dermawan.",
-        negatif: "Impulsif, boros, ceroboh, dan sering meremehkan administrasi.",
+        negatif: "Impulsif, boros, ceroboh.",
         karir: "Pengusaha, Marketing, Kontraktor."
     },
     5: { 
@@ -56,7 +56,7 @@ const mindprintDescriptions = {
         communication: "Hargai prinsip pribadinya dan gunakan pendekatan personal.",
         study: "Mencari makna mendalam dalam suasana tenang.",
         positif: "Setia, tulus, prinsip kuat.",
-        negatif: "Sangat sensitif, mudah tersinggung, tertutup, dan sering memendam kecewa.",
+        negatif: "Sangat sensitif, mudah tersinggung.",
         karir: "Psikolog, Penulis, Konselor, Aktivis."
     },
     6: { 
@@ -67,7 +67,7 @@ const mindprintDescriptions = {
         communication: "Berikan ruang untuk beride dan bicarakan visi masa depan.",
         study: "Mind mapping dan visualisasi gambar.",
         positif: "Kreatif, optimis, visioner.",
-        negatif: "Mudah bosan, tidak konsisten, sering tidak tuntas, dan kurang fokus.",
+        negatif: "Mudah bosan, tidak konsisten.",
         karir: "Inovator, Arsitek, Desainer, Pakar Strategi."
     },
     7: { 
@@ -78,7 +78,7 @@ const mindprintDescriptions = {
         communication: "Bicara pada standar kualitas tinggi dan hargai risetnya.",
         study: "Menganalisis konsep abstrak dan riset mandiri.",
         positif: "Strategis, perfeksionis, visioner.",
-        negatif: "Terlalu tertutup, lambat beraksi, perfeksionis ekstrem, dan sulit dipuaskan.",
+        negatif: "Terlalu tertutup, lambat beraksi.",
         karir: "Peneliti, Detektif, Konseptor, Strategist."
     },
     8: { 
@@ -89,7 +89,7 @@ const mindprintDescriptions = {
         communication: "Bicara langsung pada hasil (result-oriented) and otoritas.",
         study: "Mengorganisir bahan belajar ke dalam sistem yang efisien.",
         positif: "Tegas, objektif, manajerial kuat.",
-        negatif: "Otoriter, dominan, kurang empati, dan cenderung menggurui.",
+        negatif: "Otoriter, dominan, menggurui.",
         karir: "CEO, Manajer Profesional, Administrator."
     },
     9: { 
@@ -100,7 +100,7 @@ const mindprintDescriptions = {
         communication: "Bicara langsung pada poinnya (to the point) dalam suasana santai.",
         study: "Merangkai potongan informasi menjadi rangkuman utuh.",
         positif: "Jujur, responsif, naluri tajam.",
-        negatif: "Peragu, pasif, temperamental saat tertekan, dan kurang pendirian.",
+        negatif: "Peragu, pasif, kurang pendirian.",
         karir: "Mediator, Jurnalis, Aktivis, Chef."
     }
 };
@@ -183,8 +183,13 @@ function showResult() {
     document.getElementById('cert-positif').textContent = data.positif;
     document.getElementById('cert-negatif').textContent = data.negatif;
     document.getElementById('cert-karir').textContent = data.karir;
-    document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-    document.getElementById('cert-id').textContent = `MP/${new Date().getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
+    
+    // UPDATE TANGGAL & ID KHUSUS MINDPRINT
+    const now = new Date();
+    document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    const randomId = Math.floor(1000 + Math.random() * 9000);
+    // Format ID: MP (MindPrint) / TAHUN / RANDOM_ID
+    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`;
 }
 
 document.getElementById('download-btn').addEventListener('click', () => {
@@ -199,15 +204,11 @@ document.getElementById('download-btn').addEventListener('click', () => {
             scale: 2, 
             useCORS: true, 
             logging: false,
-            windowWidth: 1080,
-            windowHeight: 720,
-            width: 1080,
-            height: 720,
+            letterRendering: true,
             scrollX: 0,
             scrollY: 0
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
     };
 
     html2pdf().set(opt).from(el).save().then(() => {
