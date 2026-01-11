@@ -10,35 +10,74 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <div id="certificate-template" style="display: none; width: 1122px; height: 794px; background: #fff; position: relative; box-sizing: border-box; border: 20px solid #1a3a5a; color: #333; overflow: hidden; margin: 0; padding: 0;">
-        
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); width: 600px; opacity: 0.03; pointer-events: none; z-index: 1;">
-            <img src="logo.png" style="width: 100%; height: auto;">
-        </div>
-        
-        <div style="position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 3px solid #d4af37; pointer-events: none; z-index: 5;"></div>
+    <div class="container" id="intro-container">
+        <img src="logo.png" alt="Logo Araya Consulting" class="logo">
+        <h1>Temukan Profil MindPrint Anda</h1>
+        <p>Araya Consulting - Personality Development Specialist</p>
+        <form id="user-form">
+            <input type="text" id="user-name" placeholder="Nama Lengkap" required>
+            <div id="birth-date-container">
+                <select id="day" required><option value="" disabled selected>Hari</option></select>
+                <select id="month" required><option value="" disabled selected>Bulan</option></select>
+                <select id="year" required><option value="" disabled selected>Tahun</option></select>
+            </div>
+            <select id="blood-type" required>
+                <option value="" disabled selected>Pilih Golongan Darah</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+                <option value="belum_tahu">Belum Tahu</option>
+            </select>
+            <button type="submit" id="start-button">Mulai Analisis</button>
+        </form>
+    </div>
 
-        <div style="position: relative; z-index: 10; width: 100%; height: 100%; display: flex; flex-direction: column; padding: 30px 60px; box-sizing: border-box;">
+    <div class="container hidden" id="scan-container">
+        <h2 id="scan-text"></h2>
+        <div class="fingerprint-scanner" id="fingerprint-scanner">
+            <img src="fingerprint.png" alt="Fingerprint Scanner" class="fingerprint-image">
+            <div class="scan-line"></div>
+        </div>
+        <button id="next-finger-button" class="hidden">Lanjutkan</button>
+    </div>
+
+    <div class="container hidden" id="result-container">
+        <h2 id="result-title"></h2>
+        <div class="result-box">
+            <p id="result-description"></p>
+        </div>
+        <button id="download-btn" style="background-color: #27ae60; color: white; margin-bottom: 10px;">Unduh Laporan MindPrint (PDF)</button>
+        <button id="restart-button">Ulangi Tes</button>
+    </div>
+
+    <div id="certificate-template" style="display: none; width: 297mm; height: 210mm; background: #fff; position: relative; box-sizing: border-box; border: 15mm solid #1a3a5a; color: #333; overflow: hidden;">
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.03; pointer-events: none; z-index: 1; background-image: url('logo.png'); background-size: 30mm; background-repeat: repeat; transform: rotate(-15deg) scale(1.5);"></div>
+        
+        <div style="position: absolute; top: 3mm; left: 3mm; right: 3mm; bottom: 3mm; border: 1mm solid #d4af37; pointer-events: none; z-index: 5;"></div>
+
+        <div style="position: relative; z-index: 10; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 15mm 20mm; box-sizing: border-box;">
             
-            <div style="text-align: center; margin-bottom: 5px;">
-                <img src="logo.png" style="width: 170px; height: auto; margin: 0 auto 5px auto; display: block;">
-                <h2 style="font-size: 19px; border-bottom: 2.5px solid #1a3a5a; display: inline-block; padding-bottom: 4px; font-family: 'Georgia', serif; margin: 0; text-transform: uppercase;">Sertifikat Analisis MindPrint</h2>
-                <p style="margin: 10px 0 2px 0; font-size: 12px; color: #666;">Diberikan kepada:</p>
-                <h3 style="font-size: 26px; color: #1a3a5a; margin: 0; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: bold;"><span id="cert-name"></span></h3>
+            <div style="text-align: center;">
+                <img src="logo.png" style="width: 55mm; height: auto; margin: 0 auto 5mm auto; display: block;">
+                <h2 style="font-size: 18pt; border-bottom: 0.8mm solid #1a3a5a; display: inline-block; padding-bottom: 2mm; font-family: 'Georgia', serif; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Sertifikat Analisis MindPrint</h2>
+                <p style="margin: 8mm 0 2mm 0; font-size: 12pt; color: #666;">Diberikan kepada:</p>
+                <h3 style="font-size: 26pt; color: #1a3a5a; margin: 0; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: bold; letter-spacing: 1.5px;"><span id="cert-name"></span></h3>
                 
-                <div style="margin: 12px auto 0 auto; background: #1a3a5a; color: white; padding: 8px 45px; border-radius: 8px; display: inline-block;">
-                    <span style="font-size: 10px; opacity: 0.8;">HASIL PROFIL MINDPRINT:</span><br>
-                    <strong style="font-size: 17px; color: #d4af37;" id="cert-result"></strong>
+                <div style="margin: 8mm auto 0 auto; background: #1a3a5a; color: white; padding: 4mm 15mm; border-radius: 3mm; display: inline-block;">
+                    <span style="font-size: 10pt; opacity: 0.8; text-transform: uppercase;">Hasil Profil MindPrint:</span><br>
+                    <strong style="font-size: 16pt; color: #d4af37;" id="cert-result"></strong>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; font-size: 10.5px; line-height: 1.35; color: #333; flex-grow: 1; margin-top: 15px;">
-                <div style="padding-right: 15px; border-right: 1px solid #eee;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; font-size: 10.5pt; line-height: 1.4; color: #333; flex-grow: 1; margin-top: 10mm;">
+                <div style="padding-right: 5mm; border-right: 0.5mm solid #eee;">
                     <p style="margin-top: 0;"><strong style="color: #1a3a5a;">INTISARI KEPRIBADIAN:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
-                    <p><strong>KEBIASAAN KUNCI:</strong><br><span id="cert-success"></span></p>
+                    <p><strong>KEBIASAAN KUNCI (SUCCESS HABIT):</strong><br><span id="cert-success"></span></p>
                     <p style="margin-bottom: 0;"><strong>TIPS HUBUNGAN:</strong><br><span id="cert-relationship"></span></p>
                 </div>
-                <div style="padding-left: 10px;">
+                <div style="padding-left: 5mm;">
                     <p style="margin-top: 0;"><strong style="color: #1a3a5a;">GAYA KOMUNIKASI:</strong><br><span id="cert-communication"></span></p>
                     <p><strong>METODE BELAJAR TERBAIK:</strong><br><span id="cert-study"></span></p>
                     <p><strong>POTENSI KARIR:</strong><br><span id="cert-karir"></span></p>
@@ -49,24 +88,25 @@
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; padding-bottom: 15px;">
-                <div style="font-size: 9px; color: #888;">
-                    <p style="margin: 0;">ID MindPrint: <strong id="cert-id" style="color: #333;"></strong></p>
-                    <p style="margin: 0;">Tanggal: <span id="cert-date"></span></p>
-                    <p style="margin: 4px 0 0 0; color: #d4af37; font-weight: bold; font-size: 10px;">Araya Consulting - Personality Development Specialist</p>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 5mm;">
+                <div style="font-size: 9pt; color: #888; line-height: 1.6;">
+                    <p style="margin: 0;">ID MindPrint: <strong id="cert-id" style="color: #1a3a5a;"></strong></p>
+                    <p style="margin: 0;">Tanggal: <span id="cert-date" style="color: #1a3a5a;"></span></p>
+                    <p style="margin: 5mm 0 0 0; color: #d4af37; font-weight: bold;">Araya Consulting - Personality Development Specialist</p>
                 </div>
                 
-                <div style="text-align: center; min-width: 200px;">
-                    <p style="margin-bottom: 40px; font-size: 12px; color: #444;">Disahkan oleh,</p>
+                <div style="text-align: center; min-width: 60mm;">
+                    <p style="margin-bottom: 20mm; font-size: 11pt; color: #444;">Disahkan oleh,</p>
                     <div style="position: relative; width: fit-content; margin: 0 auto;">
-                        <strong style="font-size: 17px; color: #1a3a5a; text-transform: uppercase; font-family: 'Times New Roman', serif;">ALI MAHFUD</strong>
-                        <div style="border-bottom: 2.5px solid #1a3a5a; margin-top: 2px;"></div>
+                        <strong style="font-size: 16pt; color: #1a3a5a; text-transform: uppercase; font-family: 'Times New Roman', serif;">ALI MAHFUD</strong>
+                        <div style="border-bottom: 0.6mm solid #1a3a5a; margin-top: 1mm;"></div>
                     </div>
-                    <span style="color: #d4af37; font-weight: bold; font-size: 11px; display: block; margin-top: 5px;">Founder Araya Consulting</span>
+                    <span style="color: #d4af37; font-weight: bold; font-size: 10pt; display: block; margin-top: 2mm;">Founder Araya Consulting</span>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
