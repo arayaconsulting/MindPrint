@@ -53,30 +53,30 @@
 
     <div id="certificate-template" style="display: none; width: 297mm; height: 210mm; background: #fff; position: relative; box-sizing: border-box; border: 15px solid #1a3a5a; color: #333; overflow: hidden; margin: 0; padding: 0;">
         
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.03; pointer-events: none; z-index: 1; background-image: url('logo.png'); background-size: 100px; background-repeat: repeat; transform: rotate(-15deg) scale(1.5);"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.02; pointer-events: none; z-index: 1; background-image: url('logo.png'); background-size: 100px; background-repeat: repeat; transform: rotate(-15deg) scale(1.5);"></div>
         
         <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 3px solid #d4af37; pointer-events: none; z-index: 5;"></div>
 
-        <div style="position: relative; z-index: 10; width: 100%; height: 100%; padding: 40px 60px; display: flex; flex-direction: column; box-sizing: border-box;">
+        <div style="position: relative; z-index: 10; width: 100%; height: 100%; padding: 40px 60px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;">
             
-            <div style="text-align: center; margin-bottom: 15px;">
-                <img src="logo.png" style="width: 180px; height: auto; margin-bottom: 15px;">
-                <h2 style="font-size: 20px; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 5px; font-family: 'Georgia', serif; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Sertifikat Analisis MindPrint</h2>
-            </div>
-
-            <div style="text-align: center; margin-bottom: 15px;">
-                <p style="font-size: 13px; margin-bottom: 5px; color: #555;">Diberikan kepada:</p>
-                <h3 style="font-size: 28px; color: #1a3a5a; margin: 0; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: bold; letter-spacing: 1px;"><span id="cert-name"></span></h3>
-            </div>
-
-            <div style="text-align: center; margin-bottom: 20px;">
-                <div style="background: #1a3a5a; color: white; padding: 10px 40px; border-radius: 8px; display: inline-block;">
-                    <span style="font-size: 10px; opacity: 0.8; text-transform: uppercase;">Hasil Profil MindPrint:</span><br>
-                    <strong style="font-size: 18px; color: #d4af37;" id="cert-result"></strong>
+            <div id="cert-header">
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <img src="logo.png" style="width: 180px; height: auto;">
+                </div>
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <h2 style="font-size: 20px; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 5px; font-family: 'Georgia', serif; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Sertifikat Analisis MindPrint</h2>
+                    <p style="margin-top: 15px; font-size: 13px; margin-bottom: 5px; color: #555;">Diberikan kepada:</p>
+                    <h3 style="font-size: 28px; color: #1a3a5a; margin: 0; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: bold; letter-spacing: 1px;"><span id="cert-name"></span></h3>
+                </div>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="background: #1a3a5a; color: white; padding: 10px 40px; border-radius: 8px; display: inline-block;">
+                        <span style="font-size: 10px; opacity: 0.8; text-transform: uppercase;">Hasil Profil MindPrint:</span><br>
+                        <strong style="font-size: 18px; color: #d4af37;" id="cert-result"></strong>
+                    </div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; font-size: 11px; line-height: 1.4; color: #333; flex-grow: 1;">
+            <div id="cert-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; font-size: 11px; line-height: 1.4; color: #333; flex-grow: 1;">
                 <div style="padding-right: 15px;">
                     <p style="margin: 0 0 10px 0;"><strong style="color: #1a3a5a;">INTISARI KEPRIBADIAN:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
                     <p style="margin: 0 0 10px 0;"><strong style="color: #1a3a5a;">KEBIASAAN KUNCI (SUCCESS HABIT):</strong><br><span id="cert-success"></span></p>
@@ -93,7 +93,7 @@
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px;">
+            <div id="cert-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px;">
                 <div style="font-size: 9px; color: #777;">
                     <p style="margin: 0;">ID MindPrint: <strong id="cert-id" style="color: #1a3a5a;"></strong></p>
                     <p style="margin: 0;">Tanggal: <span id="cert-date" style="color: #1a3a5a;"></span></p>
