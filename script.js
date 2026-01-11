@@ -40,7 +40,7 @@ function calculateNumerology(dateString) {
     return sum || 9;
 }
 
-// SCANNING
+// SCANNING HANDLER
 function handleScanStart(e) {
     if (e) e.preventDefault();
     if (isScanning) return;
@@ -74,7 +74,7 @@ document.getElementById('next-finger-button').addEventListener('click', function
     document.getElementById('scan-text').textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
-// RESULTS
+// DISPLAY RESULTS
 function showResult() {
     document.getElementById('scan-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
@@ -98,7 +98,7 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${new Date().getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// PDF DOWNLOAD (FORCE VIRTUAL RESOLUTION)
+// PDF DOWNLOAD (FORCE VIRTUAL VIEWPORT)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -111,11 +111,13 @@ document.getElementById('download-btn').addEventListener('click', () => {
             scale: 2, 
             useCORS: true, 
             logging: false,
-            // KUNCI RESOLUSI: Mengabaikan ukuran layar tablet/HP
+            // KUNCI RESOLUSI: Mengabaikan ukuran layar perangkat saat ini
             windowWidth: 1080,
             windowHeight: 740,
             width: 1080,
-            height: 740
+            height: 740,
+            scrollX: 0,
+            scrollY: 0
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true },
         pagebreak: { mode: 'avoid-all' }
