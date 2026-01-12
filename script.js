@@ -1,6 +1,6 @@
 /**
  * FINAL PROPORSIONAL SCRIPT - ARAYA CONSULTING
- * Fix: Layout Footer (Nama/ID) & Pengisian Data Karir/Dinamika
+ * Memastikan Potensi Karir & Dinamika terisi dalam layout proporsional
  */
 
 const mindprintDescriptions = {
@@ -174,13 +174,7 @@ function showResult() {
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
-    // DISPLAY LAYAR
-    document.getElementById('result-title').textContent = data.title;
-    document.getElementById('display-intisari').textContent = data.intisari;
-    document.getElementById('display-motivasi').textContent = data.motivasi;
-    document.getElementById('display-karir').textContent = data.karir;
-
-    // ISI SERTIFIKAT
+    // ISI DATA SERTIFIKAT
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -189,8 +183,6 @@ function showResult() {
     document.getElementById('cert-relationship').textContent = data.relationship;
     document.getElementById('cert-communication').textContent = data.communication;
     document.getElementById('cert-study').textContent = data.study;
-    
-    // PERBAIKAN PENGISIAN DATA KARIR & DINAMIKA
     document.getElementById('cert-karir').textContent = data.karir; 
     document.getElementById('cert-positif').textContent = data.positif;
     document.getElementById('cert-negatif').textContent = data.negatif;
@@ -198,7 +190,6 @@ function showResult() {
     const now = new Date();
     document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
     
-    // GENERATE ID MINDPRINT
     const randomId = Math.floor(1000 + Math.random() * 9000);
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`;
 }
