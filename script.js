@@ -1,112 +1,114 @@
 /**
- * FINAL SCRIPT MINDPRINT - SINKRONISASI TOTAL
+ * FINAL COMPLETE SCRIPT - ARAYA CONSULTING
+ * Sinkronisasi Penuh: Dokumen Pedoman MindPrint 1-9
+ * Fix: Dropdown Aktif & Layout Sertifikat Ideal
  */
+
 const mindprintDescriptions = {
     1: { 
         title: "Si Praktisi Reflektif", 
-        intisari: "Sosok paling membumi yang lebih suka bertindak daripada berwacana. Memiliki ketelitian tinggi, stamina fisik kuat, dan kepatuhan pada aturan. Jagonya pekerjaan yang membutuhkan detail visual luar biasa.", 
-        successHabit: "Fokus pada spesialisasi. Jangan menjadi 'Palugada'. Tekuni satu bidang sampai ahli dan pastikan aktivitas fisik rutin.", 
+        intisari: "Sosok membumi, pekerja keras mandiri, lebih suka bertindak daripada berwacana. Jago dalam ketelitian tinggi, stamina fisik kuat, dan kepatuhan pada aturan (SOP).", 
+        successHabit: "Mantra: 'Berkeringat dan Menabung'. Fokus pada spesialisasi dan tekuni satu bidang hingga menjadi pakar (specialist).", 
         relationship: "Membangun kepercayaan melalui konsistensi dan mencari kestabilan jangka panjang.", 
         communication: "To-the-point, singkat, berbasis fakta, dan tidak suka basa-basi panjang.", 
         study: "Metode Menghafal & Pengulangan. Juara dalam menghafal teks atau urutan prosedur secara mandiri.", 
         positif: "Memori tajam, tangguh, disiplin.", 
         negatif: "Terlalu kaku, materialistis.", 
-        karir: "Akuntan, Manajer Operasional, Atlet." 
+        karir: "Akuntan, Manajer Ops, Atlet, Teknisi." 
     },
     2: { 
         title: "Si Praktisi Ekspresif", 
-        intisari: "Pemain utama yang paling lincah di panggung aksi. Energinya dipicu tantangan luar dan interaksi sosial. Sangat gesit, kompetitif, dan menikmati hidup secara maksimal.", 
-        successHabit: "Skala dan Persaingan. Sukses dalam lingkungan kompetitif dengan target atau kuota yang jelas.", 
+        intisari: "Pemain utama yang paling lincah. Energinya dipicu tantangan luar dan interaksi sosial. Sangat gesit, kompetitif, dan menikmati hidup secara maksimal.", 
+        successHabit: "Mantra: 'Tantangan adalah Energi'. Sukses dalam lingkungan kompetitif dengan target atau kuota yang jelas.", 
         relationship: "Mudah bergaul, membawa suasana ceria, dan menghargai hadiah fisik.", 
         communication: "Ekspresif, menggunakan bahasa tubuh kuat, dan antusias tentang hasil nyata.", 
-        study: "Praktik lapangan dan belajar kelompok. Perlu terjun langsung untuk mencoba sendiri.", 
-        positif: "Lincah, responsif, sportif.", 
+        study: "Praktik lapangan dan belajar kelompok. Perlu terjun langsung untuk mencoba dan melihat demonstrasi.", 
+        positif: "Lincah, sportif, mahir teknis.", 
         negatif: "Cepat bosan, boros, terburu-buru.", 
-        karir: "Marketing, Chef, Pilot, Polisi." 
+        karir: "Sales/Marketing, Chef, Pilot, Polisi." 
     },
     3: { 
         title: "Si Konseptor Reflektif", 
-        intisari: "Tipe paling mandiri dan mendalam secara intelektual. Sangat logis, objektif, dan perfeksionis dalam hal kebenaran data melalui filter logika.", 
-        successHabit: "Asah keahlian teknis dan otoritas. Terus mengasah otak dengan ilmu baru agar posisi tawar tetap tinggi.", 
+        intisari: "Individu mandiri dan mendalam secara intelektual. Sangat logis, objektif, dan perfeksionis dalam hal kebenaran data melalui filter logika.", 
+        successHabit: "Mantra: 'Logika dan Otoritas'. Asah keahlian teknis dan terus belajar ilmu baru (ta'allum).", 
         relationship: "Eksklusif dalam memilih teman dan menghargai privasi pikiran.", 
         communication: "Formal, data-driven, dan argumentatif. Gunakan data, bukan perasaan.", 
-        study: "Butuh skema (tabel/flowchart) dan waktu untuk analisis mandiri (studi literatur).", 
+        study: "Butuh skema (tabel/flowchart) dan waktu untuk analisis mandiri melalui studi literatur.", 
         positif: "Analisis mendalam, mandiri, objektif.", 
         negatif: "Terlalu kritis, kurang empati.", 
-        karir: "Programmer, Peneliti, Konsultan Pajak." 
+        karir: "Programmer, Ilmuwan, Konsultan Pajak, Peneliti." 
     },
     4: { 
         title: "Si Konseptor Ekspresif", 
         intisari: "Sosok 'Komandan' yang lahir untuk memimpin. Sangat suka mengatur, membangun struktur organisasi luas, dan berorientasi pada target efisiensi.", 
-        successHabit: "Memperluas jaringan dan kekuasaan. Melatih kemampuan melipatgandakan aset dan sumber daya manusia.", 
-        relationship: "Mendukung status sosial dan karir dalam hubungan.", 
+        successHabit: "Mantra: 'Otoritas dan Ekspansi'. Perluas jaringan dan kembangkan kemampuan melipatgandakan aset serta SDM.", 
+        relationship: "Tegas, berwibawa, dan sangat menghargai struktur organisasi.", 
         communication: "Lugas, memerintah namun logis, dan menghargai struktur bicara sistematis.", 
         study: "Diskusi terstruktur, menjadi pengajar bagi orang lain, dan bedah studi kasus bisnis.", 
         positif: "Manajerial hebat, tegas, berwibawa.", 
-        negatif: "Dominan, otoriter, kurang sabar.", 
+        negatif: "Otoriter, kurang sabar, kaku.", 
         karir: "CEO, Direktur, Manajer Proyek, Politisi." 
     },
     5: { 
         title: "Si Kreatif Reflektif", 
-        intisari: "Pemikir abstrak mementingkan kualitas dan kesempurnaan ide. Sangat visioner melihat tren masa depan saat orang lain belum memikirkannya.", 
-        successHabit: "Menjadi ahli di bidang unik. Inovasi atau Mati. Berani membumikan ide agar dinikmati orang banyak.", 
-        relationship: "Tenang di luar, imajinasi luas, selektif memilih lawan bicara.", 
+        intisari: "Pemikir abstrak mementingkan kualitas ide. Sangat visioner melihat tren masa depan melalui kualitas ide yang melampaui zaman.", 
+        successHabit: "Mantra: 'Kualitas dan Ilmu'. Kuncinya 'Inovasi atau Mati'. Berani membumikan ide agar dinikmati orang banyak.", 
+        relationship: "Tenang di luar dengan imajinasi luas. Selektif dalam memilih lawan bicara.", 
         communication: "Puitis, penuh simbol, filosofis, dan selektif memilih lawan bicara.", 
-        study: "Peta konsep (mind mapping) dan menggunakan perumpamaan atau analogi.", 
-        positif: "Visioner, perfeksionis ide, abstrak.", 
+        study: "Peta konsep (mind mapping) dan menggunakan perumpamaan atau simbol.", 
+        positif: "Visioner jangka panjang, perfeksionis ide.", 
         negatif: "Eksklusif, terlalu idealis, skeptis.", 
-        karir: "Arsitek, Penulis, Perancang Strategi." 
+        karir: "Arsitek, Penulis, Perancang Strategi, Ilmuwan." 
     },
     6: { 
         title: "Si Kreatif Ekspresif", 
         intisari: "Trendsetter paling optimis dan antusias. Tajam melihat peluang keuntungan dan pandai menularkan visi kepada tim agar percaya pada mimpi.", 
-        successHabit: "Networking dan berani gagal. Latih ketekunan menuntaskan proyek sebelum pindah ke ide lain.", 
-        relationship: "Membutuhkan dukungan terhadap mimpi besar dan ide kreatifnya.", 
+        successHabit: "Mantra: 'Inovasi dan Investasi'. Networking dan berani gagal. Latih ketekunan menuntaskan satu proyek.", 
+        relationship: "Sangat hebat menularkan visi dan semangat. Butuh dukungan terhadap mimpi besarnya.", 
         communication: "Ekspresif, penuh semangat, dan persuasif dengan analogi masa depan.", 
-        study: "Brainstorming bebas dan visualisasi gambar untuk menggambarkan ide-ide besar.", 
-        positif: "Inovatif, multitalenta, antusias.", 
-        negatif: "Kurang fokus, detail, risiko tinggi.", 
-        karir: "Pengusaha, Investor, Marketing, Desainer." 
+        study: "Brainstorming bebas dan visualisasi gambar (sketsa/proyektor).", 
+        positif: "Intuisi bisnis tajam, inovatif, multitalenta.", 
+        negatif: "Kurang fokus, detail lemah, risiko tinggi.", 
+        karir: "Pengusaha, Marketing, Desainer, Investor." 
     },
     7: { 
         title: "Si Empati Reflektif", 
         intisari: "Pribadi idealis yang digerakkan oleh 'Hati'. Memiliki integritas tinggi, pembawa ketenangan, dan fokus pada makna ibadah dalam pekerjaan.", 
-        successHabit: "Fokus pada pelayanan dan pembangunan karakter. Melatih ketegasan profesional.", 
-        relationship: "Mencari kesetiaan murni dan koneksi jiwa (soulmate).", 
+        successHabit: "Mantra: 'Cinta dan Keyakinan'. Fokus pada pelayanan dan pembangunan karakter. Latih ketegasan profesional.", 
+        relationship: "Mencari kesetiaan murni dan koneksi jiwa (soulmate). Sangat setia pada janji.", 
         communication: "Lembut, mendalam, tulus, dan sangat menjaga perasaan lawan bicara.", 
-        study: "Sentuhan emosional (suka pengajarnya) dan belajar dalam suasana yang nyaman.", 
+        study: "Sentuhan emosional (suka pengajarnya) dan belajar dalam suasana harmoni.", 
         positif: "Integritas, loyalitas, peka rasa.", 
-        negatif: "Baper, tertutup, subjektif.", 
-        karir: "Psikolog, Guru, Aktivis, Coach." 
+        negatif: "Baper (mudah tersinggung), tertutup.", 
+        karir: "Psikolog, Guru, Aktivis Kemanusiaan, Coach." 
     },
     8: { 
         title: "Si Empati Ekspresif", 
         intisari: "Magnet sosial dengan kemampuan persuasi luar biasa. Ahli memahami psikologi massa dan memenangkan hati orang lain melalui kharisma alaminya.", 
-        successHabit: "Popularitas dan relasi. Melatih kemandirian agar tidak bergantung pada pujian orang lain.", 
-        relationship: "Membutuhkan apresiasi verbal dan pengakuan emosional yang hangat.", 
-        communication: "Hangat, persuasif, mahir intonasi untuk menyentuh emosi.", 
-        study: "Diskusi & Tanya Jawab. Semakin banyak bicara, pemahaman semakin dalam.", 
-        positif: "Kharismatik, inspiratif, networking.", 
+        successHabit: "Mantra: 'Pengaruh dan Cinta'. Sukses melalui popularitas dan relasi luas. Latih kemandirian.", 
+        relationship: "Mudah mendapatkan relasi baru dan membutuhkan pengakuan emosional yang hangat.", 
+        communication: "Hangat, persuasif, mahir menggunakan intonasi untuk menyentuh emosi.", 
+        study: "Diskusi & Tanya Jawab. Semakin banyak bicara, pemahaman semakin mendalam.", 
+        positif: "Kharismatik, inspiratif, networking luas.", 
         negatif: "Haus pengakuan, manipulatif, terpengaruh.", 
         karir: "Politisi, Motivator, PR, Trainer." 
     },
     9: { 
         title: "Si Adaptif", 
-        intisari: "Generalis responsif, serba bisa, dan cinta damai. 'Jembatan' fleksibel yang mampu menghubungkan berbagai pilar lainnya secara naluriah.", 
-        successHabit: "Ketenangan dan Kebermanfaatan. Melatih ketuntasan (finishing) kerja agar selesai dengan baik.", 
+        intisari: "Generalis responsif dan serba bisa. Jembatan fleksibel yang mampu menghubungkan berbagai pilar lainnya secara naluriah dan cinta damai.", 
+        successHabit: "Mantra: 'Ketenangan dan Kebermanfaatan'. Melatih ketuntasan (finishing) kerja agar selesai dengan baik.", 
         relationship: "Sangat tulus, tidak suka konflik, dan mencari kedamaian bersama.", 
-        communication: "Spontan, lugas, santun, dan menghindari perdebatan panjang.", 
-        study: "Belajar dalam suasana relaksasi melalui ringkasan gambar besar (big picture).", 
-        positif: "Refleks cepat, responsif, mediator hebat.", 
-        negatif: "Sulit fokus, trauma konflik, terdistraksi.", 
-        karir: "Pekerja Sosial, Seniman, Medis Darurat." 
+        communication: "Spontan, lugas, namun tetap santun. Menghindari perdebatan panjang.", 
+        study: "Suasana tenang (relaksasi) melalui ringkasan atau gambaran besar (big picture).", 
+        positif: "Cepat belajar, responsif, mediator hebat.", 
+        negatif: "Sulit fokus prioritas, trauma konflik.", 
+        karir: "Pekerja Sosial, Seniman Multitalenta, GA, Medis." 
     }
 };
 
 const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
 let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false;
 
-// 1. POPULASI TANGGAL (PILIHAN TANGGAL AKAN MUNCUL)
 function populateDateFields() {
     const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
     if(!d || !m || !y) return;
@@ -120,7 +122,6 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// 2. LOGIKA NUMEROLOGI
 function calculateNumerology(dateString) {
     const digits = dateString.replace(/-/g, '').split('').map(Number);
     let sum = digits.reduce((a, b) => a + b, 0);
@@ -128,22 +129,21 @@ function calculateNumerology(dateString) {
     return sum || 9;
 }
 
-// 3. SCAN JARI
 function handleScanStart(e) {
     if (e) e.preventDefault();
     if (isScanning) return;
     isScanning = true;
-    const scanner = document.getElementById('fingerprint-scanner'), text = document.getElementById('scan-text');
-    text.textContent = `Memindai ${fingers[currentFingerIndex]}...`;
-    scanner.classList.add('scanning');
+    const s = document.getElementById('fingerprint-scanner'), t = document.getElementById('scan-text');
+    t.textContent = `Memindai ${fingers[currentFingerIndex]}...`;
+    s.classList.add('scanning');
     setTimeout(() => {
-        scanner.classList.remove('scanning');
+        s.classList.remove('scanning');
         isScanning = false;
         if (currentFingerIndex < fingers.length - 1) {
-            text.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL.`;
+            t.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL.`;
             document.getElementById('next-finger-button').classList.remove('hidden'); 
         } else {
-            text.textContent = "MENGANALISIS MINDPRINT...";
+            t.textContent = "MENGANALISIS MINDPRINT...";
             setTimeout(showResult, 1500);
         }
     }, 2000);
@@ -161,7 +161,6 @@ document.getElementById('next-finger-button').addEventListener('click', function
     document.getElementById('scan-text').textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
-// 4. HASIL SERTIFIKAT
 function showResult() {
     document.getElementById('scan-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
@@ -184,10 +183,10 @@ function showResult() {
     
     const now = new Date();
     document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
+    const randomId = Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`;
 }
 
-// 5. PDF DOWNLOAD (RESOLUSI FIX IPAD)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -195,7 +194,16 @@ document.getElementById('download-btn').addEventListener('click', () => {
         margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 1080, windowHeight: 740, width: 1080, height: 740, scrollX: 0, scrollY: 0 },
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false,
+            windowWidth: 1080, 
+            windowHeight: 740,
+            width: 1080,
+            height: 740,
+            scrollX: 0, scrollY: 0
+        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true },
         pagebreak: { mode: 'avoid-all' }
     };
@@ -213,5 +221,5 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
 
-// WAJIB DIPANGGIL DI AKHIR AGAR DROPDOWN MUNCUL
+// PEMANGGILAN WAJIB DI AKHIR SCRIPT
 populateDateFields();
