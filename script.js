@@ -1,7 +1,8 @@
 /**
  * RE-SYNCHRONIZED SCRIPT MINDPRINT - ARAYA CONSULTING
- * Berdasarkan Dokumen Metodologi MindPrint
+ * FIX: SCANNER AKTIF & SINKRONISASI METODOLOGI
  */
+
 const mindprintDescriptions = {
     1: { 
         title: "Konseptor Reflektif", 
@@ -104,8 +105,13 @@ const mindprintDescriptions = {
     }
 };
 
-// ... Bagian fingers, currentFingerIndex, userName, birthDate, isScanning TETAP SAMA ...
+const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
+let currentFingerIndex = 0;
+let userName = "";
+let birthDate = "";
+let isScanning = false;
 
+// 1. POPULASI DROPDOWN TANGGAL
 function populateDateFields() {
     const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
     if(!d || !m || !y) return;
@@ -113,12 +119,13 @@ function populateDateFields() {
     m.innerHTML = '<option value="" disabled selected>Bulan</option>';
     y.innerHTML = '<option value="" disabled selected>Tahun</option>';
     for(let i=1; i<=31; i++) d.innerHTML += `<option value="${String(i).padStart(2,'0')}">${i}</option>`;
-    ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"].forEach((mon,i) => {
-        m.innerHTML += `<option value="${String(i+1).padStart(2,'0')}">${mon}</option>`;
-    });
-    for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
+    const months = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    months.forEach((mon, i) => m.innerHTML += `<option value="${String(i+1).padStart(2,'0')}">${mon}</option>`);
+    const currentYear = new Date().getFullYear();
+    for(let i=currentYear; i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
+// 2. LOGIKA NUMEROLOGI
 function calculateNumerology(dateString) {
     const digits = dateString.replace(/-/g, '').split('').map(Number);
     let sum = digits.reduce((a, b) => a + b, 0);
@@ -126,27 +133,30 @@ function calculateNumerology(dateString) {
     return sum || 9;
 }
 
+// 3. HANDLER SCAN JARI (MENGGUNAKAN EVENT MOUSE & TOUCH)
 function handleScanStart(e) {
     if (e) e.preventDefault();
     if (isScanning) return;
     isScanning = true;
-    const s = document.getElementById('fingerprint-scanner');
-    const t = document.getElementById('scan-text');
-    t.textContent = `Memindai ${fingers[currentFingerIndex]}...`;
-    s.classList.add('scanning');
+    const scanner = document.getElementById('fingerprint-scanner');
+    const text = document.getElementById('scan-text');
+    text.textContent = `Memindai ${fingers[currentFingerIndex]}...`;
+    scanner.classList.add('scanning');
+    
     setTimeout(() => {
-        s.classList.remove('scanning');
+        scanner.classList.remove('scanning');
         isScanning = false;
         if (currentFingerIndex < fingers.length - 1) {
-            t.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL.`;
+            text.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL.`;
             document.getElementById('next-finger-button').classList.remove('hidden'); 
         } else {
-            t.textContent = "MENGANALISIS MINDPRINT...";
+            text.textContent = "MENGANALISIS DATA MINDPRINT...";
             setTimeout(showResult, 1500);
         }
     }, 2000);
 }
 
+// ATTACH EVENT LISTENER KE SCANNER
 const scannerElement = document.getElementById('fingerprint-scanner');
 if(scannerElement) {
     scannerElement.addEventListener('mousedown', handleScanStart);
@@ -159,6 +169,7 @@ document.getElementById('next-finger-button').addEventListener('click', function
     document.getElementById('scan-text').textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
+// 4. TAMPILKAN HASIL & ISI DATA SERTIFIKAT
 function showResult() {
     document.getElementById('scan-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
@@ -178,10 +189,14 @@ function showResult() {
     document.getElementById('cert-positif').textContent = data.positif;
     document.getElementById('cert-negatif').textContent = data.negatif;
     document.getElementById('cert-karir').textContent = data.karir;
-    document.getElementById('cert-date').textContent = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-    document.getElementById('cert-id').textContent = `MP/${new Date().getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
+    
+    const now = new Date();
+    document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    const randomId = Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`;
 }
 
+// 5. DOWNLOAD PDF (OPTIMASI UNTUK IPAD)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -197,10 +212,11 @@ document.getElementById('download-btn').addEventListener('click', () => {
             windowWidth: 1080,
             windowHeight: 740,
             width: 1080,
-            height: 740
+            height: 740,
+            scrollX: 0,
+            scrollY: 0
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true },
-        pagebreak: { mode: 'avoid-all' }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
     };
 
     html2pdf().set(opt).from(el).save().then(() => {
@@ -208,6 +224,7 @@ document.getElementById('download-btn').addEventListener('click', () => {
     });
 });
 
+// 6. EVENT FORM SUBMIT
 document.getElementById('user-form').addEventListener('submit', (e) => {
     e.preventDefault();
     userName = document.getElementById('user-name').value;
@@ -218,4 +235,6 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
+
+// WAJIB: INISIALISASI SAAT HALAMAN DIMUAT
 populateDateFields();
