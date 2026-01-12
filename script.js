@@ -1,7 +1,3 @@
-/**
- * RE-SYNCHRONIZED FINAL SCRIPT - ARAYA CONSULTING
- * Fix: ID, Karir, Dinamika, & Golongan Darah
- */
 const mindprintDescriptions = {
     1: { 
         title: "Si Praktisi Reflektif", 
@@ -31,7 +27,7 @@ const mindprintDescriptions = {
         title: "Si Konseptor Reflektif", 
         intisari: "Individu yang paling mandiri dan mendalam secara intelektual dengan dominasi otak kiri atas yang digerakkan dari dalam. Anda adalah sosok yang sangat logis, objektif, dan perfeksionis dalam validasi data, di mana segala informasi harus melewati filter logika yang ketat sebelum dapat Anda percayai sepenuhnya.", 
         successHabit: "Mengasah keahlian teknis dan belajar ilmu baru guna menjaga otoritas dalam sistem.", 
-        relationship: "Eksklusif dalam memilih teman dan sangat menghargai privasi pikiran.", 
+        relationship: "Eksklusif dalam memilih teman dan menghargai privasi pikiran.", 
         communication: "Formal, data-driven, dan argumentatif. Gunakan data konkret untuk meyakinkan.", 
         study: "Menganalisis skema besar, riset mandiri, dan memecahkan teka-teki logika kompleks.", 
         positif: "Mampu analisis sangat mendalam, mandiri, serta sangat fokus pada standar.", 
@@ -189,14 +185,16 @@ function showResult() {
     document.getElementById('cert-relationship').textContent = data.relationship;
     document.getElementById('cert-communication').textContent = data.communication;
     document.getElementById('cert-study').textContent = data.study;
-    document.getElementById('cert-karir').textContent = data.karir; 
-    document.getElementById('cert-positif').textContent = data.positif;
-    document.getElementById('cert-negatif').textContent = data.negatif;
+    document.getElementById('cert-karir').textContent = data.karir; // FIXED ID
+    document.getElementById('cert-positif').textContent = data.positif; // FIXED ID
+    document.getElementById('cert-negatif').textContent = data.negatif; // FIXED ID
     
     const now = new Date();
     document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    
+    // GENERATE ID & TAMPILKAN
     const randomId = Math.floor(1000 + Math.random() * 9000);
-    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`;
+    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`; // FIXED ID
 }
 
 document.getElementById('download-btn').addEventListener('click', () => {
