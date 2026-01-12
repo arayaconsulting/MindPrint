@@ -1,5 +1,6 @@
 /**
  * RE-SYNCHRONIZED FINAL SCRIPT - ARAYA CONSULTING
+ * Fix: ID, Karir, Dinamika, & Golongan Darah
  */
 const mindprintDescriptions = {
     1: { 
@@ -160,6 +161,7 @@ if(scannerElement) {
     scannerElement.addEventListener('mousedown', handleScanStart);
     scannerElement.addEventListener('touchstart', handleScanStart);
 }
+
 document.getElementById('next-finger-button').addEventListener('click', function() {
     currentFingerIndex++;
     this.classList.add('hidden');
@@ -172,11 +174,13 @@ function showResult() {
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
+    // ISI LAYAR
     document.getElementById('result-title').textContent = data.title;
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('display-motivasi').textContent = data.motivasi;
     document.getElementById('display-karir').textContent = data.karir;
 
+    // ISI SERTIFIKAT (PASTIKAN ID SAMA DENGAN HTML)
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
