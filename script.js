@@ -1,5 +1,6 @@
 /**
  * RE-SYNCHRONIZED FINAL SCRIPT - ARAYA CONSULTING
+ * Update: Penambahan Strategi Motivasi per Tipe
  */
 const mindprintDescriptions = {
     1: { 
@@ -11,6 +12,7 @@ const mindprintDescriptions = {
         study: "Metode menghafal dan pengulangan prosedur secara mandiri di lingkungan yang tenang.", 
         positif: "Memiliki memori sangat tajam, tangguh secara fisik, serta disiplin tinggi.", 
         negatif: "Cenderung terlalu kaku, materialistis, serta kurang spontan dalam bertindak.", 
+        motivasi: "Berikan instruksi yang jelas, target yang realistis, serta apresiasi berupa aset atau jaminan keamanan materi.",
         karir: "Akuntan, Manajer Ops, Atlet, Teknisi." 
     },
     2: { 
@@ -22,6 +24,7 @@ const mindprintDescriptions = {
         study: "Praktik lapangan, belajar kelompok, dan metode peniruan (modelling) secara langsung.", 
         positif: "Sangat lincah, sportif, responsif, serta mahir dalam kemampuan teknis.", 
         negatif: "Mudah cepat merasa bosan, boros, serta sering bertindak terburu-buru.", 
+        motivasi: "Berikan tantangan kompetitif, bonus instan, serta lingkungan kerja yang dinamis dan tidak monoton.",
         karir: "Marketing, Chef, Pilot, Polisi." 
     },
     3: { 
@@ -33,6 +36,7 @@ const mindprintDescriptions = {
         study: "Menganalisis skema besar, riset mandiri, dan memecahkan teka-teki logika kompleks.", 
         positif: "Mampu analisis sangat mendalam, mandiri, serta sangat fokus pada standar.", 
         negatif: "Terlalu kritis terhadap orang, dingin, serta terkadang kurang memiliki empati.", 
+        motivasi: "Berikan akses terhadap data/ilmu baru, hargai kemandiriannya, dan libatkan dalam perancangan sistem yang logis.",
         karir: "Programmer, Ilmuwan, Konsultan, Peneliti." 
     },
     4: { 
@@ -44,6 +48,7 @@ const mindprintDescriptions = {
         study: "Diskusi terstruktur, menjadi pengajar bagi orang lain, dan bedah studi kasus bisnis.", 
         positif: "Kemampuan manajerial hebat, tegas, berwibawa, serta sangat organisatoris sistematis.", 
         negatif: "Cenderung dominan otoriter, kurang sabar, serta kaku pada hirarki jabatan.", 
+        motivasi: "Berikan otoritas/kekuasaan, tanggung jawab untuk memimpin tim besar, serta pengakuan atas jabatan dan prestasinya.",
         karir: "CEO, Direktur, Manajer Proyek." 
     },
     5: { 
@@ -55,6 +60,7 @@ const mindprintDescriptions = {
         study: "Mind mapping, penggunaan analogi, perumpamaan, serta membaca literatur mendalam.", 
         positif: "Sangat visioner jangka panjang, perfeksionis ide, serta memiliki abstraksi kuat.", 
         negatif: "Cenderung eksklusif menyendiri, terlalu idealis, serta sering bersikap sangat skeptis.", 
+        motivasi: "Hargai orisinalitas idenya, berikan waktu dan ruang privat untuk berkreasi, serta dukung visi jangka panjangnya.",
         karir: "Arsitek, Penulis, Strategist, Ilmuwan." 
     },
     6: { 
@@ -66,6 +72,7 @@ const mindprintDescriptions = {
         study: "Brainstorming bebas, stimulasi visual, dan mempelajari kisah sukses tokoh inovator.", 
         positif: "Intuisi bisnis kuat, sangat inovatif, multitalenta, serta penyebar antusiasme tinggi.", 
         negatif: "Kurang fokus pada detail, ceroboh, serta berani risiko tanpa perhitungan.", 
+        motivasi: "Libatkan dalam proyek inovatif, berikan panggung untuk mempresentasikan ide, serta berikan insentif berbasis peluang profit.",
         karir: "Pengusaha, Investor, Desainer, Kreator." 
     },
     7: { 
@@ -77,6 +84,7 @@ const mindprintDescriptions = {
         study: "Sentuhan emosional, audio-mood, dan belajar dalam suasana yang harmonis.", 
         positif: "Memiliki integritas tinggi, loyal, sangat peka rasa, pembawa ketenangan.", 
         negatif: "Mudah tersinggung atau baper, tertutup memendam perasaan, serta bersikap subjektif.", 
+        motivasi: "Sentuh sisi spiritual/makna pekerjaannya, berikan lingkungan yang harmonis, serta tunjukkan perhatian yang tulus dan personal.",
         karir: "Psikolog, Guru, Coach, Aktivis." 
     },
     8: { 
@@ -88,6 +96,7 @@ const mindprintDescriptions = {
         study: "Diskusi interaktif, tanya jawab, dan mengajarkan kembali materi kepada orang lain.", 
         positif: "Sangat kharismatik, inspiratif bagi orang, serta memiliki kemampuan networking luas.", 
         negatif: "Sangat butuh pengakuan orang, terkadang manipulatif, serta mudah sekali terpengaruh.", 
+        motivasi: "Berikan apresiasi publik (pujian di depan orang), jadikan 'wajah' atau juru bicara organisasi, dan berikan dukungan emosional.",
         karir: "Politisi, Motivator, PR, Sales Manager." 
     },
     9: { 
@@ -99,6 +108,7 @@ const mindprintDescriptions = {
         study: "Mempelajari ringkasan (ikhtisar) gambar besar dalam suasana yang rileks.", 
         positif: "Memiliki refleks sangat cepat, responsif, mediator hebat, serta rela berkorban.", 
         negatif: "Sangat sulit fokus prioritas, trauma terhadap konflik, serta mudah terdistraksi.", 
+        motivasi: "Berikan ketenangan pikiran, hindari konflik yang menekan, serta yakinkan bahwa kehadirannya sangat bermanfaat bagi orang lain.",
         karir: "Pekerja Sosial, Seniman, Medis, GA." 
     }
 };
@@ -173,6 +183,7 @@ function showResult() {
     document.getElementById('cert-study').textContent = data.study;
     document.getElementById('cert-positif').textContent = data.positif;
     document.getElementById('cert-negatif').textContent = data.negatif;
+    document.getElementById('cert-motivasi').textContent = data.motivasi; // Tambahan Baris Ini
     document.getElementById('cert-karir').textContent = data.karir;
     
     const now = new Date();
