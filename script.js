@@ -1,6 +1,5 @@
 /**
  * RE-SYNCHRONIZED FINAL SCRIPT - ARAYA CONSULTING
- * Hapus Penomoran Dinamika (+) & (-)
  */
 const mindprintDescriptions = {
     1: { 
@@ -32,7 +31,7 @@ const mindprintDescriptions = {
         intisari: "Individu yang paling mandiri dan mendalam secara intelektual dengan dominasi otak kiri atas yang digerakkan dari dalam. Anda adalah sosok yang sangat logis, objektif, dan perfeksionis dalam validasi data, di mana segala informasi harus melewati filter logika yang ketat sebelum dapat Anda percayai sepenuhnya.", 
         successHabit: "Mengasah keahlian teknis dan belajar ilmu baru guna menjaga otoritas dalam sistem.", 
         relationship: "Eksklusif dalam memilih teman dan sangat menghargai privasi pikiran.", 
-        communication: "Formal, data-driven, and argumentatif. Gunakan data konkret untuk meyakinkan.", 
+        communication: "Formal, data-driven, dan argumentatif. Gunakan data konkret untuk meyakinkan.", 
         study: "Menganalisis skema besar, riset mandiri, dan memecahkan teka-teki logika kompleks.", 
         positif: "Mampu analisis sangat mendalam, mandiri, serta sangat fokus pada standar.", 
         negatif: "Terlalu kritis terhadap orang, dingin, serta terkadang kurang memiliki empati.", 
@@ -173,13 +172,11 @@ function showResult() {
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
-    // DISPLAY LAYAR UTAMA
     document.getElementById('result-title').textContent = data.title;
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('display-motivasi').textContent = data.motivasi;
     document.getElementById('display-karir').textContent = data.karir;
 
-    // ISI DATA SERTIFIKAT (SINKRONISASI ID)
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -194,7 +191,6 @@ function showResult() {
     
     const now = new Date();
     document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-    
     const randomId = Math.floor(1000 + Math.random() * 9000);
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`;
 }
