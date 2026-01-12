@@ -1,6 +1,5 @@
 /**
  * RE-SYNCHRONIZED FINAL SCRIPT - ARAYA CONSULTING
- * Update: Penambahan Strategi Motivasi per Tipe
  */
 const mindprintDescriptions = {
     1: { 
@@ -174,6 +173,13 @@ function showResult() {
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
+    // DISPLAY LAYAR (PENTING AGAR MUNCUL DI ATAS TOMBOL UNDUH)
+    document.getElementById('result-title').textContent = data.title;
+    document.getElementById('display-intisari').textContent = data.intisari;
+    document.getElementById('display-motivasi').textContent = data.motivasi;
+    document.getElementById('display-karir').textContent = data.karir;
+
+    // DATA SERTIFIKAT
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -183,8 +189,8 @@ function showResult() {
     document.getElementById('cert-study').textContent = data.study;
     document.getElementById('cert-positif').textContent = data.positif;
     document.getElementById('cert-negatif').textContent = data.negatif;
-    document.getElementById('cert-motivasi').textContent = data.motivasi; // Tambahan Baris Ini
     document.getElementById('cert-karir').textContent = data.karir;
+    document.getElementById('cert-motivasi').textContent = data.motivasi; 
     
     const now = new Date();
     document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -199,16 +205,7 @@ document.getElementById('download-btn').addEventListener('click', () => {
         margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { 
-            scale: 2, 
-            useCORS: true, 
-            logging: false,
-            windowWidth: 1080, 
-            windowHeight: 740,
-            width: 1080,
-            height: 740,
-            scrollX: 0, scrollY: 0
-        },
+        html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 1080, windowHeight: 740, width: 1080, height: 740, scrollX: 0, scrollY: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
     };
     html2pdf().set(opt).from(el).save().then(() => { el.style.display = 'none'; });
@@ -224,6 +221,4 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
-
-// WAJIB DIPANGGIL DI AKHIR SCRIPT
 populateDateFields();
