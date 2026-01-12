@@ -1,9 +1,3 @@
-/**
- * MINDPRINT SYSTEM - ARAYA CONSULTING
- * OWNER: ALI MAHFUD
- * FINAL RE-SYNCHRONIZED SCRIPT
- */
-
 const mindprintDescriptions = {
     1: { 
         title: "Si Praktisi Reflektif", 
@@ -12,7 +6,7 @@ const mindprintDescriptions = {
         relationship: "Membangun kepercayaan melalui konsistensi dan mencari kestabilan jangka panjang.", 
         communication: "Lugas, singkat, dan berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", 
         study: "Metode menghafal dan pengulangan prosedur secara mandiri di lingkungan yang tenang.", 
-        positif: "Memiliki memori sangat tajam, tangguh secara fisik, serta disiplin tinggi.", 
+        positif: "Memiliki memori tajam, tangguh secara fisik, serta disiplin tinggi.", 
         negatif: "Cenderung terlalu kaku, materialistis, serta kurang spontan dalam bertindak.", 
         motivasi: "Berikan instruksi yang jelas, target yang realistis, serta apresiasi berupa aset atau jaminan keamanan materi.",
         karir: "Akuntan, Manajer Ops, Atlet, Teknisi, Perbankan." 
@@ -23,7 +17,7 @@ const mindprintDescriptions = {
         successHabit: "Sukses dalam lingkungan kompetitif dengan target atau kuota yang jelas.", 
         relationship: "Mudah bergaul, membawa suasana ceria, dan menghargai hadiah fisik.", 
         communication: "Ekspresif, menggunakan bahasa tubuh kuat, dan antusias pada hasil nyata.", 
-        study: "Praktik lapangan, belajar kelompok, dan metode peniruan secara langsung.", 
+        study: "Praktik lapangan, belajar kelompok, dan metode peniruan (modelling) secara langsung.", 
         positif: "Sangat lincah, sportif, responsif, serta mahir dalam kemampuan teknis.", 
         negatif: "Mudah cepat merasa bosan, boros, serta sering bertindak terburu-buru.", 
         motivasi: "Berikan tantangan kompetitif, bonus instan, serta lingkungan kerja yang dinamis dan tidak monoton.",
@@ -33,7 +27,7 @@ const mindprintDescriptions = {
         title: "Si Konseptor Reflektif", 
         intisari: "Individu yang paling mandiri dan mendalam secara intelektual dengan dominasi otak kiri atas yang digerakkan dari dalam. Anda adalah sosok yang sangat logis, objektif, dan perfeksionis dalam validasi data, di mana segala informasi harus melewati filter logika yang ketat sebelum dapat Anda percayai sepenuhnya.", 
         successHabit: "Mengasah keahlian teknis dan belajar ilmu baru guna menjaga otoritas dalam sistem.", 
-        relationship: "Eksklusif dalam memilih teman dan menghargai privasi pikiran.", 
+        relationship: "Eksklusif dalam memilih teman dan sangat menghargai privasi pikiran.", 
         communication: "Formal, data-driven, dan argumentatif. Gunakan data konkret untuk meyakinkan.", 
         study: "Menganalisis skema besar, riset mandiri, dan memecahkan teka-teki logika kompleks.", 
         positif: "Mampu analisis sangat mendalam, mandiri, serta sangat fokus pada standar.", 
@@ -83,7 +77,7 @@ const mindprintDescriptions = {
         successHabit: "Fokus pada pelayanan dan pembangunan karakter melalui integritas antara batin dan perbuatan.", 
         relationship: "Mencari kesetiaan murni dan koneksi jiwa (soulmate) yang mendalam.", 
         communication: "Lembut, mendalam, tulus, dan sangat menjaga perasaan lawan bicara.", 
-        study: "Sentuhan emosional, audio-mood, dan belajar dalam suasana yang harmonis.", 
+        study: "Sentuhan emosional, audio-mood, and belajar dalam suasana yang harmonis.", 
         positif: "Memiliki integritas tinggi, loyal, sangat peka rasa, pembawa ketenangan.", 
         negatif: "Mudah tersinggung atau baper, tertutup memendam perasaan, serta bersikap subjektif.", 
         motivasi: "Sentuh sisi spiritual/makna pekerjaannya, berikan lingkungan yang harmonis, serta tunjukkan perhatian yang tulus dan personal.",
@@ -176,34 +170,24 @@ function showResult() {
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
-    // DISPLAY LAYAR UTAMA
-    document.getElementById('result-title').textContent = data.title;
-    document.getElementById('display-intisari').textContent = data.intisari;
-    document.getElementById('display-motivasi').textContent = data.motivasi;
-    document.getElementById('display-karir').textContent = data.karir;
-
-    // ISI DATA SERTIFIKAT (SINKRONISASI ID)
-    if(document.getElementById('cert-name')) document.getElementById('cert-name').textContent = userName;
-    if(document.getElementById('cert-result')) document.getElementById('cert-result').textContent = data.title;
-    if(document.getElementById('cert-intisari')) document.getElementById('cert-intisari').textContent = data.intisari;
-    if(document.getElementById('cert-motivasi')) document.getElementById('cert-motivasi').textContent = data.motivasi; 
-    if(document.getElementById('cert-success')) document.getElementById('cert-success').textContent = data.successHabit;
-    if(document.getElementById('cert-relationship')) document.getElementById('cert-relationship').textContent = data.relationship;
-    if(document.getElementById('cert-communication')) document.getElementById('cert-communication').textContent = data.communication;
-    if(document.getElementById('cert-study')) document.getElementById('cert-study').textContent = data.study;
-    
-    // BAGIAN KRUSIAL: KARIR & DINAMIKA
-    if(document.getElementById('cert-karir')) document.getElementById('cert-karir').textContent = data.karir; 
-    if(document.getElementById('cert-positif')) document.getElementById('cert-positif').textContent = data.positif;
-    if(document.getElementById('cert-negatif')) document.getElementById('cert-negatif').textContent = data.negatif;
+    // ISI DATA SERTIFIKAT (SINKRONISASI TOTAL)
+    document.getElementById('cert-name').textContent = userName;
+    document.getElementById('cert-result').textContent = data.title;
+    document.getElementById('cert-intisari').textContent = data.intisari;
+    document.getElementById('cert-motivasi').textContent = data.motivasi; 
+    document.getElementById('cert-success').textContent = data.successHabit;
+    document.getElementById('cert-relationship').textContent = data.relationship;
+    document.getElementById('cert-communication').textContent = data.communication;
+    document.getElementById('cert-karir').textContent = data.karir; // FIX KARIR
+    document.getElementById('cert-positif').textContent = data.positif; // FIX DINAMIKA POSITIF
+    document.getElementById('cert-negatif').textContent = data.negatif; // FIX DINAMIKA NEGATIF
     
     const now = new Date();
-    if(document.getElementById('cert-date')) document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
     
-    // GENERATE & ISI ID MINDPRINT
+    // GENERATE ID & TAMPILKAN
     const randomId = Math.floor(1000 + Math.random() * 9000);
-    const finalID = `MP/${now.getFullYear()}/${randomId}`;
-    if(document.getElementById('cert-id')) document.getElementById('cert-id').textContent = finalID;
+    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${randomId}`;
 }
 
 document.getElementById('download-btn').addEventListener('click', () => {
@@ -229,5 +213,4 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
-
 populateDateFields();
