@@ -6,42 +6,42 @@
 const mindprintDescriptions = {
     1: { 
         title: "Si Praktisi Reflektif", 
-        intisari: "Sosok paling membumi yang lebih suka bertindak daripada berwacana. Memiliki ketelitian tinggi, stamina fisik kuat, dan kepatuhan pada aturan. Jagonya pekerjaan yang membutuhkan detail visual luar biasa.", 
-        successHabit: "Mantra: 'Berkeringat dan Menabung'. Fokus pada spesialisasi, tekuni satu bidang sampai ahli, dan lakukan aktivitas fisik rutin.", 
+        intisari: "Sosok paling membumi yang lebih suka bertindak daripada berwacana. Memiliki ketelitian tinggi, stamina fisik kuat, dan kepatuhan pada aturan. Dominasi otak kiri bawah menjadikannya pekerja keras yang sangat mandiri.", 
+        successHabit: "Mantra: 'Berkeringat dan Menabung'. Fokus pada spesialisasi, tekuni satu bidang sampai ahli (specialist), dan pastikan aktivitas fisik rutin.", 
         relationship: "Membangun kepercayaan melalui konsistensi dan mencari kestabilan jangka panjang.", 
         communication: "To-the-point, singkat, berbasis fakta, dan tidak suka basa-basi panjang.", 
-        study: "Metode Menghafal & Pengulangan. Juara dalam menghafal teks atau urutan prosedur secara mandiri.", 
+        study: "Metode Menghafal & Pengulangan. Juara dalam menghafal teks atau urutan prosedur dan belajar efektif secara mandiri.", 
         positif: "Memori tajam, tangguh, disiplin tinggi, praktis.", 
         negatif: "Terlalu kaku, materialistis, kurang spontan.", 
         karir: "Akuntan, Manajer Operasional, Atlet, Teknisi, Perbankan." 
     },
     2: { 
         title: "Si Praktisi Ekspresif", 
-        intisari: "Pemain utama yang paling lincah. Energinya dipicu tantangan luar dan interaksi sosial. Sangat gesit, kompetitif, dan menikmati hidup secara maksimal.", 
+        intisari: "Pemain utama yang paling lincah di panggung aksi. Energinya dipicu tantangan luar dan interaksi sosial. Sangat gesit, kompetitif, dan menikmati hidup secara maksimal.", 
         successHabit: "Mantra: 'Tantangan adalah Energi'. Sukses dalam lingkungan kompetitif dengan target atau kuota yang jelas.", 
-        relationship: "Mudah bergaul, membawa suasana ceria, dan menghargai hadiah fisik.", 
+        relationship: "Mudah bergaul, membawa suasana ceria, dan sangat sportif.", 
         communication: "Ekspresif, menggunakan bahasa tubuh kuat, dan antusias tentang hasil nyata.", 
-        study: "Praktik lapangan dan belajar kelompok. Perlu terjun langsung untuk mencoba daripada membaca buku.", 
+        study: "Praktik lapangan dan belajar kelompok. Perlu terjun langsung untuk mencoba dan melihat demonstrasi.", 
         positif: "Lincah, cepat, mahir teknis, sportif.", 
         negatif: "Cepat bosan, boros, terburu-buru.", 
         karir: "Sales/Marketing, Chef, Pilot, Polisi/Militer." 
     },
     3: { 
         title: "Si Konseptor Reflektif", 
-        intisari: "Tipe paling mandiri dan mendalam secara intelektual. Sangat logis, objektif, dan perfeksionis dalam hal kebenaran data melalui filter logika.", 
+        intisari: "Tipe paling mandiri dan mendalam secara intelektual. Sangat logis, objektif, dan perfeksionis dalam data melalui filter logika. Mampu membedah masalah kompleks.", 
         successHabit: "Mantra: 'Logika dan Otoritas'. Asah keahlian teknis dan terus belajar ilmu baru (ta'allum) agar posisi tawar tetap tinggi.", 
         relationship: "Eksklusif dalam memilih teman dan menghargai privasi pikiran.", 
         communication: "Formal, data-driven, dan argumentatif. Gunakan data, bukan perasaan.", 
-        study: "Butuh skema (tabel/flowchart) dan waktu untuk analisis mandiri (studi literatur).", 
+        study: "Butuh skema (tabel/flowchart) dan waktu untuk analisis mandiri melalui studi literatur.", 
         positif: "Analisis mendalam, mandiri, penjaga kualitas, objektif.", 
         negatif: "Terlalu kritis, sulit kerja di tim berantakan, kurang empati.", 
         karir: "Programmer, Ilmuwan, Konsultan Pajak, Peneliti, Manajer Produksi." 
     },
     4: { 
         title: "Si Konseptor Ekspresif", 
-        intisari: "Sosok 'Komandan' yang lahir untuk memimpin. Sangat suka mengatur, membangun struktur organisasi luas, dan berorientasi pada target efisiensi.", 
+        intisari: "Sosok 'Komandan' yang lahir untuk memimpin. Sangat suka mengatur, membangun struktur organisasi luas, dan berorientasi pada target efisiensi sumber daya.", 
         successHabit: "Mantra: 'Otoritas dan Ekspansi'. Perluas jaringan dan kembangkan kemampuan melipatgandakan aset serta SDM.", 
-        relationship: "Tegas, berwibawa, namun terkadang kaku pada hirarki jabatan.", 
+        relationship: "Tegas, berwibawa, namun tetap mengutamakan hasil akhir (result-oriented).", 
         communication: "Lugas, memerintah namun logis, dan menghargai struktur bicara sistematis.", 
         study: "Diskusi terstruktur, menjadi pengajar bagi orang lain, dan bedah studi kasus bisnis.", 
         positif: "Manajerial hebat, tegas, berwibawa, organisatoris.", 
@@ -50,32 +50,32 @@ const mindprintDescriptions = {
     },
     5: { 
         title: "Si Kreatif Reflektif", 
-        intisari: "Pemikir abstrak yang mementingkan kualitas dan kesempurnaan ide. Sangat visioner melihat tren masa depan saat orang lain belum memikirkannya.", 
+        intisari: "Pemikir abstrak yang mementingkan kualitas dan kesempurnaan ide. Sangat visioner dalam merancang masa depan melalui ide yang melampaui zaman.", 
         successHabit: "Mantra: 'Kualitas dan Ilmu'. Kuncinya adalah 'Inovasi atau Mati'. Berani membumikan ide agar dinikmati orang banyak.", 
-        relationship: "Tenang di luar, namun memiliki imajinasi luas. Cenderung selektif dalam memilih lawan bicara.", 
-        communication: "Puitis, penuh simbol, filosofis, dan selektif memilih lawan bicara.", 
-        study: "Peta konsep (mind mapping) dan menggunakan analogi atau metafora.", 
-        positif: "Visioner, perfeksionis ide, abstraksi kuat, fokus ilmu.", 
+        relationship: "Tenang di luar dengan dunia imajinasi luas. Cenderung selektif dalam memilih lawan bicara.", 
+        communication: "Puitis, penuh simbol, filosofis, dan menggunakan analogi.", 
+        study: "Peta konsep (mind mapping) dan menggunakan perumpamaan atau simbol.", 
+        positif: "Visioner jangka panjang, perfeksionis ide, abstraksi kuat, fokus ilmu.", 
         negatif: "Eksklusif, terlalu idealis, skeptis.", 
         karir: "Penulis, Arsitek, Perancang Strategi, Seniman, Ilmuwan." 
     },
     6: { 
         title: "Si Kreatif Ekspresif", 
         intisari: "Trendsetter yang paling optimis dan antusias. Tajam melihat peluang keuntungan (money making sense) dan pandai menciptakan cara baru.", 
-        successHabit: "Mantra: 'Inovasi dan Investasi'. Networking dan berani gagal. Latih ketekunan menuntaskan proyek sebelum pindah ke ide lain.", 
+        successHabit: "Mantra: 'Inovasi dan Investasi'. Networking dan berani gagal. Latih ketekunan menuntaskan proyek.", 
         relationship: "Penyebar antusiasme yang hebat dalam menularkan visi kepada tim.", 
-        communication: "Ekspresif, penuh semangat, dan persuasif dengan analogi masa depan.", 
-        study: "Brainstorming bebas dan visualisasi gambar (sketsa) untuk menggambarkan ide besar.", 
-        positif: "Intuisi bisnis tajam, inovatif, multitalenta.", 
+        communication: "Ekspresif, penuh semangat, persuasif, dan menggunakan bahasa tubuh.", 
+        study: "Brainstorming bebas dan visualisasi gambar untuk mengeksplorasi segala kemungkinan.", 
+        positif: "Intuisi bisnis tajam, inovatif, multitalenta, penyebar semangat.", 
         negatif: "Kurang fokus, kurang detail, risiko tanpa perhitungan.", 
-        karir: "Pengusaha, Marketing, Desainer, Sutradara, Investor." 
+        karir: "Pengusaha, Marketing Strategist, Desainer, Investor." 
     },
     7: { 
         title: "Si Empati Reflektif", 
-        intisari: "Pribadi idealis yang digerakkan oleh 'Hati'. Memiliki integritas dan loyalitas tinggi. Pembawa ketenangan dan penyejuk dalam tim.", 
-        successHabit: "Mantra: 'Cinta dan Keyakinan'. Fokus pada pelayanan dan pembangunan karakter. Latih ketegasan agar perasaan tidak menghalangi profesionalitas.", 
-        relationship: "Mencari kesetiaan murni dan koneksi jiwa (soulmate). Sangat menjaga perasaan pasangan.", 
-        communication: "Lembut, mendalam, tulus, dan menjaga perasaan lawan bicara.", 
+        intisari: "Pribadi idealis yang digerakkan oleh 'Hati'. Memiliki integritas tinggi, tenang di luar, namun memiliki keyakinan hati yang tidak tergoyahkan.", 
+        successHabit: "Mantra: 'Cinta dan Keyakinan'. Fokus pada pelayanan dan pembangunan karakter. Latih ketegasan profesional.", 
+        relationship: "Mencari kesetiaan murni dan koneksi jiwa (soulmate). Sangat setia pada janji.", 
+        communication: "Lembut, mendalam, tulus, dan sangat menjaga perasaan lawan bicara.", 
         study: "Sentuhan emosional (suka pengajarnya) dan belajar dalam suasana yang nyaman/harmoni.", 
         positif: "Integritas, loyalitas, peka rasa, pembawa ketenangan.", 
         negatif: "Mudah tersinggung (baper), tertutup, subjektif.", 
@@ -83,9 +83,9 @@ const mindprintDescriptions = {
     },
     8: { 
         title: "Si Empati Ekspresif", 
-        intisari: "Magnet sosial dengan kemampuan persuasi luar biasa. Ahli memahami psikologi massa dan memotivasi orang lain melalui kharisma alaminya.", 
+        intisari: "Magnet sosial dengan kemampuan komunikasi persuasif luar biasa. Ahli memahami psikologi massa dan memenangkan hati orang lain.", 
         successHabit: "Mantra: 'Pengaruh dan Cinta'. Sukses melalui popularitas dan relasi luas. Latih kemandirian agar tidak haus pujian.", 
-        relationship: "Sangat antusias saat berada di tengah banyak orang dan membutuhkan pengakuan emosional.", 
+        relationship: "Kharismatik, inspiratif, dan membutuhkan pengakuan emosional yang hangat.", 
         communication: "Hangat, persuasif, dan mahir menggunakan intonasi untuk menyentuh emosi.", 
         study: "Diskusi & Tanya Jawab. Semakin banyak bicara, pemahaman semakin dalam.", 
         positif: "Persuasif hebat, kharisma tinggi, networking luas.", 
@@ -94,10 +94,10 @@ const mindprintDescriptions = {
     },
     9: { 
         title: "Si Adaptif", 
-        intisari: "Generalis yang paling responsif dan serba bisa. Sosok jembatan yang cinta damai dan sigap merespons setiap perubahan secara naluriah.", 
-        successHabit: "Mantra: 'Ketenangan dan Kebermanfaatan'. Melatih ketuntasan (finishing) kerja agar tidak hanya cepat di awal.", 
+        intisari: "Generalis yang paling responsif dan serba bisa. Sosok jembatan yang cinta damai dan sigap merespons perubahan secara naluriah.", 
+        successHabit: "Mantra: 'Ketenangan dan Kebermanfaatan'. Melatih ketuntasan (finishing) kerja agar pekerjaan selesai dengan baik.", 
         relationship: "Sangat tulus, tidak suka konflik, dan mencari kedamaian bersama.", 
-        communication: "Spontan, lugas, namun tetap santun. Menghindari perdebatan panjang.", 
+        communication: "Spontan, lugas, namun tetap santun. Menghindari perdebatan.", 
         study: "Suasana tenang (relaksasi) melalui ringkasan atau gambaran besar (big picture).", 
         positif: "Cepat belajar, responsif, mediator hebat, rela berkorban.", 
         negatif: "Sulit fokus prioritas, trauma konflik, mudah terdistraksi.", 
@@ -177,7 +177,7 @@ function showResult() {
     document.getElementById('result-title').textContent = data.title;
     document.getElementById('result-description').textContent = data.intisari;
 
-    // Data Sertifikat (MENGISI DATA NAMA, ID, DAN FOUNDER)
+    // Data Sertifikat (MENGISI DATA NAMA, ID, DAN TANGGAL)
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -209,7 +209,7 @@ document.getElementById('download-btn').addEventListener('click', () => {
             scale: 2, 
             useCORS: true, 
             logging: false,
-            windowWidth: 1100,
+            windowWidth: 1100, // Menyesuaikan template agar footer tidak terpotong
             windowHeight: 780,
             width: 1100,
             height: 780,
