@@ -9,8 +9,9 @@
 </head>
 <body>
     <div class="container" id="intro-container">
-        <img src="logo.png" alt="Logo" class="logo">
+        <img src="logo.png" alt="Logo Araya Consulting" class="logo">
         <h1>Temukan Profil MindPrint Anda</h1>
+        <p>Araya Consulting - Your Growth Partner</p>
         <form id="user-form">
             <input type="text" id="user-name" placeholder="Nama Lengkap" required>
             <div id="birth-date-container">
@@ -18,6 +19,11 @@
                 <select id="month" required><option value="" disabled selected>Bulan</option></select>
                 <select id="year" required><option value="" disabled selected>Tahun</option></select>
             </div>
+            <select id="blood-type" required>
+                <option value="" disabled selected>Pilih Golongan Darah</option>
+                <option value="A">A</option><option value="B">B</option><option value="AB">AB</option><option value="O">O</option>
+                <option value="belum_tahu">Belum Tahu</option>
+            </select>
             <button type="submit" id="start-button">Mulai Analisis</button>
         </form>
     </div>
@@ -35,22 +41,21 @@
         <h2 id="result-title"></h2>
         <div class="result-box" style="text-align: left; background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
             <p><strong>Intisari:</strong> <span id="display-intisari"></span></p>
-            <p><strong>Motivasi:</strong> <span id="display-motivasi"></span></p>
-            <p><strong>Karir:</strong> <span id="display-karir"></span></p>
+            <p><strong>Cara Memotivasi:</strong> <span id="display-motivasi"></span></p>
+            <p><strong>Potensi Karir:</strong> <span id="display-karir"></span></p>
         </div>
         <button id="download-btn" style="background-color: #27ae60; color: white; margin-bottom: 10px; width: 100%; padding: 12px; border: none; border-radius: 5px; font-weight: bold;">Unduh PDF Sertifikat</button>
         <button id="restart-button" style="width: 100%; padding: 10px; border: 1px solid #ccc; background: white; border-radius: 5px;">Ulangi Tes</button>
     </div>
 
-    <div id="certificate-template" style="display: none; width: 1080px; height: 740px; background: #fff; position: relative; box-sizing: border-box; border: 18px solid #1a3a5a; color: #333; overflow: hidden; font-family: Arial, sans-serif;">
-        
+    <div id="certificate-template" style="display: none; width: 1080px; height: 740px; background: #fff; position: relative; box-sizing: border-box; padding: 25px 45px; border: 18px solid #1a3a5a; color: #333; overflow: hidden; font-family: Arial, sans-serif;">
         <div style="position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 3px solid #d4af37; pointer-events: none; z-index: 5;"></div>
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.03; z-index: 0; background-image: url('logo.png'); background-size: 110px; background-repeat: repeat; transform: rotate(-15deg) scale(1.4);"></div>
 
-        <div style="position: relative; z-index: 10; padding: 35px 55px;">
-            <div style="text-align: center;">
+        <div style="position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column;">
+            <div style="text-align: center; margin-bottom: 5px;">
                 <img src="logo.png" style="width: 180px; height: auto; display: block; margin: 0 auto 10px auto;">
-                <h2 style="font-size: 18px; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 2px; margin: 0; text-transform: uppercase;">Sertifikat Analisis MindPrint</h2>
+                <h2 style="font-size: 18px; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 2px; margin: 0; text-transform: uppercase; font-weight: bold;">Sertifikat Analisis MindPrint</h2>
                 <p style="margin: 8px 0 2px 0; font-size: 11px;">Diberikan kepada:</p>
                 <h3 style="font-size: 24px; color: #1a3a5a; margin: 0; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: bold;"><span id="cert-name"></span></h3>
                 <div style="margin-top: 10px; background: #1a3a5a; color: white; padding: 6px 30px; border-radius: 6px; display: inline-block;">
@@ -58,7 +63,7 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; font-size: 9.2px; line-height: 1.3; margin-top: 25px;">
+            <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 25px; font-size: 9.2px; line-height: 1.25; margin-top: 20px; flex-grow: 1;">
                 <div style="padding-right: 15px; border-right: 1.5px solid #1a3a5a;">
                     <p style="margin-top: 0;"><strong>INTISARI KARAKTER:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
                     <p><strong>CARA MEMOTIVASI:</strong><br><span id="cert-motivasi"></span></p>
@@ -68,22 +73,22 @@
                     <p style="margin-top: 0;"><strong>GAYA KOMUNIKASI:</strong><br><span id="cert-communication"></span></p>
                     <p><strong>SUCCESS HABIT:</strong><br><span id="cert-success"></span></p>
                     <p><strong>POTENSI KARIR:</strong><br><span id="cert-karir"></span></p>
-                    <p><strong>DINAMIKA KEPRIBADIAN:</strong><br>
+                    <p style="margin-bottom: 0;"><strong>DINAMIKA KEPRIBADIAN:</strong><br>
                         <span style="color: #27ae60; font-weight: bold;">(+) <span id="cert-positif"></span></span><br>
                         <span style="color: #c0392b; font-weight: bold;">(-) <span id="cert-negatif"></span></span>
                     </p>
                 </div>
             </div>
 
-            <div style="position: absolute; bottom: 40px; left: 55px; width: 250px; font-size: 8px; color: #666; line-height: 1.3;">
+            <div style="position: absolute; bottom: 35px; left: 55px; font-size: 8px; color: #666; line-height: 1.3;">
                 <p style="margin: 0;">ID MindPrint: <strong id="cert-id" style="color: #333;"></strong></p>
                 <p style="margin: 0;">Tanggal: <span id="cert-date" style="color: #333;"></span></p>
                 <p style="margin: 3px 0 0 0; color: #d4af37; font-weight: bold;">Araya Consulting - Your Growth Partner</p>
             </div>
 
-            <div style="position: absolute; bottom: 40px; right: 55px; text-align: center; width: 220px;">
+            <div style="position: absolute; bottom: 35px; right: 55px; text-align: center; width: 220px;">
                 <p style="margin-bottom: 35px; font-size: 10px;">Disahkan oleh,</p>
-                <span style="font-size: 15px; color: #1a3a5a; text-transform: uppercase; font-weight: bold; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 1px;">Ali Mahfud</span>
+                <span style="font-size: 15px; color: #1a3a5a; text-transform: uppercase; font-weight: bold; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 1px;">ALI MAHFUD</span>
                 <span style="color: #d4af37; font-weight: bold; font-size: 9px; display: block; margin-top: 3px;">Founder Araya Consulting</span>
             </div>
         </div>
