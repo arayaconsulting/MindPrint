@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * UPDATE: 13 JANUARI 2026 - FINAL FULL VERSION
+ * FINAL FULL VERSION - FULL PAGE DESIGN & HOLD-TO-SCAN
  */
 
 const mindprintDescriptions = {
@@ -109,7 +109,7 @@ const mindprintDescriptions = {
 const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
 let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false, scanTimeout;
 
-// 1. DROPDOWN TANGGAL LAHIR
+// DROPDOWN TANGGAL LAHIR
 function populateDateFields() {
     const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
     if(!d || !m || !y) return;
@@ -123,7 +123,7 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// 2. LOGIKA NUMEROLOGI
+// NUMEROLOGI
 function calculateNumerology(dateString) {
     const digits = dateString.replace(/-/g, '').split('').map(Number);
     let sum = digits.reduce((a, b) => a + b, 0);
@@ -131,7 +131,7 @@ function calculateNumerology(dateString) {
     return sum || 9;
 }
 
-// 3. FORM SUBMIT
+// SUBMIT FORM
 document.getElementById('user-form').addEventListener('submit', (e) => {
     e.preventDefault();
     userName = document.getElementById('user-name').value;
@@ -141,7 +141,7 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     document.getElementById('scan-text').textContent = `Tempelkan ${fingers[0]} Anda...`;
 });
 
-// 4. LOGIKA HOLD TO SCAN (JARI WAJIB MENEMPEL)
+// LOGIKA HOLD TO SCAN
 const scanner = document.getElementById('fingerprint-scanner');
 const scanText = document.getElementById('scan-text');
 
@@ -155,7 +155,7 @@ function startScanning(e) {
     
     scanTimeout = setTimeout(() => {
         finishScan();
-    }, 2000); // Menahan 2 detik
+    }, 2000);
 }
 
 function cancelScanning() {
@@ -178,7 +178,6 @@ function finishScan() {
     }
 }
 
-// Event Listeners (Mouse & Touch)
 if(scanner) {
     scanner.addEventListener('mousedown', startScanning);
     scanner.addEventListener('touchstart', startScanning);
@@ -192,19 +191,17 @@ document.getElementById('next-finger-button').addEventListener('click', function
     scanText.textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
-// 5. SHOW RESULT & FILL CERTIFICATE
+// SHOW RESULT & FILL CERTIFICATE
 function showResult() {
     document.getElementById('scan-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
-    // ISI LAYAR HASIL
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('display-motivasi').textContent = data.motivasi;
     document.getElementById('result-title').textContent = data.title;
 
-    // ISI TEMPLATE SERTIFIKAT
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -221,7 +218,7 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// 6. PDF DOWNLOAD
+// PDF DOWNLOAD (FULL PAGE FIX)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -229,15 +226,18 @@ document.getElementById('download-btn').addEventListener('click', () => {
         margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        html2canvas: { 
+            scale: 3, 
+            useCORS: true,
+            letterRendering: true
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
     };
     html2pdf().set(opt).from(el).save().then(() => {
         el.style.display = 'none';
     });
 });
 
-// 7. RESTART
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
 
 populateDateFields();
