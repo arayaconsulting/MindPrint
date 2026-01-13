@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
- * UPDATE TERBARU: 13 JANUARI 2026
- * STATUS: FULL VERSION (SINKRON GOLONGAN DARAH & SCANNER)
+ * OWNER: ALI MAHFUD
+ * FULL COMPLETE DATA (9 TYPES)
  */
 
 const mindprintDescriptions = {
@@ -40,7 +40,7 @@ const mindprintDescriptions = {
     },
     4: { 
         title: "Si Konseptor Ekspresif", 
-        intisari: "Sosok 'Komandan' yang lahir untuk memimpin dengan stimulasi energi dari dunia luar. Anda sangat ahli dalam mengatur strategi, mendelegasikan tugas secara efisien, membangun struktur organisasi yang luas, serta selalu berorientasi pada pencapaian target.", 
+        intisari: "Sosok 'Komandan' yang lahir untuk memimpin dengan stimulasi energi dari dunia luar. Anda sangat ahli dalam mengatur strategi, mendelegasikan tugas secara efisien, membangun struktur organisasi yang luas, serta selalu berorientasi pada pencapaian target dan efisiensi.", 
         successHabit: "Memperluas jaringan kekuasaan dan melatih kemampuan melipatgandakan aset serta SDM.", 
         relationship: "Mendukung status sosial dan pencapaian karir dalam hubungan.", 
         communication: "Lugas, memerintah namun logis, dan menghargai struktur bicara sistematis.", 
@@ -109,7 +109,6 @@ const mindprintDescriptions = {
 const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
 let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false;
 
-// DROPDOWN TANGGAL LAHIR
 function populateDateFields() {
     const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
     if(!d || !m || !y) return;
@@ -123,7 +122,13 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// FORM SUBMIT
+function calculateNumerology(dateString) {
+    const digits = dateString.replace(/-/g, '').split('').map(Number);
+    let sum = digits.reduce((a, b) => a + b, 0);
+    while (sum > 9) sum = String(sum).split('').reduce((acc, d) => acc + parseInt(d), 0);
+    return sum || 9;
+}
+
 document.getElementById('user-form').addEventListener('submit', (e) => {
     e.preventDefault();
     userName = document.getElementById('user-name').value;
@@ -133,7 +138,7 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     document.getElementById('scan-text').textContent = `Letakkan ${fingers[0]} Anda.`;
 });
 
-// SCANNER HANDLER
+// SCANNER HANDLER DENGAN TOMBOL LANJUTKAN
 document.getElementById('fingerprint-scanner').addEventListener('click', function() {
     if(isScanning) return;
     isScanning = true;
@@ -144,7 +149,7 @@ document.getElementById('fingerprint-scanner').addEventListener('click', functio
         isScanning = false;
         if (currentFingerIndex < fingers.length - 1) {
             document.getElementById('scan-text').textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL DIPINDAI.`;
-            document.getElementById('next-finger-button').classList.remove('hidden'); // TOMBOL LANJUTKAN TAMPIL
+            document.getElementById('next-finger-button').classList.remove('hidden');
         } else {
             showResult();
         }
@@ -158,18 +163,18 @@ document.getElementById('next-finger-button').addEventListener('click', function
     document.getElementById('scan-text').textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
-// SHOW RESULT & FILL CERTIFICATE
 function showResult() {
     document.getElementById('scan-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
-    // TAMPILKAN PRATINJAU DI HALAMAN UNDUH
+    // ISI DATA PRATINJAU (PENTING!)
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('display-motivasi').textContent = data.motivasi;
+    document.getElementById('result-title').textContent = data.title;
 
-    // ISI DATA KE TEMPLATE SERTIFIKAT
+    // ISI DATA SERTIFIKAT
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -186,7 +191,6 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// DOWNLOAD PDF
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -202,17 +206,6 @@ document.getElementById('download-btn').addEventListener('click', () => {
     });
 });
 
-// TOMBOL TES LAGI
-document.getElementById('restart-button').addEventListener('click', () => {
-    location.reload();
-});
-
-// NUMEROLOGY LOGIC
-function calculateNumerology(dateString) {
-    const digits = dateString.replace(/-/g, '').split('').map(Number);
-    let sum = digits.reduce((a, b) => a + b, 0);
-    while (sum > 9) sum = String(sum).split('').reduce((acc, d) => acc + parseInt(d), 0);
-    return sum || 9;
-}
+document.getElementById('restart-button').addEventListener('click', () => location.reload());
 
 populateDateFields();
