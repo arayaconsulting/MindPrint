@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * FULL VERSION - FIXED RESPONSIVE SCANNER & BUTTONS
+ * UPDATE: 13 JANUARI 2026 - FINAL FULL VERSION
  */
 
 const mindprintDescriptions = {
@@ -51,7 +51,7 @@ const mindprintDescriptions = {
     },
     5: { 
         title: "Si Kreatif Reflektif", 
-        intisari: "Pemikir abstrak dengan imajinasi sangat luas yang didominasi otak kanan atas dengan kemudi dari dalam. Anda adalah visioner yang mementingntkan orisinalitas serta kualitas ide melampaui zaman, selalu berusaha merancang masa depan melalui konsep dan filosofi.", 
+        intisari: "Pemikir abstrak dengan imajinasi sangat luas yang didominasi otak kanan atas dengan kemudi dari dalam. Anda adalah visioner yang mementingkan orisinalitas serta kualitas ide melampaui zaman, selalu berusaha merancang masa depan melalui konsep dan filosofi.", 
         successHabit: "Menjadi ahli di bidang unik melalui inovasi berkelanjutan dan pendalaman intelektual.", 
         relationship: "Sangat selektif dalam memilih lingkungan sosial dan menghargai privasi pikiran.", 
         communication: "Puitis, penuh simbol, filosofis, dan cenderung selektif memilih lawan bicara.", 
@@ -107,9 +107,9 @@ const mindprintDescriptions = {
 };
 
 const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
-let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false;
+let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false, scanTimeout;
 
-// INITIALIZE DATE DROPDOWN
+// 1. DROPDOWN TANGGAL LAHIR
 function populateDateFields() {
     const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
     if(!d || !m || !y) return;
@@ -123,7 +123,7 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// LOGIC NUMEROLOGY
+// 2. LOGIKA NUMEROLOGI
 function calculateNumerology(dateString) {
     const digits = dateString.replace(/-/g, '').split('').map(Number);
     let sum = digits.reduce((a, b) => a + b, 0);
@@ -131,62 +131,80 @@ function calculateNumerology(dateString) {
     return sum || 9;
 }
 
-// FORM SUBMIT
+// 3. FORM SUBMIT
 document.getElementById('user-form').addEventListener('submit', (e) => {
     e.preventDefault();
     userName = document.getElementById('user-name').value;
     birthDate = `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`;
     document.getElementById('intro-container').classList.add('hidden');
     document.getElementById('scan-container').classList.remove('hidden');
-    document.getElementById('scan-text').textContent = `Letakkan ${fingers[0]} Anda.`;
+    document.getElementById('scan-text').textContent = `Tempelkan ${fingers[0]} Anda...`;
 });
 
-// RESPONSIVE SCANNER HANDLER
+// 4. LOGIKA HOLD TO SCAN (JARI WAJIB MENEMPEL)
 const scanner = document.getElementById('fingerprint-scanner');
-const startScan = (e) => {
+const scanText = document.getElementById('scan-text');
+
+function startScanning(e) {
     if(e) e.preventDefault();
     if(isScanning) return;
+    
     isScanning = true;
     scanner.classList.add('scanning');
+    scanText.textContent = `Memindai ${fingers[currentFingerIndex]}... Jangan dilepas!`;
     
-    setTimeout(() => {
-        scanner.classList.remove('scanning');
-        isScanning = false;
-        if (currentFingerIndex < fingers.length - 1) {
-            document.getElementById('scan-text').textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL DIPINDAI.`;
-            document.getElementById('next-finger-button').classList.remove('hidden'); 
-        } else {
-            showResult();
-        }
-    }, 1500);
-};
-
-// Gabungan event untuk responsivitas tinggi
-if(scanner) {
-    scanner.addEventListener('mousedown', startScan);
-    scanner.addEventListener('touchstart', startScan);
+    scanTimeout = setTimeout(() => {
+        finishScan();
+    }, 2000); // Menahan 2 detik
 }
 
-// TOMBOL LANJUTKAN
+function cancelScanning() {
+    if(!isScanning) return;
+    clearTimeout(scanTimeout);
+    isScanning = false;
+    scanner.classList.remove('scanning');
+    scanText.textContent = "Gagal! Jari terlepas. Tempelkan kembali.";
+}
+
+function finishScan() {
+    isScanning = false;
+    scanner.classList.remove('scanning');
+    if (currentFingerIndex < fingers.length - 1) {
+        scanText.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL DIPINDAI.`;
+        document.getElementById('next-finger-button').classList.remove('hidden');
+    } else {
+        scanText.textContent = "MENGANALISIS DATA...";
+        setTimeout(showResult, 1500);
+    }
+}
+
+// Event Listeners (Mouse & Touch)
+if(scanner) {
+    scanner.addEventListener('mousedown', startScanning);
+    scanner.addEventListener('touchstart', startScanning);
+    window.addEventListener('mouseup', cancelScanning);
+    window.addEventListener('touchend', cancelScanning);
+}
+
 document.getElementById('next-finger-button').addEventListener('click', function() {
     currentFingerIndex++;
     this.classList.add('hidden');
-    document.getElementById('scan-text').textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
+    scanText.textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
-// SHOW RESULT & FILL CERTIFICATE
+// 5. SHOW RESULT & FILL CERTIFICATE
 function showResult() {
     document.getElementById('scan-container').classList.add('hidden');
     document.getElementById('result-container').classList.remove('hidden');
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
-    // ISI DATA LAYAR
+    // ISI LAYAR HASIL
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('display-motivasi').textContent = data.motivasi;
     document.getElementById('result-title').textContent = data.title;
 
-    // ISI DATA SERTIFIKAT
+    // ISI TEMPLATE SERTIFIKAT
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -203,7 +221,7 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// PDF DOWNLOAD
+// 6. PDF DOWNLOAD
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -211,7 +229,7 @@ document.getElementById('download-btn').addEventListener('click', () => {
         margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2, useCORS: true },
+        html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
     };
     html2pdf().set(opt).from(el).save().then(() => {
@@ -219,12 +237,7 @@ document.getElementById('download-btn').addEventListener('click', () => {
     });
 });
 
-// TOMBOL TES LAGI
-const restartBtn = document.getElementById('restart-button');
-if(restartBtn) {
-    restartBtn.addEventListener('click', () => {
-        location.reload();
-    });
-}
+// 7. RESTART
+document.getElementById('restart-button').addEventListener('click', () => location.reload());
 
 populateDateFields();
