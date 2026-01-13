@@ -39,14 +39,13 @@
     </div>
 
     <div class="container hidden" id="result-container">
-        <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 500px; margin: 0 auto;">
-            <div style="text-align: left; margin-bottom: 20px; font-size: 14px;">
-                <p><strong>Intisari:</strong> <span id="display-intisari"></span></p>
-                <p><strong>Motivasi:</strong> <span id="display-motivasi"></span></p>
-            </div>
-            <button id="download-btn" style="background-color: #27ae60; color: white; width: 100%; padding: 15px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 16px;">Unduh Laporan MindPrint (PDF)</button>
-            <button id="restart-button" style="width: 100%; margin-top: 15px; padding: 12px; border: 1px solid #1a3a5a; background: white; border-radius: 5px; color: #1a3a5a; font-weight: bold; cursor: pointer;">Tes Lagi</button>
+        <h2 id="result-title"></h2>
+        <div class="result-box" style="text-align: left; background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+            <p><strong>Intisari:</strong> <span id="display-intisari"></span></p>
+            <p><strong>Motivasi:</strong> <span id="display-motivasi"></span></p>
         </div>
+        <button id="download-btn" style="background-color: #27ae60; color: white; margin-bottom: 10px; width: 100%; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Unduh Sertifikat</button>
+        <button id="restart-button" style="width: 100%; padding: 10px; border: 1px solid #ccc; background: white; border-radius: 5px; cursor: pointer; font-weight: bold; color: #1a3a5a;">Tes Lagi</button>
     </div>
 
     <div id="certificate-template" style="display: none; width: 1080px; height: 740px; background: #fff; position: relative; box-sizing: border-box; padding: 40px 60px; border: 18px solid #1a3a5a; color: #333; overflow: hidden; font-family: Arial, sans-serif;">
@@ -64,21 +63,17 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; font-size: 9.3px; line-height: 1.35; flex-grow: 1; margin-top: 20px; align-items: start;">
-                <div style="padding-right: 20px; border-right: 1.8px solid #1a3a5a; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-                    <div>
-                        <p style="margin-top: 0;"><strong>INTISARI KARAKTER:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
-                        <p><strong>CARA MEMOTIVASI:</strong><br><span id="cert-motivasi"></span></p>
-                    </div>
-                    <p style="margin-bottom: 0;"><strong>TIPS INTERAKSI:</strong><br><span id="cert-relationship"></span></p>
+            <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; font-size: 9.3px; line-height: 1.35; flex-grow: 1; margin-top: 20px; align-items: stretch;">
+                <div style="padding-right: 20px; border-right: 1.8px solid #1a3a5a; display: flex; flex-direction: column; justify-content: flex-start;">
+                    <p style="margin-top: 0;"><strong>INTISARI KARAKTER:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
+                    <p><strong>CARA MEMOTIVASI:</strong><br><span id="cert-motivasi"></span></p>
+                    <p style="margin-bottom: 0; margin-top: auto;"><strong>TIPS INTERAKSI:</strong><br><span id="cert-relationship"></span></p>
                 </div>
-                <div style="padding-left: 10px; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-                    <div>
-                        <p style="margin-top: 0;"><strong>GAYA KOMUNIKASI:</strong><br><span id="cert-communication"></span></p>
-                        <p><strong>SUCCESS HABIT:</strong><br><span id="cert-success"></span></p>
-                        <p><strong>POTENSI KARIR:</strong><br><span id="cert-karir"></span></p>
-                    </div>
-                    <p style="margin-bottom: 0;"><strong>DINAMIKA KEPRIBADIAN:</strong><br>
+                <div style="padding-left: 10px; display: flex; flex-direction: column; justify-content: flex-start;">
+                    <p style="margin-top: 0;"><strong>GAYA KOMUNIKASI:</strong><br><span id="cert-communication"></span></p>
+                    <p><strong>SUCCESS HABIT:</strong><br><span id="cert-success"></span></p>
+                    <p><strong>POTENSI KARIR:</strong><br><span id="cert-karir"></span></p>
+                    <p style="margin-bottom: 0; margin-top: auto;"><strong>DINAMIKA KEPRIBADIAN:</strong><br>
                         <span style="color: #27ae60; font-weight: bold;">(+) <span id="cert-positif"></span></span><br>
                         <span style="color: #c0392b; font-weight: bold;">(-) <span id="cert-negatif"></span></span>
                     </p>
@@ -89,7 +84,7 @@
                 <div style="font-size: 9px; color: #666;">
                     <p style="margin: 0;">ID MindPrint: <strong id="cert-id" style="color: #333;"></strong></p>
                     <p style="margin: 0;">Tanggal: <span id="cert-date" style="color: #333;"></span></p>
-                    <p style="margin: 3px 0 0 0; color: #d4af37; font-weight: bold;">Araya Consulting - Your Growth Partner</p>
+                    <p style="margin: 3px 0 0 0; color: #d4af37; font-weight: bold;">Araya Consulting - Growth Partner</p>
                 </div>
                 <div style="text-align: center; min-width: 200px;">
                     <p style="margin-bottom: 35px; font-size: 10px;">Disahkan oleh,</p>
