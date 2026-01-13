@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * UPDATE: 13 JANUARI 2026 - FULL VERSION
+ * FULL VERSION - FIXED RESPONSIVE SCANNER & BUTTONS
  */
 
 const mindprintDescriptions = {
@@ -51,7 +51,7 @@ const mindprintDescriptions = {
     },
     5: { 
         title: "Si Kreatif Reflektif", 
-        intisari: "Pemikir abstrak dengan imajinasi sangat luas yang didominasi otak kanan atas dengan kemudi dari dalam. Anda adalah visioner yang mementingkan orisinalitas serta kualitas ide melampaui zaman, selalu berusaha merancang masa depan melalui konsep dan filosofi.", 
+        intisari: "Pemikir abstrak dengan imajinasi sangat luas yang didominasi otak kanan atas dengan kemudi dari dalam. Anda adalah visioner yang mementingntkan orisinalitas serta kualitas ide melampaui zaman, selalu berusaha merancang masa depan melalui konsep dan filosofi.", 
         successHabit: "Menjadi ahli di bidang unik melalui inovasi berkelanjutan dan pendalaman intelektual.", 
         relationship: "Sangat selektif dalam memilih lingkungan sosial dan menghargai privasi pikiran.", 
         communication: "Puitis, penuh simbol, filosofis, dan cenderung selektif memilih lawan bicara.", 
@@ -141,14 +141,16 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     document.getElementById('scan-text').textContent = `Letakkan ${fingers[0]} Anda.`;
 });
 
-// SCANNER HANDLER
-document.getElementById('fingerprint-scanner').addEventListener('click', function() {
+// RESPONSIVE SCANNER HANDLER
+const scanner = document.getElementById('fingerprint-scanner');
+const startScan = (e) => {
+    if(e) e.preventDefault();
     if(isScanning) return;
     isScanning = true;
-    this.classList.add('scanning');
+    scanner.classList.add('scanning');
     
     setTimeout(() => {
-        this.classList.remove('scanning');
+        scanner.classList.remove('scanning');
         isScanning = false;
         if (currentFingerIndex < fingers.length - 1) {
             document.getElementById('scan-text').textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL DIPINDAI.`;
@@ -157,7 +159,13 @@ document.getElementById('fingerprint-scanner').addEventListener('click', functio
             showResult();
         }
     }, 1500);
-});
+};
+
+// Gabungan event untuk responsivitas tinggi
+if(scanner) {
+    scanner.addEventListener('mousedown', startScan);
+    scanner.addEventListener('touchstart', startScan);
+}
 
 // TOMBOL LANJUTKAN
 document.getElementById('next-finger-button').addEventListener('click', function() {
@@ -173,12 +181,12 @@ function showResult() {
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
 
-    // TAMPILKAN PRATINJAU DI HALAMAN HASIL
-    if(document.getElementById('display-intisari')) document.getElementById('display-intisari').textContent = data.intisari;
-    if(document.getElementById('display-motivasi')) document.getElementById('display-motivasi').textContent = data.motivasi;
+    // ISI DATA LAYAR
+    document.getElementById('display-intisari').textContent = data.intisari;
+    document.getElementById('display-motivasi').textContent = data.motivasi;
     document.getElementById('result-title').textContent = data.title;
 
-    // ISI DATA KE TEMPLATE SERTIFIKAT
+    // ISI DATA SERTIFIKAT
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -195,7 +203,7 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// DOWNLOAD PDF
+// PDF DOWNLOAD
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -203,7 +211,7 @@ document.getElementById('download-btn').addEventListener('click', () => {
         margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
     };
     html2pdf().set(opt).from(el).save().then(() => {
@@ -212,8 +220,11 @@ document.getElementById('download-btn').addEventListener('click', () => {
 });
 
 // TOMBOL TES LAGI
-document.getElementById('restart-button').addEventListener('click', () => {
-    location.reload();
-});
+const restartBtn = document.getElementById('restart-button');
+if(restartBtn) {
+    restartBtn.addEventListener('click', () => {
+        location.reload();
+    });
+}
 
 populateDateFields();
