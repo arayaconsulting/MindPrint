@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * FINAL STABLE VERSION - FULL PAGE & SAFE MARGIN
+ * FINAL STABLE VERSION
  */
 
 const mindprintDescriptions = {
@@ -48,7 +48,6 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     document.getElementById('scan-text').textContent = `Tempelkan ${fingers[0]} Anda...`;
 });
 
-// LOGIKA HOLD TO SCAN
 const scanner = document.getElementById('fingerprint-scanner');
 const scanText = document.getElementById('scan-text');
 
