@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * STABLE RENDERING - NO OVERFLOW
+ * FINAL STABLE SCRIPT
  */
 
 const mindprintDescriptions = {
@@ -97,9 +97,11 @@ function showResult() {
     document.getElementById('result-container').classList.remove('hidden');
     const resNum = calculateNumerology(birthDate);
     const data = mindprintDescriptions[resNum];
+
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('display-motivasi').textContent = data.motivasi;
     document.getElementById('result-title').textContent = data.title;
+
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -110,6 +112,7 @@ function showResult() {
     document.getElementById('cert-karir').textContent = data.karir;
     document.getElementById('cert-positif').textContent = data.positif;
     document.getElementById('cert-negatif').textContent = data.negatif;
+    
     const now = new Date();
     document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
@@ -125,7 +128,9 @@ document.getElementById('download-btn').addEventListener('click', () => {
         html2canvas: { scale: 3, useCORS: true, letterRendering: true, scrollY: 0, scrollX: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
     };
-    html2pdf().set(opt).from(el).save().then(() => { el.style.display = 'none'; });
+    html2pdf().set(opt).from(el).save().then(() => {
+        el.style.display = 'none';
+    });
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
