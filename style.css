@@ -5,7 +5,7 @@
     --gold: #d4af37;
     --bg: #f8f9fa;
     --laser: #00f2ff;
-    --sea-blue: #48CAE4; /* Warna Biru Laut Terang */
+    --neon-green: #ADFF2F; /* Hijau Stabilo */
 }
 
 body {
@@ -30,7 +30,7 @@ form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; box-sizing: border-box; }
 #birth-date-container { display: flex; gap: 10px; }
 
-/* SCANNER: Biru Laut Terang */
+/* SCANNER: Efek Hijau Stabilo */
 .fingerprint-scanner {
     width: 180px; height: 210px; margin: 30px auto;
     position: relative; border: 3px solid #eee; border-radius: 20px;
@@ -40,28 +40,33 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
 
 .scan-bg {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--sea-blue); /* Perubahan ke Biru Laut */
+    background-color: var(--neon-green); 
     opacity: 0; z-index: 1;
     transition: opacity 3s ease-in-out;
 }
 
-.scanning .scan-bg { opacity: 0.7; } /* Tidak terlalu pekat agar kontras dengan sidik jari hitam */
+/* SAAT SCANNING: Background Hijau muncul & Jari menjadi Tajam */
+.scanning .scan-bg { opacity: 0.85; }
 
 .fingerprint-image {
     width: 120px; height: auto; opacity: 0.1; 
-    filter: grayscale(100%); z-index: 2;
+    filter: grayscale(100%) contrast(1.5); z-index: 2;
     transition: all 3s ease-in-out; pointer-events: none;
 }
 
-.scanning .fingerprint-image { opacity: 1; filter: none; }
+.scanning .fingerprint-image { 
+    opacity: 1; 
+    filter: grayscale(0%) brightness(0.6) contrast(2); /* Jari Hitam Tajam di atas Hijau */
+}
 
 .scan-line {
     position: absolute; width: 100%; height: 4px;
-    background: var(--laser); box-shadow: 0 0 15px var(--laser);
+    background: #fff; /* Garis Putih Neon agar kontras dengan Hijau */
+    box-shadow: 0 0 15px #fff, 0 0 5px #fff;
     left: 0; top: -10px; z-index: 3; display: none;
 }
 
-.scanning .scan-line { display: block; animation: moveLine 2s infinite ease-in-out; }
+.scanning .scan-line { display: block; animation: moveLine 1.5s infinite ease-in-out; }
 
 @keyframes moveLine {
     0% { top: 0%; } 50% { top: 95%; } 100% { top: 0%; }
