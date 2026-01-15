@@ -32,7 +32,7 @@
     <div class="container hidden" id="scan-container">
         <h2 id="scan-text">Tempelkan dan tahan jari Anda...</h2>
         <div class="fingerprint-scanner" id="fingerprint-scanner">
-            <img src="fingerprint.png" alt="Scanner" class="fingerprint-image" id="finger-img">
+            <img src="fingerprint.png" alt="Scanner" class="fingerprint-image" id="finger-img" oncontextmenu="return false;" ondragstart="return false;">
             <div class="scan-line"></div>
         </div>
         <button id="next-finger-button" class="hidden">Lanjutkan</button>
@@ -40,7 +40,7 @@
 
     <div class="container hidden" id="result-container">
         <h2 id="result-title"></h2>
-        <div class="result-box" style="text-align: left; background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+        <div class="result-box" style="text-align: left; background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
             <p><span id="display-intisari"></span></p>
         </div>
         <button id="download-btn" style="background-color: #27ae60; color: white;">UNDUH SERTIFIKAT (PDF)</button>
@@ -53,7 +53,7 @@
 
         <div style="position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; padding: 40px 75px; box-sizing: border-box;">
             
-            <div style="text-align: center; width: 100%; margin-bottom: 5px;">
+            <div style="text-align: center; margin-bottom: 5px;">
                 <img src="logo.png" style="width: 170px; height: auto; margin: 0 auto 5px auto; display: block;">
                 <h2 style="font-size: 18px; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 2px; margin: 0; text-transform: uppercase;">SERTIFIKAT ANALISIS MINDPRINT</h2>
                 <p style="margin: 8px 0 2px 0; font-size: 11px;">Diberikan kepada:</p>
@@ -63,25 +63,24 @@
                 </div>
             </div>
 
-            <div style="display: flex; gap: 40px; flex-grow: 1; margin-top: 15px; max-height: 400px;">
-                
+            <div style="display: flex; gap: 40px; flex-grow: 1; margin-top: 15px; max-height: 380px;">
                 <div style="flex: 1.1; padding-right: 20px; border-right: 2px solid #1a3a5a; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <p style="margin: 0 0 12px 0; font-size: 9px; line-height: 1.35;"><strong>INTISARI KARAKTER:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
-                        <p style="margin: 0 0 12px 0; font-size: 9px; line-height: 1.35;"><strong>CARA MEMOTIVASI:</strong><br><span id="cert-motivasi"></span></p>
-                        <p style="margin: 0 0 12px 0; font-size: 9px; line-height: 1.35;"><strong>METODE BELAJAR:</strong><br><span id="cert-study"></span></p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>INTISARI KARAKTER:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
+                        <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>CARA MEMOTIVASI:</strong><br><span id="cert-motivasi"></span></p>
+                        <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>METODE BELAJAR:</strong><br><span id="cert-study"></span></p>
                     </div>
-                    <p style="margin: 0; font-size: 9px; line-height: 1.35;"><strong>TIPS INTERAKSI:</strong><br><span id="cert-relationship"></span></p>
+                    <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>TIPS INTERAKSI:</strong><br><span id="cert-relationship"></span></p>
                 </div>
 
                 <div style="flex: 0.9; padding-left: 10px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <p style="margin: 0 0 15px 0; font-size: 9px; line-height: 1.35;"><strong>GAYA KOMUNIKASI:</strong><br><span id="cert-communication"></span></p>
-                        <p style="margin: 0 0 15px 0; font-size: 9px; line-height: 1.35;"><strong>SUCCESS HABIT:</strong><br><span id="cert-success"></span></p>
-                        <p style="margin: 0 0 15px 0; font-size: 9px; line-height: 1.35;"><strong>POTENSI KARIR:</strong><br><span id="cert-karir"></span></p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>GAYA KOMUNIKASI:</strong><br><span id="cert-communication"></span></p>
+                        <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>SUCCESS HABIT:</strong><br><span id="cert-success"></span></p>
+                        <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>POTENSI KARIR:</strong><br><span id="cert-karir"></span></p>
                     </div>
                     <div>
-                        <p style="margin: 0; font-size: 9px; line-height: 1.35;"><strong>DINAMIKA KEPRIBADIAN:</strong><br>
+                        <p style="margin: 0; font-size: 9.2px; line-height: 1.35;"><strong>DINAMIKA KEPRIBADIAN:</strong><br>
                             <span style="color: #27ae60; font-weight: bold;">(+) <span id="cert-positif"></span></span><br>
                             <span style="color: #c0392b; font-weight: bold;">(-) <span id="cert-negatif"></span></span>
                         </p>
@@ -98,7 +97,7 @@
                 <div style="text-align: center; min-width: 180px;">
                     <p style="margin-bottom: 30px; font-size: 10px;">Disahkan oleh,</p>
                     <div style="border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 1px;">
-                        <strong style="font-size: 16px; color: #1a3a5a; text-transform: uppercase;">ALI MAHFUD</strong>
+                        <strong style="font-size: 15px; color: #1a3a5a; text-transform: uppercase;">ALI MAHFUD</strong>
                     </div>
                     <span style="color: #d4af37; font-weight: bold; font-size: 9px; display: block; margin-top: 4px;">Founder Araya Consulting</span>
                 </div>
