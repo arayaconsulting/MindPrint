@@ -19,7 +19,7 @@ body {
 .container {
     text-align: center; background: white; padding: 40px;
     border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    max-width: 800px; width: 95%; /* Lebar untuk Tablet */
+    max-width: 800px; width: 95%; /* LEBAR TABLET */
 }
 
 .logo { width: 160px; margin-bottom: 20px; display: block; margin: 0 auto; }
@@ -29,7 +29,7 @@ form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; box-sizing: border-box; }
 #birth-date-container { display: flex; gap: 10px; }
 
-/* SCANNER SECTION */
+/* SCANNER ANIMATION */
 .fingerprint-scanner {
     width: 180px; height: 210px; margin: 30px auto;
     position: relative; border: 3px solid #eee; border-radius: 20px;
@@ -38,12 +38,12 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
 }
 
 .scan-bg {
-    position: absolute; width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-color: var(--primary); opacity: 0; z-index: 1;
     transition: opacity 3s ease-in-out;
 }
 
-.scanning .scan-bg { opacity: 0.9; }
+.scanning .scan-bg { opacity: 0.9; } /* BACKGROUND MENJADI BIRU TUA */
 
 .fingerprint-image {
     width: 120px; height: auto; opacity: 0.1; 
@@ -51,7 +51,7 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
     transition: all 3s ease-in-out; pointer-events: none;
 }
 
-.scanning .fingerprint-image { opacity: 1; filter: none; }
+.scanning .fingerprint-image { opacity: 1; filter: none; } /* JARI MENJADI TERANG */
 
 .scan-line {
     position: absolute; width: 100%; height: 4px;
