@@ -4,8 +4,7 @@
     --primary: #1a3a5a;
     --gold: #d4af37;
     --bg: #f8f9fa;
-    --laser: #00f2ff;
-    --neon-green: #ADFF2F; /* Hijau Stabilo */
+    --electric-blue: #00d4ff; /* Warna Biru Menyala */
 }
 
 body {
@@ -30,46 +29,51 @@ form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; box-sizing: border-box; }
 #birth-date-container { display: flex; gap: 10px; }
 
-/* SCANNER: Efek Hijau Stabilo */
+/* SCANNER: Bingkai Oval & Biru Menyala */
 .fingerprint-scanner {
-    width: 180px; height: 210px; margin: 30px auto;
-    position: relative; border: 3px solid #eee; border-radius: 20px;
+    width: 160px;
+    height: 220px; /* Lebih tinggi untuk bentuk oval */
+    margin: 30px auto;
+    position: relative; 
+    border: 3px solid #eee; 
+    border-radius: 50% 50% 45% 45%; /* Bentuk Oval Sesuai Jari */
     display: flex; justify-content: center; align-items: center;
     overflow: hidden; background: #fff; cursor: pointer; touch-action: none;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
 }
 
 .scan-bg {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--neon-green); 
+    background: radial-gradient(circle, var(--electric-blue) 0%, #005f73 100%); 
     opacity: 0; z-index: 1;
-    transition: opacity 3s ease-in-out;
+    transition: opacity 2s ease-in-out;
 }
 
-/* SAAT SCANNING: Background Hijau muncul & Jari menjadi Tajam */
+/* SAAT SCANNING: Background Biru menyala & Jari menjadi Tajam */
 .scanning .scan-bg { opacity: 0.85; }
 
 .fingerprint-image {
-    width: 120px; height: auto; opacity: 0.1; 
-    filter: grayscale(100%) contrast(1.5); z-index: 2;
-    transition: all 3s ease-in-out; pointer-events: none;
+    width: 110px; height: auto; opacity: 0.15; 
+    filter: grayscale(100%); z-index: 2;
+    transition: all 2s ease-in-out; pointer-events: none;
 }
 
 .scanning .fingerprint-image { 
     opacity: 1; 
-    filter: grayscale(0%) brightness(0.6) contrast(2); /* Jari Hitam Tajam di atas Hijau */
+    filter: grayscale(0%) brightness(0.2) contrast(2); /* Jari Hitam Tegas di atas Biru */
 }
 
 .scan-line {
-    position: absolute; width: 100%; height: 4px;
-    background: #fff; /* Garis Putih Neon agar kontras dengan Hijau */
-    box-shadow: 0 0 15px #fff, 0 0 5px #fff;
+    position: absolute; width: 100%; height: 5px;
+    background: #fff; 
+    box-shadow: 0 0 20px #fff, 0 0 10px var(--electric-blue);
     left: 0; top: -10px; z-index: 3; display: none;
 }
 
 .scanning .scan-line { display: block; animation: moveLine 1.5s infinite ease-in-out; }
 
 @keyframes moveLine {
-    0% { top: 0%; } 50% { top: 95%; } 100% { top: 0%; }
+    0% { top: 0%; } 50% { top: 90%; } 100% { top: 0%; }
 }
 
 button {
