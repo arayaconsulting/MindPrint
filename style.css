@@ -16,21 +16,20 @@ body {
     touch-action: manipulation;
 }
 
-/* LEBAR HALAMAN DISESUAIKAN UNTUK TABLET */
 .container {
     text-align: center; background: white; padding: 40px;
     border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    max-width: 800px; width: 95%; /* Meningkat dari 480px */
+    max-width: 800px; width: 95%; /* Lebar untuk Tablet */
 }
 
-.logo { width: 180px; margin-bottom: 20px; display: block; margin: 0 auto; }
+.logo { width: 160px; margin-bottom: 20px; display: block; margin: 0 auto; }
 .hidden { display: none !important; }
 
 form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; box-sizing: border-box; }
 #birth-date-container { display: flex; gap: 10px; }
 
-/* SCANNER: Animasi Perubahan Warna Jari */
+/* SCANNER SECTION */
 .fingerprint-scanner {
     width: 180px; height: 210px; margin: 30px auto;
     position: relative; border: 3px solid #eee; border-radius: 20px;
@@ -38,21 +37,21 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
     overflow: hidden; background: #fff; cursor: pointer; touch-action: none;
 }
 
-.fingerprint-scanner.scanning { border-color: var(--primary); }
+.scan-bg {
+    position: absolute; width: 100%; height: 100%;
+    background-color: var(--primary); opacity: 0; z-index: 1;
+    transition: opacity 3s ease-in-out;
+}
+
+.scanning .scan-bg { opacity: 0.9; }
 
 .fingerprint-image {
-    width: 120px; height: auto;
-    opacity: 0.1; 
-    filter: grayscale(100%); 
-    transition: all 3.0s ease-in-out; /* Durasi transisi mengikuti waktu scan */
-    pointer-events: none;
+    width: 120px; height: auto; opacity: 0.1; 
+    filter: grayscale(100%); z-index: 2;
+    transition: all 3s ease-in-out; pointer-events: none;
 }
 
-/* SAAT SCANNING: Jari Berubah dari Abu Samar ke Biru Tua */
-.scanning .fingerprint-image {
-    opacity: 1;
-    filter: grayscale(0%) brightness(0.8) sepia(100%) hue-rotate(180deg) saturate(300%);
-}
+.scanning .fingerprint-image { opacity: 1; filter: none; }
 
 .scan-line {
     position: absolute; width: 100%; height: 4px;
