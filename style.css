@@ -4,6 +4,7 @@
     --primary: #1a3a5a;
     --gold: #d4af37;
     --bg: #f8f9fa;
+    --laser: #00f2ff;
 }
 
 body {
@@ -12,6 +13,7 @@ body {
     display: flex; justify-content: center; align-items: center;
     min-height: 100vh; margin: 0; padding: 20px;
     -webkit-user-select: none; user-select: none;
+    touch-action: manipulation;
 }
 
 .container {
@@ -20,30 +22,40 @@ body {
     max-width: 480px; width: 100%;
 }
 
-.logo { width: 150px; margin-bottom: 10px; }
+.logo { width: 140px; margin-bottom: 10px; display: block; margin: 0 auto; }
 .hidden { display: none !important; }
 
-form { display: flex; flex-direction: column; gap: 12px; }
-input, select { padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; }
-
+/* FIX SCANNER: Posisi absolut untuk gambar agar tidak membesar */
 .fingerprint-scanner {
-    width: 160px; height: 180px; margin: 30px auto;
+    width: 150px; height: 170px; margin: 30px auto;
     position: relative; border: 3px solid #eee; border-radius: 20px;
     display: flex; justify-content: center; align-items: center;
-    overflow: hidden; background: #fdfdfd; cursor: pointer;
+    overflow: hidden; background: #fff; cursor: pointer;
+    touch-action: none;
 }
 
 .fingerprint-scanner.scanning { border-color: var(--primary); }
-.fingerprint-image { width: 70%; opacity: 0.3; filter: grayscale(100%); transition: 0.5s; }
+
+.fingerprint-image {
+    width: 100px; height: auto;
+    opacity: 0.1; /* Samar di awal */
+    filter: grayscale(100%);
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.scanning .fingerprint-image {
+    opacity: 1; /* Terang saat scan */
+    filter: none;
+}
 
 .scan-line {
     position: absolute; width: 100%; height: 3px;
-    background: #00f2ff; box-shadow: 0 0 15px #00f2ff;
+    background: var(--laser); box-shadow: 0 0 15px var(--laser);
     left: 0; top: -10px; z-index: 3; display: none;
 }
 
 .scanning .scan-line { display: block; animation: moveLine 2s infinite ease-in-out; }
-.scanning .fingerprint-image { filter: none; opacity: 1; }
 
 @keyframes moveLine {
     0% { top: 0%; } 50% { top: 95%; } 100% { top: 0%; }
@@ -54,3 +66,7 @@ button {
     padding: 15px; font-size: 16px; font-weight: 600;
     border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%;
 }
+
+form { display: flex; flex-direction: column; gap: 12px; }
+input, select { padding: 12px; border: 1px solid #ddd; border-radius: 10px; }
+#birth-date-container { display: flex; gap: 8px; }
