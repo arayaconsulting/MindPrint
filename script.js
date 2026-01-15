@@ -1,247 +1,108 @@
-/**
- * MINDPRINT SYSTEM - ARAYA CONSULTING
- * OWNER: ALI MAHFUD
- * VERSION: 5.1 (Fixed Date Selectors & Comprehensive Character Essence)
- */
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MindPrint Analysis - Araya Consulting</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
 
-const mindprintDescriptions = {
-    1: { 
-        title: "Si Praktisi Reflektif (The Discipline Specialist)", 
-        intisari: "Sosok mandiri yang didominasi otak kiri bawah (Pilar Praktisi) dengan kemudi internal. Anda adalah pekerja keras yang lebih suka bertindak nyata daripada sekadar berwacana, sangat unggul dalam pekerjaan yang membutuhkan ketelitian tinggi, stamina fisik kuat, serta kepatuhan mutlak pada aturan dan SOP. Kekuatan utama Anda terletak pada memori yang tajam dalam merekam detail visual, ketangguhan fisik yang stabil, serta kedisiplinan tinggi. Tantangan pengembangan Anda adalah kecenderungan bersikap kaku terhadap perubahan mendadak serta sudut pandang yang terkadang terlalu materialistis dalam mengukur kesuksesan.", 
-        successHabit: "Mantra: 'Berkeringat dan Menabung'. Fokus pada spesialisasi bidang tertentu dan pastikan ada aktivitas fisik rutin untuk menjaga stabilitas mood.", 
-        relationship: "Membangun kepercayaan melalui konsistensi dan kejujuran fakta.", 
-        communication: "Lugas, singkat, dan berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", 
-        positif: "Disiplin, Memori Tajam, Tangguh.", 
-        negatif: "Kaku, Materialistis, Kurang Spontan.", 
-        motivasi: "Instruksi jelas, target realistis, dan apresiasi berbasis aset.", 
-        karir: "Akuntan, Manajer Ops, Atlet, Teknisi, Perbankan.", 
-        study: "Metode menghafal & pengulangan prosedur, Visual-Kinestetik (contoh nyata), dan latihan mandiri di tempat tenang." 
-    },
-    2: { 
-        title: "Si Praktisi Ekspresif (The Dynamic Performer)", 
-        intisari: "Pribadi lincah yang energinya dipicu oleh tantangan luar, interaksi sosial, dan suasana dinamis. Sebagai pemilik mesin kecerdasan fisik dengan kemudi ekspresif, Anda adalah orang yang paling responsif terhadap keadaan lapangan dan memiliki kemampuan teknis luar biasa dalam koordinasi motorik. Anda membawa suasana ceria dan sportif, namun memiliki tantangan berupa rasa bosan yang cepat muncul jika suasana monoton, serta kecenderungan terburu-buru dalam mengambil tindakan tanpa memikirkan konsekuensi jangka panjang.", 
-        successHabit: "Mantra: 'Tantangan adalah Energi'. Tempatkan diri dalam lingkungan kompetitif dengan target atau kuota yang jelas untuk melipatgandakan produktivitas.", 
-        relationship: "Mudah bergaul, membawa keceriaan, dan menghargai apresiasi fisik.", 
-        communication: "Ekspresif, menggunakan bahasa tubuh yang kuat, dan antusias pada hasil nyata.", 
-        positif: "Gesit, Sportif, Responsif.", 
-        negatif: "Cepat Bosan, Boros, Terburu-buru.", 
-        motivasi: "Tantangan kompetitif, bonus instan, dan mobilitas tinggi.", 
-        karir: "Marketing, Chef, Pilot, Polisi, Atlet Profesional.", 
-        study: "Praktik lapangan langsung, belajar kelompok untuk memicu keaktifan otak, dan demonstrasi (modelling)." 
-    },
-    3: { 
-        title: "Si Konseptor Reflektif (The Master Strategist)", 
-        intisari: "Individu yang paling mandiri dan mendalam secara intelektual dengan dominasi otak kiri atas yang digerakkan dari dalam. Anda sangat logis, objektif, dan perfeksionis dalam validasi data. Kekuatan Anda adalah kemampuan membedah masalah kompleks menjadi bagian logis serta menjadi penjaga kualitas yang konsisten pada standar. Namun, standar tinggi ini sering membuat Anda terlihat terlalu kritis atau dingin, dan Anda berisiko kehilangan empati karena terlalu fokus pada fakta dan kebenaran objektif.", 
-        successHabit: "Mantra: 'Logika dan Otoritas'. Fokus pada penguasaan keahlian teknis dan kendali atas sistem. Teruslah belajar ilmu baru untuk menjaga posisi tawar tetap tinggi.", 
-        relationship: "Eksklusif dalam memilih teman dan sangat menghargai privasi pikiran.", 
-        communication: "Formal, data-driven, dan argumentatif. Sertakan data konkret untuk meyakinkan Anda.", 
-        positif: "Analitis, Mandiri, Fokus Kualitas.", 
-        negatif: "Terlalu Kritis, Dingin, Kurang Empati.", 
-        motivasi: "Akses data/ilmu baru, kemandirian, dan keterlibatan dalam sistem logis.", 
-        karir: "Programmer, Ilmuwan, Auditor, Peneliti, Ahli Strategi.", 
-        study: "Ringkasan berbentuk bagan/tabel, studi literatur mandiri, dan pemecahan kasus logika." 
-    },
-    4: { 
-        title: "Si Konseptor Ekspresif (The Great Manager)", 
-        intisari: "Sosok 'Komandan' alami yang didominasi otak kiri atas dengan stimulasi energi dari luar. Anda sangat hebat dalam mendelegasikan tugas, mengelola sumber daya, dan membangun struktur organisasi yang luas secara efisien. Anda tegas, berwibawa, dan selalu berorientasi pada hasil akhir. Tantangan utama Anda adalah aura dominan yang terkadang terlihat otoriter, serta kurangnya kesabaran terhadap orang lain yang tidak mampu memenuhi standar kecepatan kerja Anda.", 
-        successHabit: "Mantra: 'Otoritas dan Ekspansi'. Terus latih kemampuan melipatgandakan aset dan SDM melalui jaringan dan kekuasaan yang terukur.", 
-        relationship: "Mendukung status sosial dan pencapaian karir dalam hubungan.", 
-        communication: "Lugas, memerintah (logis), dan sangat menghargai struktur bicara yang sistematis.", 
-        positif: "Manajerial Hebat, Tegas, Adil.", 
-        negatif: "Otoriter, Kurang Sabar, Kaku pada Hirarki.", 
-        motivasi: "Otoritas, tanggung jawab besar, dan pengakuan atas jabatan.", 
-        karir: "CEO, Direktur, Manajer Proyek, Politisi, Hakim.", 
-        study: "Diskusi terstruktur (debat logis), menjadi pengajar/presenter, dan analisis studi kasus bisnis." 
-    },
-    5: { 
-        title: "Si Kreatif Reflektif (The Quality Visionary)", 
-        intisari: "Pemikir abstrak visioner yang didominasi otak kanan atas dengan kemudi internal. Anda memiliki imajinasi luas dan sangat mementingkan orisinalitas serta kualitas ide yang melampaui zaman. Anda adalah perancang strategi yang perfeksionis dalam konsep dan filosofi. Namun, idealisme yang tinggi sering membuat Anda terlihat eksklusif dan sulit membumikan ide kreatif menjadi aksi praktis yang bisa dinikmati orang banyak.", 
-        successHabit: "Mantra: 'Kualitas dan Ilmu'. Menjadi ahli di bidang yang unik. Kuncinya adalah 'Inovasi atau Mati' dengan berani mengeksekusi ide ke dunia nyata.", 
-        relationship: "Sangat selektif dalam lingkungan sosial dan menghargai kedalaman privasi pikiran.", 
-        communication: "Puitis, penuh simbol, filosofis, dan cenderung selektif memilih lawan bicara.", 
-        positif: "Visioner, Strategis, Orisinal.", 
-        negatif: "Skeptis, Terlalu Idealis, Menyendiri.", 
-        motivasi: "Penghargaan orisinalitas, ruang privat, dan dukungan pada visi jangka panjang.", 
-        karir: "Peneliti, Arsitek, Perancang Strategi, Seniman Konseptual, Ilmuwan.", 
-        study: "Peta konsep (Mind Mapping), penggunaan analogi/simbol, dan membaca literatur mendalam (Why)." 
-    },
-    6: { 
-        title: "Si Kreatif Ekspresif (The Trendsetter)", 
-        intisari: "Pribadi yang optimis, penuh antusiasme, dan memiliki intuisi bisnis yang sangat tajam dalam melihat peluang keuntungan. Sebagai pemilik pilar kreatif dengan kemudi ekspresif, Anda adalah inovator yang benci cara konvensional dan selalu punya cara berbeda untuk menyelesaikan masalah. Tantangan Anda adalah kurangnya fokus pada detail administrasi serta kecenderungan berpindah ke proyek baru sebelum menuntaskan apa yang sudah dimulai.", 
-        successHabit: "Mantra: 'Inovasi dan Investasi'. Bangun networking luas dan latih ketekunan untuk menuntaskan satu proyek besar sebelum beralih ke peluang lain.", 
-        relationship: "Membutuhkan dukungan penuh terhadap mimpi-mimpi besar dan ide kreatifnya.", 
-        communication: "Penuh semangat, persuasif, dan suka menggunakan analogi masa depan.", 
-        positif: "Intuisi Bisnis, Inovatif, Antusias.", 
-        negatif: "Kurang Fokus, Abaikan Detail, Risiko Tinggi.", 
-        motivasi: "Proyek inovatif, panggung presentasi, dan insentif berbasis profit.", 
-        karir: "Pengusaha, Desainer, Investor, Konsultan Kreatif, Kreator Konten.", 
-        study: "Brainstorming bebas, penggunaan visualisasi gambar/sketsa, dan belajar dari kasus sukses inovator." 
-    },
-    7: { 
-        title: "Si Empati Reflektif (The Principled Soul)", 
-        intisari: "Sosok idealis yang didominasi otak kanan bawah dengan kemudi hati yang sangat kuat. Anda adalah pembawa ketenangan dengan integritas jiwa dan loyalitas yang tidak tergoyahkan pada prinsip. Anda bekerja berdasarkan makna dan nilai, bukan sekadar angka. Tantangan Anda adalah perasaan yang sangat sensitif (baper) terhadap kritik, serta kecenderungan memendam masalah emosional yang bisa menjadi beban di kemudian hari.", 
-        successHabit: "Mantra: 'Cinta dan Keyakinan'. Fokus pada pelayanan dan pembangunan karakter. Latihlah ketegasan agar perasaan tidak menghalangi profesionalitas Anda.", 
-        relationship: "Mencari kesetiaan murni dan koneksi jiwa (soulmate) yang mendalam.", 
-        communication: "Lembut, mendalam, tulus, dan sangat menjaga perasaan lawan bicara.", 
-        positif: "Integritas Tinggi, Setia, Empati Dalam.", 
-        negatif: "Mudah Tersinggung, Tertutup, Subjektif.", 
-        motivasi: "Makna spiritual dalam kerja, harmoni lingkungan, dan perhatian personal.", 
-        karir: "Psikolog, Coach, Aktivis Kemanusiaan, Guru, Pemuka Agama.", 
-        study: "Keterikatan emosional dengan pengajar, audio-mood (nada tenang), dan lingkungan belajar harmonis." 
-    },
-    8: { 
-        title: "Si Empati Ekspresif (The Charismatic Leader)", 
-        intisari: "Sosok 'Magnet Sosial' yang memiliki kharisma tinggi dan kemampuan komunikasi persuasif yang luar biasa. Anda sangat hebat dalam memahami psikologi massa dan memotivasi orang lain melalui kekuatan kata-kata. Namun, Anda memiliki ketergantungan yang besar terhadap apresiasi dan pengakuan dari lingkungan, serta berisiko menjadi manipulatif jika tidak dibimbing oleh integritas moral yang kuat.", 
-        successHabit: "Mantra: 'Pengaruh dan Cinta'. Perluas jaringan dan relasi sosial. Latih kemandirian emosional agar tidak terlalu bergantung pada pujian orang lain.", 
-        relationship: "Membutuhkan apresiasi verbal dan pengakuan emosional yang hangat.", 
-        communication: "Hangat, mahir menggunakan intonasi suara, dan menyentuh emosi pembicara.", 
-        positif: "Kharismatik, Persuasif, Networking Luas.", 
-        negatif: "Haus Pujian, Manipulatif, Mudah Terpengaruh.", 
-        motivasi: "Apresiasi publik, peran sebagai juru bicara, dan dukungan emosional.", 
-        karir: "Politisi, Motivator, Public Relations, Sales Manager, Presenter.", 
-        study: "Diskusi & tanya jawab interaktif, mengajarkan kembali materi, dan storytelling audio-visual." 
-    },
-    9: { 
-        title: "Si Adaptif (The Responsive Generalist)", 
-        intisari: "Sosok 'Jembatan' yang paling responsif, serba bisa, dan cinta damai. Dengan dominasi otak tengah, Anda memiliki refleks cepat dalam menghadapi keadaan darurat dan mampu menghubungkan berbagai tipe kepribadian lainnya. Kekuatan Anda adalah fleksibilitas dan jiwa penolong yang tinggi, namun Anda seringkali sulit menentukan prioritas hidup yang spesifik serta cenderung menghindari konflik daripada menyelesaikannya.", 
-        successHabit: "Mantra: 'Ketenangan dan Kebermanfaatan'. Fokus pada kebahagiaan batin dan spiritualitas. Latih ketuntasan (finishing) agar pekerjaan tidak hanya cepat di awal.", 
-        relationship: "Sangat tulus, tidak suka konflik, dan pembawa harmoni.", 
-        communication: "Spontan, lugas, namun tetap santun. Menghindari perdebatan panjang.", 
-        positif: "Refleks Cepat, Mediator Hebat, Jujur.", 
-        negatif: "Sulit Fokus, Trauma Konflik, Mudah Terdistraksi.", 
-        motivasi: "Ketenangan pikiran, lingkungan non-konflik, dan perasaan berguna.", 
-        karir: "Pekerja Sosial, Medis Darurat, Bagian Umum, Mediator, Relawan.", 
-        study: "Suasana tenang tanpa tekanan, ringkasan gambaran besar (big picture), dan pengamatan singkat." 
-    }
-};
+    <div class="container" id="intro-container">
+        <img src="logo.png" alt="Logo Araya Consulting" class="logo">
+        <h1>Profil MindPrint Anda</h1>
+        <form id="user-form">
+            <input type="text" id="user-name" placeholder="Nama Lengkap" required>
+            <div id="birth-date-container">
+                <select id="day" required></select>
+                <select id="month" required></select>
+                <select id="year" required></select>
+            </div>
+            <select id="blood-type" required>
+                <option value="" disabled selected>Pilih Golongan Darah</option>
+                <option value="A">A</option><option value="B">B</option>
+                <option value="AB">AB</option><option value="O">O</option>
+                <option value="belum_tahu">Belum Tahu</option>
+            </select>
+            <button type="submit" id="start-button">Mulai Analisis</button>
+        </form>
+    </div>
 
-const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
-let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false, scanTimeout;
+    <div class="container hidden" id="scan-container">
+        <h2 id="scan-text">Tempelkan dan tahan jari Anda...</h2>
+        <div class="fingerprint-scanner" id="fingerprint-scanner">
+            <img src="fingerprint.png" alt="Scanner" class="fingerprint-image" id="finger-img" oncontextmenu="return false;" ondragstart="return false;">
+            <div class="scan-line"></div>
+        </div>
+        <button id="next-finger-button" class="hidden">Lanjutkan</button>
+    </div>
 
-// 1. FUNGSI UNTUK MENGISI FORM TANGGAL LAHIR (FIXED)
-function populateDateFields() {
-    const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
-    if(!d || !m || !y) return;
-    
-    d.innerHTML = '<option value="" disabled selected>Hari</option>';
-    m.innerHTML = '<option value="" disabled selected>Bulan</option>';
-    y.innerHTML = '<option value="" disabled selected>Tahun</option>';
-    
-    for(let i=1; i<=31; i++) d.innerHTML += `<option value="${String(i).padStart(2,'0')}">${i}</option>`;
-    const months = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-    months.forEach((mon, i) => m.innerHTML += `<option value="${String(i+1).padStart(2,'0')}">${mon}</option>`);
-    for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
-}
+    <div class="container hidden" id="result-container">
+        <h2 id="result-title"></h2>
+        <div class="result-box" style="text-align: left; background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+            <p><strong>Intisari:</strong> <span id="display-intisari"></span></p>
+        </div>
+        <button id="download-btn" style="background-color: #27ae60; color: white;">UNDUH SERTIFIKAT (PDF)</button>
+        <button id="restart-button" style="background: white; color: #1a3a5a; border: 1px solid #1a3a5a; margin-top: 10px;">Tes Lagi</button>
+    </div>
 
-// 2. FUNGSI KALKULASI NUMEROLOGI
-function calculateNumerology(dateString) {
-    const digits = dateString.replace(/-/g, '').split('').map(Number);
-    let sum = digits.reduce((a, b) => a + b, 0);
-    while (sum > 9) sum = String(sum).split('').reduce((acc, d) => acc + parseInt(d), 0);
-    return sum || 9;
-}
+    <div id="certificate-template" style="display: none; width: 1122px; height: 794px; background: #fff; position: relative; box-sizing: border-box; border: 25px solid #1a3a5a; color: #333; overflow: hidden; font-family: Arial, sans-serif;">
+        <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 3px solid #d4af37; pointer-events: none; z-index: 5;"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.03; z-index: 0; background-image: url('logo.png'); background-size: 110px; background-repeat: repeat; transform: rotate(-15deg) scale(1.5);"></div>
 
-// 3. EVENT FORM SUBMISSION
-document.getElementById('user-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    userName = document.getElementById('user-name').value;
-    birthDate = `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`;
-    document.getElementById('intro-container').classList.add('hidden');
-    document.getElementById('scan-container').classList.remove('hidden');
-    document.getElementById('scan-text').textContent = `Tempelkan ${fingers[0]} Anda...`;
-});
+        <div style="position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; padding: 45px 75px; box-sizing: border-box;">
+            
+            <div style="text-align: center; margin-bottom: 5px;">
+                <img src="logo.png" style="width: 170px; height: auto; margin-bottom: 5px;">
+                <h2 style="font-size: 18px; border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 2px; margin: 0; text-transform: uppercase;">SERTIFIKAT ANALISIS MINDPRINT</h2>
+                <p style="margin: 8px 0 2px 0; font-size: 11px; color: #666;">Diberikan kepada:</p>
+                <h3 style="font-size: 24px; color: #1a3a5a; margin: 0; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: bold;"><span id="cert-name"></span></h3>
+                <div style="margin-top: 10px; background: #1a3a5a; color: white; padding: 6px 40px; border-radius: 6px; display: inline-block;">
+                    <strong style="font-size: 14px; color: #d4af37;" id="cert-result"></strong>
+                </div>
+            </div>
 
-// 4. LOGIKA SCANNER
-const scanner = document.getElementById('fingerprint-scanner');
-const scanText = document.getElementById('scan-text');
+            <div style="display: flex; gap: 30px; flex-grow: 1; margin-top: 15px; max-height: 400px;">
+                <div style="flex: 1.1; padding-right: 20px; border-right: 2px solid #1a3a5a; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <p style="margin: 0 0 8px 0; font-size: 9px; line-height: 1.35;"><strong>INTISARI KARAKTER:</strong><br><span id="cert-intisari" style="text-align: justify; display: block;"></span></p>
+                        <p style="margin: 0 0 8px 0; font-size: 9px; line-height: 1.35;"><strong>CARA MEMOTIVASI:</strong><br><span id="cert-motivasi"></span></p>
+                        <p style="margin: 0 0 8px 0; font-size: 9px; line-height: 1.35;"><strong>METODE BELAJAR:</strong><br><span id="cert-study"></span></p>
+                    </div>
+                    <p style="margin: 0; font-size: 9px; line-height: 1.35;"><strong>TIPS INTERAKSI:</strong><br><span id="cert-relationship"></span></p>
+                </div>
+                <div style="flex: 0.9; padding-left: 10px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <p style="margin: 0 0 10px 0; font-size: 9px; line-height: 1.35;"><strong>GAYA KOMUNIKASI:</strong><br><span id="cert-communication"></span></p>
+                        <p style="margin: 0 0 10px 0; font-size: 9px; line-height: 1.35;"><strong>SUCCESS HABIT:</strong><br><span id="cert-success"></span></p>
+                        <p style="margin: 0 0 10px 0; font-size: 9px; line-height: 1.35;"><strong>POTENSI KARIR:</strong><br><span id="cert-karir"></span></p>
+                    </div>
+                    <div>
+                        <p style="margin: 0; font-size: 9px; line-height: 1.35;"><strong>DINAMIKA KEPRIBADIAN:</strong><br>
+                            <span style="color: #27ae60; font-weight: bold;">(+) <span id="cert-positif"></span></span><br>
+                            <span style="color: #c0392b; font-weight: bold;">(-) <span id="cert-negatif"></span></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-function startScanning(e) {
-    if(e) e.preventDefault();
-    if(isScanning) return;
-    isScanning = true;
-    scanner.parentElement.classList.add('scanning');
-    scanText.textContent = `Memindai ${fingers[currentFingerIndex]}... JANGAN DILEPAS!`;
-    scanTimeout = setTimeout(() => { finishScan(); }, 2000);
-}
-
-function cancelScanning() {
-    if(!isScanning) return;
-    clearTimeout(scanTimeout);
-    isScanning = false;
-    scanner.parentElement.classList.remove('scanning');
-    scanText.textContent = "GAGAL! Jari terlepas. Tempelkan kembali.";
-}
-
-if(scanner) {
-    scanner.addEventListener('mousedown', startScanning);
-    scanner.addEventListener('touchstart', startScanning);
-    window.addEventListener('mouseup', cancelScanning);
-    window.addEventListener('touchend', cancelScanning);
-}
-
-function finishScan() {
-    isScanning = false;
-    scanner.parentElement.classList.remove('scanning');
-    if (currentFingerIndex < fingers.length - 1) {
-        scanText.textContent = `${fingers[currentFingerIndex].toUpperCase()} BERHASIL.`;
-        document.getElementById('next-finger-button').classList.remove('hidden');
-    } else {
-        scanText.textContent = "MENGANALISIS DATA...";
-        setTimeout(showResult, 1500);
-    }
-}
-
-document.getElementById('next-finger-button').addEventListener('click', function() {
-    currentFingerIndex++;
-    this.classList.add('hidden');
-    scanText.textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
-});
-
-// 5. MENAMPILKAN HASIL
-function showResult() {
-    document.getElementById('scan-container').classList.add('hidden');
-    document.getElementById('result-container').classList.remove('hidden');
-    const resNum = calculateNumerology(birthDate);
-    const data = mindprintDescriptions[resNum];
-
-    // Tampilan Layar
-    document.getElementById('display-intisari').textContent = data.intisari;
-    document.getElementById('display-motivasi').textContent = data.successHabit;
-    document.getElementById('result-title').textContent = data.title;
-
-    // Tampilan Sertifikat
-    document.getElementById('cert-name').textContent = userName;
-    document.getElementById('cert-result').textContent = data.title;
-    document.getElementById('cert-intisari').textContent = data.intisari;
-    document.getElementById('cert-motivasi').textContent = data.motivasi;
-    document.getElementById('cert-study').textContent = data.study;
-    document.getElementById('cert-success').textContent = data.successHabit;
-    document.getElementById('cert-relationship').textContent = data.relationship;
-    document.getElementById('cert-communication').textContent = data.communication;
-    document.getElementById('cert-karir').textContent = data.karir;
-    document.getElementById('cert-positif').textContent = data.positif;
-    document.getElementById('cert-negatif').textContent = data.negatif;
-    
-    const now = new Date();
-    document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-    document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
-}
-
-// 6. DOWNLOAD PDF
-document.getElementById('download-btn').addEventListener('click', () => {
-    const el = document.getElementById('certificate-template');
-    el.style.display = 'block';
-    const opt = {
-        margin: 0,
-        filename: `Laporan_MindPrint_${userName}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 3, useCORS: true, letterRendering: true, scrollY: 0, scrollX: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
-    };
-    html2pdf().set(opt).from(el).save().then(() => { el.style.display = 'none'; });
-});
-
-document.getElementById('restart-button').addEventListener('click', () => location.reload());
-
-// JANGAN LUPA PANGGIL FUNGSI INI SAAT HALAMAN DIBUKA
-populateDateFields();
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; padding-bottom: 5px;">
+                <div style="font-size: 8.5px; color: #666;">
+                    <p style="margin: 0;">ID MindPrint: <strong id="cert-id" style="color: #333;"></strong></p>
+                    <p style="margin: 0;">Tanggal: <span id="cert-date"></span></p>
+                    <p style="margin: 3px 0 0 0; color: #d4af37; font-weight: bold; font-size: 10px;">Araya Consulting - Your Growth Partner</p>
+                </div>
+                <div style="text-align: center; min-width: 180px;">
+                    <p style="margin-bottom: 25px; font-size: 10px;">Disahkan oleh,</p>
+                    <div style="border-bottom: 2px solid #1a3a5a; display: inline-block; padding-bottom: 1px;">
+                        <strong style="font-size: 15px; color: #1a3a5a; text-transform: uppercase;">ALI MAHFUD</strong>
+                    </div>
+                    <span style="color: #d4af37; font-weight: bold; font-size: 9px; display: block; margin-top: 3px;">Founder Araya Consulting</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
