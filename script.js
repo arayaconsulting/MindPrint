@@ -1,6 +1,6 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
- * VERSION: 6.1 (FULL DATA & NEON SCANNER FIX)
+ * VERSION: 6.2 (FULL DATA & NATURAL LAYOUT FIX)
  */
 
 const mindprintDescriptions = {
