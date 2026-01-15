@@ -1,6 +1,6 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
- * VERSION: 5.9 (FULL ESSENCE & PROPORTIONAL FIX)
+ * VERSION: 6.0 (FULL DATA & NATURAL LAYOUT FIX)
  */
 
 const mindprintDescriptions = {
@@ -12,7 +12,7 @@ const mindprintDescriptions = {
         communication: "To-the-point, singkat, dan berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", 
         positif: "Disiplin Tinggi, Memori Tajam, Tangguh Fisik.", 
         negatif: "Terlalu Kaku, Materialistis, Kurang Spontan.", 
-        motivasi: "Instruksi yang jelas, target realistis, serta apresiasi berupa jaminan keamanan materi.", 
+        motivasi: "Instruksi yang jelas, target realistis, serta apresiasi berupa aset fisik.", 
         karir: "Akuntan, Manajer Operasional, Atlet, Teknisi, Perbankan.", 
         study: "Metode Menghafal & Pengulangan teks/prosedur, Visual-Kinestetik (contoh nyata), serta latihan mandiri di tempat tenang." 
     },
@@ -150,8 +150,7 @@ function startScanning(e) {
     scanTimeout = setTimeout(() => { finishScan(); }, 3000);
 }
 
-function cancelScanning(e) {
-    if(e) e.preventDefault();
+function cancelScanning() {
     if(!isScanning) return;
     clearTimeout(scanTimeout);
     isScanning = false;
