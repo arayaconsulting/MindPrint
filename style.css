@@ -16,41 +16,46 @@ body {
     touch-action: manipulation;
 }
 
+/* LEBAR HALAMAN DISESUAIKAN UNTUK TABLET */
 .container {
-    text-align: center; background: white; padding: 30px;
+    text-align: center; background: white; padding: 40px;
     border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    max-width: 480px; width: 100%;
+    max-width: 800px; width: 95%; /* Meningkat dari 480px */
 }
 
-.logo { width: 140px; margin-bottom: 10px; display: block; margin: 0 auto; }
+.logo { width: 180px; margin-bottom: 20px; display: block; margin: 0 auto; }
 .hidden { display: none !important; }
 
-/* FIX SCANNER: Posisi absolut untuk gambar agar tidak membesar */
+form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; box-sizing: border-box; }
+#birth-date-container { display: flex; gap: 10px; }
+
+/* SCANNER: Animasi Perubahan Warna Jari */
 .fingerprint-scanner {
-    width: 150px; height: 170px; margin: 30px auto;
+    width: 180px; height: 210px; margin: 30px auto;
     position: relative; border: 3px solid #eee; border-radius: 20px;
     display: flex; justify-content: center; align-items: center;
-    overflow: hidden; background: #fff; cursor: pointer;
-    touch-action: none;
+    overflow: hidden; background: #fff; cursor: pointer; touch-action: none;
 }
 
 .fingerprint-scanner.scanning { border-color: var(--primary); }
 
 .fingerprint-image {
-    width: 100px; height: auto;
-    opacity: 0.1; /* Samar di awal */
-    filter: grayscale(100%);
-    transition: opacity 0.5s ease;
+    width: 120px; height: auto;
+    opacity: 0.1; 
+    filter: grayscale(100%); 
+    transition: all 3.0s ease-in-out; /* Durasi transisi mengikuti waktu scan */
     pointer-events: none;
 }
 
+/* SAAT SCANNING: Jari Berubah dari Abu Samar ke Biru Tua */
 .scanning .fingerprint-image {
-    opacity: 1; /* Terang saat scan */
-    filter: none;
+    opacity: 1;
+    filter: grayscale(0%) brightness(0.8) sepia(100%) hue-rotate(180deg) saturate(300%);
 }
 
 .scan-line {
-    position: absolute; width: 100%; height: 3px;
+    position: absolute; width: 100%; height: 4px;
     background: var(--laser); box-shadow: 0 0 15px var(--laser);
     left: 0; top: -10px; z-index: 3; display: none;
 }
@@ -63,10 +68,6 @@ body {
 
 button {
     background: var(--primary); color: white; border: none;
-    padding: 15px; font-size: 16px; font-weight: 600;
+    padding: 18px; font-size: 18px; font-weight: 600;
     border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%;
 }
-
-form { display: flex; flex-direction: column; gap: 12px; }
-input, select { padding: 12px; border: 1px solid #ddd; border-radius: 10px; }
-#birth-date-container { display: flex; gap: 8px; }
