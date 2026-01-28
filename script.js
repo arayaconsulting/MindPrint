@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 10.0 (FINAL PRECISION LAYOUT & TWIN ADJUSTMENT)
+ * VERSION: 11.0 (ULTRA-PRECISION PDF & TWIN ADJUSTMENT)
  */
 
 const mindprintDescriptions = {
@@ -51,7 +51,7 @@ const mindprintDescriptions = {
         negatif: "Cepat Bosan, Boros, Terburu-buru.", 
         motivasi: "Berikan tantangan kompetitif, bonus instan, serta lingkungan kerja yang dinamis dan mobilitas tinggi.", 
         karir: "Sales/Marketing, Atlet Profesional, Chef, Pilot, Polisi/Militer.", 
-        study: "Praktik Lapangan langsung (bukan sekadar buku), Belajar Kelompok untuk memicu keaktifan otak, dan Metode Demonstrasi (modelling)." 
+        study: "Praktik Larangan langsung (bukan sekadar buku), Belajar Kelompok untuk memicu keaktifan otak, dan Metode Demonstrasi (modelling)." 
     },
     5: { 
         title: "Si Empati Reflektif (The Principled Soul)", 
@@ -249,28 +249,38 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// FUNGSI DOWNLOAD PDF DENGAN LAYOUT PRESISI
+// FUNGSI DOWNLOAD PDF DENGAN KALIBRASI TITIK NOL (0,0)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
-    el.style.display = 'block'; 
     
+    // Tampilkan elemen secara absolut di pojok kiri atas layar sesaat agar koordinat terbaca 0,0
+    el.style.display = 'block';
+    el.style.position = 'fixed';
+    el.style.top = '0';
+    el.style.left = '0';
+
     const opt = {
-        margin: 0, 
+        margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 1 }, 
         html2canvas: { 
             scale: 2, 
             useCORS: true, 
-            scrollY: 0, 
+            logging: false,
+            scrollY: -window.scrollY, // Menetralkan posisi scroll layar saat ini
             scrollX: 0,
-            windowWidth: 1122, 
-            windowHeight: 794  
+            x: 0,
+            y: 0,
+            width: 1122, 
+            height: 794  
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
     };
     
     html2pdf().set(opt).from(el).save().then(() => {
-        el.style.display = 'none'; 
+        // Kembalikan ke kondisi semula setelah proses selesai
+        el.style.display = 'none';
+        el.style.position = 'relative'; 
     });
 });
 
