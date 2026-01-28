@@ -82,16 +82,13 @@ button {
     border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%;
 }
 
-/* FIX FINAL: LOCK DIMENSI & POSISI UNTUK PDF */
+/* FIX STABIL: SEMBUNYI NORMAL DENGAN DIMENSI TERKUNCI */
 #certificate-template {
     width: 1122px !important;
     height: 794px !important;
     margin: 0 !important;
     padding: 0 !important;
-    position: fixed !important; /* Terpisah dari alur dokumen utama */
-    top: 0 !important;
-    left: 0 !important;
-    z-index: -9999; /* Sembunyi di balik elemen utama */
-    overflow: hidden;
+    display: none; /* Sembunyi normal agar tidak merusak koordinat render */
     background-color: white;
+    overflow: hidden;
 }
