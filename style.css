@@ -82,11 +82,12 @@ button {
     border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%;
 }
 
-/* FINAL PRECISION UNTUK PDF DOWNLOAD */
+/* KALIBRASI POSISI SERTIFIKAT UNTUK PDF DOWNLOAD */
 #certificate-template {
     margin: 0 !important;
     padding: 0 !important;
-    top: 0 !important;
-    left: 0 !important;
-    position: absolute; /* Membantu html2pdf mengisolasi bidang gambar */
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    z-index: -100; /* Tetap berada di belakang agar tidak menutupi form saat proses */
 }
