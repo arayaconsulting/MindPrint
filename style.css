@@ -82,12 +82,16 @@ button {
     border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%;
 }
 
-/* KALIBRASI POSISI SERTIFIKAT UNTUK PDF DOWNLOAD */
+/* FIX FINAL: LOCK DIMENSI & POSISI UNTUK PDF */
 #certificate-template {
+    width: 1122px !important;
+    height: 794px !important;
     margin: 0 !important;
     padding: 0 !important;
-    position: absolute; 
-    top: 0; 
-    left: 0;
-    z-index: -100; /* Tetap berada di belakang agar tidak menutupi form saat proses */
+    position: fixed !important; /* Terpisah dari alur dokumen utama */
+    top: 0 !important;
+    left: 0 !important;
+    z-index: -9999; /* Sembunyi di balik elemen utama */
+    overflow: hidden;
+    background-color: white;
 }
