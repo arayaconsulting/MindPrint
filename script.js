@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 12.0 (FINAL AUTO-PAGE RECOVERY & PIXEL LOCK)
+ * VERSION: 13.0 (STABLE RENDER & AUTO-PAGE CLEANUP)
  */
 
 const mindprintDescriptions = {
@@ -19,22 +19,22 @@ const mindprintDescriptions = {
     },
     2: { 
         title: "Si Empati Ekspresif (The Charismatic Leader)", 
-        intisari: "Si Empati Ekspresif didominasi otak kanan bawah dengan kemudi luar (Ekspresif). Sosok 'Magnet Sosial' dengan kemampuan persuasi luar biasa dan kharisma tinggi yang menginspirasi orang lain. Ahli dalam memahami psikologi massa dan membangkitkan semangat tim melalui kata-kata. Energinya meluap saat berada di tengah banyak orang. Namun, tantangannya adalah sangat haus akan pengakuan dan apresiasi, bisa menjadi manipulatif jika tanpa integritas, serta suasana hati yang sangat bergantung pada perlakuan orang lain terhadapnya.", 
-        successHabit: "Mantra: 'Pengaruh dan Cinta'. Kunci Sukses: Popularitas dan Relasi. Sukses jika memiliki banyak pengikut/jaringan luas. Latih kemandirian agar tidak terlalu bergantung pada pujian dan tetap fokus target nyata.", 
-        relationship: "Membutuhkan apresiasi verbal dan pengakuan emosional yang hangat.", 
-        communication: "Hangat, penuh ekspresi, persuasif, dan mahir menggunakan intonasi suara untuk menyentuh emosi.", 
+        intisari: "Si Empati Ekspresif didominasi otak kanan bawah dengan kemudi luar (Ekspresif). Sosok 'Magnet Sosial' dengan kemampuan persuasi luar biasa dan kharisma tinggi yang menginspirasi orang lain. Ahli dalam memahami psikologi massa dan membangkitkan semangat tim melalui kata-kata. Energinya meluap saat berada di tengah banyak orang. Namun, tantangannya adalah sangat haus akan pengakuan and apresiasi, bisa menjadi manipulatif jika tanpa integritas, serta suasana hati yang sangat bergantung pada perlakuan orang lain terhadapnya.", 
+        successHabit: "Mantra: 'Pengaruh and Cinta'. Kunci Sukses: Popularitas and Relasi. Sukses jika memiliki banyak pengikut/jaringan luas. Latih kemandirian agar tidak terlalu bergantung pada pujian and tetap fokus target nyata.", 
+        relationship: "Membutuhkan apresiasi verbal and pengakuan emosional yang hangat.", 
+        communication: "Hangat, penuh ekspresi, persuasif, and mahir menggunakan intonasi suara untuk menyentuh emosi.", 
         positif: "Kemampuan Persuasi, Kharisma Tinggi, Pandai Memotivasi.", 
         negatif: "Haus Pengakuan, Manipulatif, Mudah Terpengaruh.", 
-        motivasi: "Berikan apresiasi publik (pujian di depan orang), jadikan juru bicara, dan berikan dukungan emosional.", 
+        motivasi: "Berikan apresiasi publik (pujian di depan orang), jadikan juru bicara, and berikan dukungan emosional.", 
         karir: "Politisi, Motivator, Public Relations, Sales Manager, Presenter/Trainer.", 
-        study: "Diskusi & Tanya Jawab interaktif, Mengajarkan Kembali materi, dan menyukai pembelajaran Audio-Visual (storytelling)." 
+        study: "Diskusi & Tanya Jawab interaktif, Mengajarkan Kembali materi, and menyukai pembelajaran Audio-Visual (storytelling)." 
     },
     3: { 
         title: "Si Praktisi Reflektif (The Discipline Specialist)", 
-        intisari: "Si Praktisi Reflektif adalah sosok yang paling membumi dalam keluarga besar Mindprint. Dominasi otak kiri bawah (Pilar Praktisi) yang digerakkan dari dalam ke luar (Reflektif) menjadikannya seorang pekerja keras yang sangat mandiri. Mereka adalah tipe orang yang lebih suka 'bertindak' daripada sekadar 'berwacana'. Jika ada pekerjaan yang membutuhkan ketelitian tinggi, stamina fisik yang kuat, dan kepatuhan pada aturan, mereka adalah jagonya. Memiliki kekuatan utama pada memori yang tajam dalam merekam data, ketangguhan fisik yang stabil, serta kedisiplinan tinggi terhadap SOP. Namun, tantangannya adalah kecenderungan bersikap kaku, kurang spontan, dan seringkali mengukur kesuksesan hanya dari angka atau aset yang terlihat (materialistis).", 
-        successHabit: "Mantra: 'Berkeringat dan Menabung'. Kunci Sukses: Fokus pada spesialisasi. Jangan menjadi Palugada. Pilihlah satu bidang, tekuni sampai menjadi ahli (specialist), dan pastikan ada aktivitas fisik rutin untuk menjaga mood tetap stabil.", 
-        relationship: "Membangun kepercayaan melalui konsistensi dan kejujuran berbasis fakta.", 
-        communication: "To-the-point, singkat, dan berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", 
+        intisari: "Si Praktisi Reflektif adalah sosok yang paling membumi dalam keluarga besar Mindprint. Dominasi otak kiri bawah (Pilar Praktisi) yang digerakkan dari dalam ke luar (Reflektif) menjadikannya seorang pekerja keras yang sangat mandiri. Mereka adalah tipe orang yang lebih suka 'bertindak' daripada sekadar 'berwacana'. Jika ada pekerjaan yang membutuhkan ketelitian tinggi, stamina fisik yang kuat, and kepatuhan pada aturan, mereka adalah jagonya. Memiliki kekuatan utama pada memori yang tajam dalam merekam data, ketangguhan fisik yang stabil, serta kedisiplinan tinggi terhadap SOP. Namun, tantangannya adalah kecenderungan bersikap kaku, kurang spontan, and seringkali mengukur kesuksesan hanya dari angka atau aset yang terlihat (materialistis).", 
+        successHabit: "Mantra: 'Berkeringat and Menabung'. Kunci Sukses: Fokus pada spesialisasi. Jangan menjadi Palugada. Pilihlah satu bidang, tekuni sampai menjadi ahli (specialist), and pastikan ada aktivitas fisik rutin untuk menjaga mood tetap stabil.", 
+        relationship: "Membangun kepercayaan melalui konsistensi and kejujuran berbasis fakta.", 
+        communication: "To-the-point, singkat, and berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", 
         positif: "Disiplin Tinggi, Memori Tajam, Tangguh Fisik.", 
         negatif: "Terlalu Kaku, Materialistis, Kurang Spontan.", 
         motivasi: "Berikan instruksi yang jelas, target realistis, serta apresiasi berupa aset atau jaminan keamanan materi.", 
@@ -43,34 +43,34 @@ const mindprintDescriptions = {
     },
     4: { 
         title: "Si Praktisi Ekspresif (The Dynamic Performer)", 
-        intisari: "Si Praktisi Ekspresif memiliki mesin kecerdasan Pilar Praktisi namun dengan kemudi Ekspresif, di mana energi dipicu oleh tantangan luar, interaksi sosial, dan suasana ramai. Mereka adalah tipe orang yang paling gesit, senang berkompetisi, dan memiliki kemampuan menikmati hidup dengan panca indra secara maksimal. Memiliki kelincahan dan respon lapangan yang cepat serta kemampuan teknis motorik yang hebat. Namun, tantangannya adalah mudah merasa bosan jika suasana monoton, cenderung boros karena sangat menikmati kenyamanan fisik, serta terkadang terburu-buru mengambil tindakan sebelum memikirkan konsekuensi jangka panjang.", 
+        intisari: "Si Praktisi Ekspresif memiliki mesin kecerdasan Pilar Praktisi namun dengan kemudi Ekspresif, di mana energi dipicu oleh tantangan luar, interaksi sosial, and suasana ramai. Mereka adalah tipe orang yang paling gesit, senang berkompetisi, and memiliki kemampuan menikmati hidup dengan panca indra secara maksimal. Memiliki kelincahan and respon lapangan yang cepat serta kemampuan teknis motorik yang hebat. Namun, tantangannya adalah mudah merasa bosan jika suasana monoton, cenderung boros karena sangat menikmati kenyamanan fisik, serta terkadang terburu-buru mengambil tindakan sebelum memikirkan konsekuensi jangka panjang.", 
         successHabit: "Mantra: 'Tantangan adalah Energi'. Kunci Sukses: Skala and Persaingan. Sukses jika berada dalam lingkungan kompetitif. Berikan target atau kuota, maka tenaga akan melipat ganda. Harus 'berkeringat' untuk mendapatkan kemakmuran.", 
-        relationship: "Mudah bergaul, membawa suasana ceria, dan menghargai hadiah fisik.", 
-        communication: "Ekspresif, menggunakan bahasa tubuh yang kuat, dan antusias pada hasil nyata.", 
+        relationship: "Mudah bergaul, membawa suasana ceria, and menghargai hadiah fisik.", 
+        communication: "Ekspresif, menggunakan bahasa tubuh yang kuat, and antusias pada hasil nyata.", 
         positif: "Lincah & Cepat, Sportif, Menyenangkan (Easy Going).", 
         negatif: "Cepat Bosan, Boros, Terburu-buru.", 
-        motivasi: "Berikan tantangan kompetitif, bonus instan, serta lingkungan kerja yang dinamis dan mobilitas tinggi.", 
+        motivasi: "Berikan tantangan kompetitif, bonus instan, serta lingkungan kerja yang dinamis and mobilitas tinggi.", 
         karir: "Sales/Marketing, Atlet Profesional, Chef, Pilot, Polisi/Militer.", 
-        study: "Praktik Lapangan langsung (bukan sekadar buku), Belajar Kelompok untuk memicu keaktifan otak, dan Metode Demonstrasi (modelling)." 
+        study: "Praktik Lapangan langsung (bukan sekadar buku), Belajar Kelompok untuk memicu keaktifan otak, and Metode Demonstrasi (modelling)." 
     },
     5: { 
         title: "Si Empati Reflektif (The Principled Soul)", 
-        intisari: "Si Empati Reflektif didominasi otak kanan bawah dengan kemudi hati yang sangat kuat (Reflektif). Sosok paling idealis yang digerakkan oleh perasaan dan prinsip hidup. Memiliki integritas dan loyalitas luar biasa pada janji, peka rasa terhadap suasana hati orang lain, dan menjadi penyejuk tim yang berkonflik. Selalu mencari 'makna' atau nilai ibadah di balik pekerjaan. Namun, tantangannya adalah mudah tersinggung (baper) terhadap kritik profesional, cenderung memendam perasaan yang bisa menjadi bom waktu emosional, serta bersikap subjektif jika sudah menyangkut orang yang disayangi.", 
-        successHabit: "Mantra: 'Cinta dan Keyakinan'. Kunci Sukses: Fokus pada pelayanan dan pembangunan karakter. Sukses jika merasa dicintai dan dihargai. Latih ketegasan agar perasaan tidak menghalangi profesionalitas.", 
-        relationship: "Mencari kesetiaan murni dan koneksi jiwa (soulmate) yang mendalam.", 
-        communication: "Lembut, mendalam, tulus, dan sangat menjaga perasaan lawan bicara.", 
+        intisari: "Si Empati Reflektif didominasi otak kanan bawah dengan kemudi hati yang sangat kuat (Reflektif). Sosok paling idealis yang digerakkan oleh perasaan and prinsip hidup. Memiliki integritas and loyalitas luar biasa pada janji, peka rasa terhadap suasana hati orang lain, and menjadi penyejuk tim yang berkonflik. Selalu mencari 'makna' atau nilai ibadah di balik pekerjaan. Namun, tantangannya adalah mudah tersinggung (baper) terhadap kritik profesional, cenderung memendam perasaan yang bisa menjadi bom waktu emosional, serta bersikap subjektif jika sudah menyangkut orang yang disayangi.", 
+        successHabit: "Mantra: 'Cinta and Keyakinan'. Kunci Sukses: Fokus pada pelayanan and pembangunan karakter. Sukses jika merasa dicintai and dihargai. Latih ketegasan agar perasaan tidak menghalangi profesionalitas.", 
+        relationship: "Mencari kesetiaan murni and koneksi jiwa (soulmate) yang mendalam.", 
+        communication: "Lembut, mendalam, tulus, and sangat menjaga perasaan lawan bicara.", 
         positif: "Integritas & Loyalitas, Kepekaan Rasa, Pembawa Ketenangan.", 
         negatif: "Mudah Tersinggung (Baper), Tertutup, Subjektif.", 
         motivasi: "Sentuh sisi spiritual/makna kerja, berikan lingkungan harmonis, serta perhatian personal.", 
         karir: "Psikolog, Guru/Dosen, Penulis Puisi, Aktivis Kemanusiaan, Coach.", 
-        study: "Sentuhan Emosional (suka dengan pengajarnya), Audio-Mood (suasana tenang), dan lingkungan belajar yang harmonis." 
+        study: "Sentuhan Emosional (suka dengan pengajarnya), Audio-Mood (suasana tenang), and lingkungan belajar yang harmonis." 
     },
     6: { 
         title: "Si Kreatif Ekspresif (The Trendsetter & Entrepreneur)", 
-        intisari: "Si Kreatif Ekspresif didominasi otak kanan atas dengan kemudi luar (Ekspresif). Sosok paling optimis, penuh antusiasme, dan selalu terlihat 'kekinian'. Memiliki intuisi bisnis yang sangat tajam dalam melihat peluang keuntungan (money making sense) dan inovatif dalam menyelesaikan masalah. Hebat dalam menularkan visi kepada tim agar percaya pada mimpi besar. Namun, tantangannya adalah kurang fokus karena terlalu banyak ide (mudah pindah mainan), meremehkan detail administrasi, serta berani mengambil risiko tinggi tanpa perhitungan matang.", 
+        intisari: "Si Kreatif Ekspresif didominasi otak kanan atas dengan kemudi luar (Ekspresif). Sosok paling optimis, penuh antusiasme, and selalu terlihat 'kekinian'. Memiliki intuisi bisnis yang sangat tajam dalam melihat peluang keuntungan (money making sense) and inovatif dalam menyelesaikan masalah. Hebat dalam menularkan visi kepada tim agar percaya pada mimpi besar. Namun, tantangannya adalah kurang fokus karena terlalu banyak ide (mudah pindah mainan), meremehkan detail administrasi, serta berani mengambil risiko tinggi tanpa perhitungan matang.", 
         successHabit: "Mantra: 'Inovasi and Investasi'. Kunci Sukses: Networking and Berani Gagal. Sukses jika berada di lingkungan dinamis. Latih ketekunan untuk menuntaskan satu proyek besar sebelum pindah ke proyek lain.", 
-        relationship: "Membutuhkan dukungan penuh terhadap mimpi-mimpi besar dan ide kreatifnya.", 
-        communication: "Ekspresif, penuh semangat, menggunakan analogi masa depan, dan sangat persuasif.", 
+        relationship: "Membutuhkan dukungan penuh terhadap mimpi-mimpi besar and ide kreatifnya.", 
+        communication: "Ekspresif, penuh semangat, menggunakan analogi masa depan, and sangat persuasif.", 
         positif: "Intuisi Bisnis Kuat, Inovatif & Out of the Box, Penyebar Antusiasme.", 
         negatif: "Kurang Fokus, Abaikan Detail, Risiko Terlalu Tinggi.", 
         motivasi: "Libatkan dalam proyek inovatif, berikan panggung presentasi, serta insentif berbasis profit.", 
@@ -79,7 +79,7 @@ const mindprintDescriptions = {
     },
     7: { 
         title: "Si Kreatif Reflektif (The Quality Visionary)", 
-        intisari: "Si Kreatif Reflektif didominasi otak kanan atas (Pilar Kreatif) dengan kemudi internal (Reflektif). Sosok pemikir abstrak yang sangat mementingkan orisinalitas dan kesempurnaan ide melampaui zaman. Cenderung tenang di luar namun memiliki dunia imajinasi yang sangat luas and mendalam. Sangat kuat dalam abstraksi filosofis and strategi jangka panjang. Namun, sering merasa tidak nyambung dengan orang awam (eksklusif), terlalu idealis hingga sulit membumikan ide menjadi aksi praktis, serta skeptis terhadap hal yang tidak memiliki landasan filosofis jelas.", 
+        intisari: "Si Kreatif Reflektif didominasi otak kanan atas (Pilar Kreatif) dengan kemudi internal (Reflektif). Sosok pemikir abstrak yang sangat mementingkan orisinalitas and kesempurnaan ide melampaui zaman. Cenderung tenang di luar namun memiliki dunia imajinasi yang sangat luas and mendalam. Sangat kuat dalam abstraksi filosofis and strategi jangka panjang. Namun, sering merasa tidak nyambung dengan orang awam (eksklusif), terlalu idealis hingga sulit membumikan ide menjadi aksi praktis, serta skeptis terhadap hal yang tidak memiliki landasan filosofis jelas.", 
         successHabit: "Mantra: 'Kualitas and Ilmu'. Kunci Sukses: Menjadi ahli di bidang yang spesifik and unik. Kuncinya adalah 'Inovasi atau Mati'. Harus berani membumikan idenya agar bisa dinikmati orang banyak.", 
         relationship: "Sangat selektif dalam memilih lingkungan sosial and sangat menghargai privasi pikiran.", 
         communication: "Puitis, penuh simbol, filosofis, and cenderung selektif dalam memilih lawan bicara.", 
@@ -103,7 +103,7 @@ const mindprintDescriptions = {
     },
     9: { 
         title: "Si Adaptif (The Responsive Generalist)", 
-        intisari: "Si Adaptif didominasi oleh Otak Tengah yang bersifat netral dan responsif tanpa kemudi dominan. Sosok yang paling serba bisa, cinta damai, dan memiliki kecepatan refleks luar biasa baik fisik maupun mental. Menjadi 'jembatan' penghubung berbagai tipe kepribadian karena sifatnya yang fleksibel dan rela berkorban demi harmoni tim. Namun, tantangannya adalah sulit menentukan prioritas atau tujuan hidup spesifik (sulit fokus), trauma terhadap konflik (cenderung menghindari masalah), serta mudah terdistraksi sehingga terlihat kurang memiliki prinsip teguh.", 
+        intisari: "Si Adaptif didominasi oleh Otak Tengah yang bersifat netral and responsif tanpa kemudi dominan. Sosok yang paling serba bisa, cinta damai, and memiliki kecepatan refleks luar biasa baik fisik maupun mental. Menjadi 'jembatan' penghubung berbagai tipe kepribadian karena sifatnya yang fleksibel and rela berkorban demi harmoni tim. Namun, tantangannya adalah sulit menentukan prioritas atau tujuan hidup spesifik (sulit fokus), trauma terhadap konflik (cenderung menghindari masalah), serta mudah terdistraksi sehingga terlihat kurang memiliki prinsip teguh.", 
         successHabit: "Mantra: 'Ketenangan and Kebermanfaatan'. Kunci Sukses: Kebahagiaan and Spiritualitas. Sukses jika hati tenang and merasa berguna bagi banyak orang. Latih ketuntasan (finishing) agar pekerjaan tidak hanya cepat di awal.", 
         relationship: "Sangat tulus, tidak suka konflik, and pembawa harmoni bagi sekitar.", 
         communication: "Spontan, lugas, namun tetap santun. Cenderung tidak suka perdebatan panjang.", 
@@ -247,11 +247,11 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// FIX FINAL: DOWNLOAD PDF TANPA GESER & TANPA HALAMAN KOSONG
+// FUNGSI DOWNLOAD PDF: METODE STABIL UNTUK TABLET
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     
-    // Tampilkan elemen sementara untuk proses render
+    // Tampilkan elemen agar bisa dibaca sistem
     el.style.display = 'block';
 
     const opt = {
@@ -261,29 +261,24 @@ document.getElementById('download-btn').addEventListener('click', () => {
         html2canvas: { 
             scale: 2, 
             useCORS: true, 
-            logging: false,
-            letterRendering: true,
             scrollY: 0, 
-            scrollX: 0,
-            windowWidth: 1122, 
-            windowHeight: 794
+            scrollX: 0
         },
-        // Menggunakan pixel (px) eksplisit sesuai dimensi elemen
-        jsPDF: { unit: 'px', format: [1122, 794], orientation: 'landscape', compress: true }
+        jsPDF: { unit: 'px', format: [1122, 794], orientation: 'landscape' }
     };
     
-    // Jalankan konversi dengan proteksi jumlah halaman
+    // Proses pembuatan PDF
     html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
-        // Loop untuk menghapus semua halaman setelah halaman pertama
         const totalPages = pdf.internal.getNumberOfPages();
-        if (totalPages > 1) {
-            for (let i = totalPages; i > 1; i--) {
-                pdf.deletePage(i);
-            }
+        for (let i = totalPages; i > 1; i--) {
+            pdf.deletePage(i);
         }
     }).save().then(() => {
-        // Sembunyikan kembali elemen template setelah selesai
         el.style.display = 'none';
+        alert("Sertifikat berhasil diunduh!");
+    }).catch(err => {
+        console.error(err);
+        alert("Terjadi kesalahan saat mengunduh. Silakan coba lagi.");
     });
 });
 
