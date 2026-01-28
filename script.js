@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 11.0 (ULTRA-PRECISION PDF & TWIN ADJUSTMENT)
+ * VERSION: 12.0 (FINAL AUTO-PAGE RECOVERY & PIXEL LOCK)
  */
 
 const mindprintDescriptions = {
@@ -51,7 +51,7 @@ const mindprintDescriptions = {
         negatif: "Cepat Bosan, Boros, Terburu-buru.", 
         motivasi: "Berikan tantangan kompetitif, bonus instan, serta lingkungan kerja yang dinamis dan mobilitas tinggi.", 
         karir: "Sales/Marketing, Atlet Profesional, Chef, Pilot, Polisi/Militer.", 
-        study: "Praktik Larangan langsung (bukan sekadar buku), Belajar Kelompok untuk memicu keaktifan otak, dan Metode Demonstrasi (modelling)." 
+        study: "Praktik Lapangan langsung (bukan sekadar buku), Belajar Kelompok untuk memicu keaktifan otak, dan Metode Demonstrasi (modelling)." 
     },
     5: { 
         title: "Si Empati Reflektif (The Principled Soul)", 
@@ -130,14 +130,12 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// TOGGLE PANEL ANAK KEMBAR
 document.getElementById('is-twin').addEventListener('change', function() {
     const panel = document.getElementById('twin-panel');
     if(this.checked) panel.classList.remove('hidden');
     else panel.classList.add('hidden');
 });
 
-// DISABLE JAM JIKA TIDAK TAHU
 document.getElementById('unknown-time').addEventListener('change', function() {
     document.getElementById('birth-hour').disabled = this.checked;
     document.getElementById('birth-minute').disabled = this.checked;
@@ -249,38 +247,43 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// FUNGSI DOWNLOAD PDF DENGAN KALIBRASI TITIK NOL (0,0)
+// FIX FINAL: DOWNLOAD PDF TANPA GESER & TANPA HALAMAN KOSONG
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     
-    // Tampilkan elemen secara absolut di pojok kiri atas layar sesaat agar koordinat terbaca 0,0
+    // Tampilkan elemen sementara untuk proses render
     el.style.display = 'block';
-    el.style.position = 'fixed';
-    el.style.top = '0';
-    el.style.left = '0';
 
     const opt = {
         margin: 0,
         filename: `Laporan_MindPrint_${userName}.pdf`,
-        image: { type: 'jpeg', quality: 1 }, 
+        image: { type: 'jpeg', quality: 1 },
         html2canvas: { 
             scale: 2, 
             useCORS: true, 
             logging: false,
-            scrollY: -window.scrollY, // Menetralkan posisi scroll layar saat ini
+            letterRendering: true,
+            scrollY: 0, 
             scrollX: 0,
-            x: 0,
-            y: 0,
-            width: 1122, 
-            height: 794  
+            windowWidth: 1122, 
+            windowHeight: 794
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
+        // Menggunakan pixel (px) eksplisit sesuai dimensi elemen
+        jsPDF: { unit: 'px', format: [1122, 794], orientation: 'landscape', compress: true }
     };
     
-    html2pdf().set(opt).from(el).save().then(() => {
-        // Kembalikan ke kondisi semula setelah proses selesai
+    // Jalankan konversi dengan proteksi jumlah halaman
+    html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
+        // Loop untuk menghapus semua halaman setelah halaman pertama
+        const totalPages = pdf.internal.getNumberOfPages();
+        if (totalPages > 1) {
+            for (let i = totalPages; i > 1; i--) {
+                pdf.deletePage(i);
+            }
+        }
+    }).save().then(() => {
+        // Sembunyikan kembali elemen template setelah selesai
         el.style.display = 'none';
-        el.style.position = 'relative'; 
     });
 });
 
