@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 9.0 (TWIN ADJUSTMENT & REFINED LAYOUT)
+ * VERSION: 10.0 (FINAL PRECISION LAYOUT & TWIN ADJUSTMENT)
  */
 
 const mindprintDescriptions = {
@@ -79,19 +79,19 @@ const mindprintDescriptions = {
     },
     7: { 
         title: "Si Kreatif Reflektif (The Quality Visionary)", 
-        intisari: "Si Kreatif Reflektif didominasi otak kanan atas (Pilar Kreatif) dengan kemudi internal (Reflektif). Sosok pemikir abstrak yang sangat mementingkan orisinalitas dan kesempurnaan ide melampaui zaman. Cenderung tenang di luar namun memiliki dunia imajinasi yang sangat luas dan mendalam. Sangat kuat dalam abstraksi filosofis dan strategi jangka panjang. Namun, sering merasa tidak nyambung dengan orang awam (eksklusif), terlalu idealis hingga sulit membumikan ide menjadi aksi praktis, serta skeptis terhadap hal yang tidak memiliki landasan filosofis jelas.", 
+        intisari: "Si Kreatif Reflektif didominasi otak kanan atas (Pilar Kreatif) dengan kemudi internal (Reflektif). Sosok pemikir abstrak yang sangat mementingkan orisinalitas dan kesempurnaan ide melampaui zaman. Cenderung tenang di luar namun memiliki dunia imajinasi yang sangat luas and mendalam. Sangat kuat dalam abstraksi filosofis and strategi jangka panjang. Namun, sering merasa tidak nyambung dengan orang awam (eksklusif), terlalu idealis hingga sulit membumikan ide menjadi aksi praktis, serta skeptis terhadap hal yang tidak memiliki landasan filosofis jelas.", 
         successHabit: "Mantra: 'Kualitas and Ilmu'. Kunci Sukses: Menjadi ahli di bidang yang spesifik and unik. Kuncinya adalah 'Inovasi atau Mati'. Harus berani membumikan idenya agar bisa dinikmati orang banyak.", 
-        relationship: "Sangat selektif dalam memilih lingkungan sosial dan sangat menghargai privasi pikiran.", 
-        communication: "Puitis, penuh simbol, filosofis, dan cenderung selektif dalam memilih lawan bicara.", 
+        relationship: "Sangat selektif dalam memilih lingkungan sosial and sangat menghargai privasi pikiran.", 
+        communication: "Puitis, penuh simbol, filosofis, and cenderung selektif dalam memilih lawan bicara.", 
         positif: "Visioner Jangka Panjang, Perfeksionis Ide, Abstraksi Kuat.", 
         negatif: "Eksklusif/Menyendiri, Terlalu Idealis, Skeptis.", 
-        motivasi: "Hargai orisinalitas idenya, berikan waktu dan ruang privat, serta dukung visi jangka panjangnya.", 
+        motivasi: "Hargai orisinalitas idenya, berikan waktu and ruang privat, serta dukung visi jangka panjangnya.", 
         karir: "Penulis, Peneliti, Arsitek, Strategist Bisnis, Seniman Konseptual.", 
         study: "Peta Konsep (Mind Mapping), penggunaan Analogi & Metafora (simbol), serta membaca literatur yang membahas 'Why' secara mendalam." 
     },
     8: { 
         title: "Si Konseptor Ekspresif (The Great Manager)", 
-        intisari: "Si Konseptor Ekspresif didominasi otak kiri atas yang digerakkan oleh stimulasi dari luar (Ekspresif). Mereka adalah sosok 'Komandan' yang lahir untuk memimpin, sangat suka mengatur, dan membangun struktur organisasi yang luas. Energinya muncul saat memiliki kekuasaan atau kendali atas proyek besar. Memiliki kemampuan manajerial hebat dalam delegasi serta berorientasi kuat pada target dan efisiensi hasil akhir. Namun, tantangannya adalah kecenderungan bersikap dominan/otoriter (bossy), kurang sabar pada orang yang lambat, serta terkadang kaku pada hirarki jabatan.", 
+        intisari: "Si Konseptor Ekspresif didominasi otak kiri atas yang digerakkan oleh stimulasi dari luar (Ekspresif). Mereka adalah sosok 'Komandan' yang lahir untuk memimpin, sangat suka mengatur, and membangun struktur organisasi yang luas. Energinya muncul saat memiliki kekuasaan atau kendali atas proyek besar. Memiliki kemampuan manajerial hebat dalam delegasi serta berorientasi kuat pada target and efisiensi hasil akhir. Namun, tantangannya adalah kecenderungan bersikap dominan/otoriter (bossy), kurang sabar pada orang yang lambat, serta terkadang kaku pada hirarki jabatan.", 
         successHabit: "Mantra: 'Otoritas and Ekspansi'. Kunci Sukses: Memperluas jaringan and kekuasaan. Sukses jika diberikan tanggung jawab besar mengelola banyak orang. Latih kemampuan melipatgandakan aset and SDM.", 
         relationship: "Mendukung status sosial and pencapaian karir dalam hubungan.", 
         communication: "Lugas, memerintah (namun logis), and sangat menghargai struktur bicara yang sistematis.", 
@@ -249,17 +249,29 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
+// FUNGSI DOWNLOAD PDF DENGAN LAYOUT PRESISI
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
-    el.style.display = 'block';
+    el.style.display = 'block'; 
+    
     const opt = {
-        margin: 0,
+        margin: 0, 
         filename: `Laporan_MindPrint_${userName}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 3, useCORS: true, letterRendering: true, scrollY: 0, scrollX: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            scrollY: 0, 
+            scrollX: 0,
+            windowWidth: 1122, 
+            windowHeight: 794  
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
     };
-    html2pdf().set(opt).from(el).save().then(() => { el.style.display = 'none'; });
+    
+    html2pdf().set(opt).from(el).save().then(() => {
+        el.style.display = 'none'; 
+    });
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
