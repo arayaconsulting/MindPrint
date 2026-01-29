@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 28.0 (FINAL SYNC & DISPLAY RECOVERY)
+ * VERSION: 29.0 (FINAL TWIN FIX & RENDER SOP)
  */
 
 const mindprintDescriptions = {
@@ -34,7 +34,11 @@ function populateDateFields() {
 // 1. FIX LISTENER TWIN PANEL (FORCE BLOCK)
 document.getElementById('is-twin').addEventListener('change', function() {
     const panel = document.getElementById('twin-panel');
-    panel.style.display = this.checked ? 'block' : 'none';
+    if (this.checked) {
+        panel.style.setProperty('display', 'block', 'important');
+    } else {
+        panel.style.setProperty('display', 'none', 'important');
+    }
 });
 
 document.getElementById('unknown-time').addEventListener('change', function() {
@@ -127,7 +131,8 @@ function showResult() {
 
     const data = mindprintDescriptions[resNum];
     
-    // 2. FIX DISPLAY INTISARI (SESUAIKAN ID DENGAN SCREENSHOT)
+    // FIX INTISARI (HITAM DI ATAS PUTIH)
+    document.getElementById('display-intisari').style.color = "#333";
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('result-title').textContent = data.title;
 
@@ -148,7 +153,7 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// 3. LOGIKA DOWNLOAD PDF PERSONALITY PLUS TERJAMIN
+// LOGIKA DOWNLOAD PDF PERSONALITY PLUS
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -158,23 +163,12 @@ document.getElementById('download-btn').addEventListener('click', () => {
             margin: 0,
             filename: `Laporan_MindPrint_${userName}.pdf`,
             image: { type: 'jpeg', quality: 1 },
-            html2canvas: { 
-                scale: 2, 
-                useCORS: true, 
-                scrollY: 0, 
-                scrollX: 0,
-                letterRendering: true,
-                windowWidth: 1122,
-                windowHeight: 794
-            },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, letterRendering: true, windowWidth: 1122, windowHeight: 794 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
-        
         html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
             const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 1; i--) { 
-                pdf.deletePage(i); 
-            }
+            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
         }).save().then(() => {
             el.style.display = 'none';
         });
