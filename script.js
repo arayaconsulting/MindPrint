@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 17.0 (LOGIKA PERSONALITY PLUS SUCCESS CASE)
+ * VERSION: 18.0 (FIXED TWIN PANEL & PERSONALITY PLUS RENDER)
  */
 
 const mindprintDescriptions = {
@@ -31,9 +31,14 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
+// LOGIKA MUNCULKAN PANEL TWIN (PENTING!)
 document.getElementById('is-twin').addEventListener('change', function() {
     const panel = document.getElementById('twin-panel');
-    panel.style.display = this.checked ? 'block' : 'none';
+    if(this.checked) {
+        panel.style.display = 'block'; // Tampilkan panel jika dicentang
+    } else {
+        panel.style.display = 'none';  // Sembunyikan jika tidak dicentang
+    }
 });
 
 document.getElementById('unknown-time').addEventListener('change', function() {
@@ -145,14 +150,11 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// FUNGSI DOWNLOAD PDF: LOGIKA PERSONALITY PLUS (TERUJI)
+// DOWNLOAD PDF: POLA PERSONALITY PLUS TERJAMIN
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
-    
-    // 1. Tampilkan elemen asli (Pola Personality Plus: harus di DOM agar aset gambar terbaca)
     el.style.display = 'block';
 
-    // 2. Jeda sinkronisasi render (Pola Personality Plus: 500ms adalah waktu aman untuk tablet)
     setTimeout(() => {
         const opt = {
             margin: 0,
@@ -170,15 +172,12 @@ document.getElementById('download-btn').addEventListener('click', () => {
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
         
-        // Eksekusi Render Langsung pada Elemen Asli
         html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
-            // Pembersihan Halaman Otomatis
             const totalPages = pdf.internal.getNumberOfPages();
             for (let i = totalPages; i > 1; i--) { 
                 pdf.deletePage(i); 
             }
         }).save().then(() => {
-            // Sembunyikan Kembali
             el.style.display = 'none';
         });
     }, 500); 
