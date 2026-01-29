@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 18.0 (FIXED TWIN PANEL & PERSONALITY PLUS RENDER)
+ * VERSION: 19.0 (FIXED TWIN PANEL DISPLAY & PERSONALITY PLUS RENDER)
  */
 
 const mindprintDescriptions = {
@@ -31,13 +31,13 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// LOGIKA MUNCULKAN PANEL TWIN (PENTING!)
+// LOGIKA MUNCULKAN PANEL TWIN (METODE PAKSA)
 document.getElementById('is-twin').addEventListener('change', function() {
     const panel = document.getElementById('twin-panel');
-    if(this.checked) {
-        panel.style.display = 'block'; // Tampilkan panel jika dicentang
+    if (this.checked) {
+        panel.setAttribute('style', 'display: block !important; text-align: left; margin: 10px 0;');
     } else {
-        panel.style.display = 'none';  // Sembunyikan jika tidak dicentang
+        panel.setAttribute('style', 'display: none !important;');
     }
 });
 
@@ -150,7 +150,6 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// DOWNLOAD PDF: POLA PERSONALITY PLUS TERJAMIN
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -160,23 +159,12 @@ document.getElementById('download-btn').addEventListener('click', () => {
             margin: 0,
             filename: `Laporan_MindPrint_${userName}.pdf`,
             image: { type: 'jpeg', quality: 1 },
-            html2canvas: { 
-                scale: 2, 
-                useCORS: true, 
-                scrollY: 0, 
-                scrollX: 0,
-                letterRendering: true,
-                windowWidth: 1122,
-                windowHeight: 794
-            },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, letterRendering: true, windowWidth: 1122, windowHeight: 794 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
-        
         html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
             const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 1; i--) { 
-                pdf.deletePage(i); 
-            }
+            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
         }).save().then(() => {
             el.style.display = 'none';
         });
