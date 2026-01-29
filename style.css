@@ -12,8 +12,6 @@ body {
     background-color: var(--bg);
     display: flex; justify-content: center; align-items: center;
     min-height: 100vh; margin: 0; padding: 20px;
-    -webkit-user-select: none; user-select: none;
-    touch-action: manipulation;
 }
 
 .container {
@@ -27,7 +25,13 @@ body {
 
 form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; box-sizing: border-box; }
-#birth-date-container { display: flex; gap: 10px; }
+
+/* FIX TANGGAL LAHIR KEMBALI SEJAJAR */
+#birth-date-container { 
+    display: flex !important; 
+    gap: 10px !important; 
+    width: 100% !important;
+}
 
 /* SCANNER */
 .fingerprint-scanner {
@@ -54,14 +58,27 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
 
 button { background: var(--primary); color: white; border: none; padding: 18px; font-size: 18px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%; }
 
-/* PANEL TWIN (PENTING!) */
+/* PANEL TWIN (DIPERBAIKI) */
 #twin-panel {
     display: none; 
     text-align: left;
     margin: 10px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
 }
 
-/* SERTIFIKAT STANDAR PERSONALITY PLUS */
+/* FIX INTISARI AGAR TAMPIL JELAS */
+#display-intisari {
+    color: #333 !important;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 20px 0;
+    text-align: justify;
+    display: block !important;
+}
+
+/* SERTIFIKAT STANDAR */
 #certificate-template {
     width: 1122px !important;
     height: 794px !important;
