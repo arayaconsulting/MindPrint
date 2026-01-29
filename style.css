@@ -54,14 +54,14 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
 
 button { background: var(--primary); color: white; border: none; padding: 18px; font-size: 18px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%; }
 
-/* PANEL TWIN (PENTING!) */
+/* PANEL TWIN (DIPERBAIKI) */
 #twin-panel {
-    display: none; /* Sembunyi default, akan dibuka via JS */
+    display: none; /* Sembunyi default */
     text-align: left;
     margin: 10px 0;
 }
 
-/* SERTIFIKAT STANDAR PERSONALITY PLUS */
+/* SERTIFIKAT STANDAR */
 #certificate-template {
     width: 1122px !important;
     height: 794px !important;
