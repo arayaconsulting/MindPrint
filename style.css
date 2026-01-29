@@ -18,6 +18,7 @@ body {
     text-align: center; background: white; padding: 40px;
     border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     max-width: 800px; width: 95%;
+    position: relative; z-index: 10;
 }
 
 .logo { width: 160px; margin-bottom: 20px; display: block; margin: 0 auto; }
@@ -33,12 +34,11 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
     display: flex; justify-content: center; align-items: center;
     overflow: hidden; background: #fff; cursor: pointer;
 }
-
 .scanning { background: var(--electric-blue); }
 
 button { background: var(--primary); color: white; border: none; padding: 18px; font-size: 18px; font-weight: 600; border-radius: 12px; cursor: pointer; width: 100%; }
 
-/* PANEL TWIN (PENTING) */
+/* PANEL TWIN */
 #twin-panel {
     display: none;
     text-align: left;
@@ -48,15 +48,13 @@ button { background: var(--primary); color: white; border: none; padding: 18px; 
     margin: 10px 0;
 }
 
-/* SERTIFIKAT STANDAR SUCCESS */
+/* SERTIFIKAT STANDAR - DISEMBUNYIKAN TOTAL */
 #certificate-template {
-    width: 297mm; /* Lebar A4 Landscape */
-    height: 210mm; /* Tinggi A4 Landscape */
-    background-color: white;
-    position: fixed;
+    width: 1122px !important;
+    height: 794px !important;
+    position: absolute;
+    left: -9999px; /* Dibuang jauh dari area pandang agar tidak merusak form */
     top: 0;
-    left: 0;
-    z-index: -999;
-    display: none; 
-    overflow: hidden;
+    display: none;
+    background-color: white;
 }
