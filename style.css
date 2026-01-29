@@ -11,8 +11,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg);
     display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; margin: 0 !important; padding: 20px !important;
-    -webkit-user-select: none; user-select: none;
+    min-height: 100vh; margin: 0; padding: 20px;
 }
 
 .container {
@@ -26,51 +25,38 @@ body {
 
 form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; box-sizing: border-box; }
-#birth-date-container { display: flex; gap: 10px; }
 
 /* SCANNER */
 .fingerprint-scanner {
     width: 160px; height: 220px; margin: 30px auto;
-    position: relative; border: 3px solid #eee; 
-    border-radius: 50% 50% 45% 45%; 
+    position: relative; border: 3px solid #eee; border-radius: 50% 50% 45% 45%; 
     display: flex; justify-content: center; align-items: center;
-    overflow: hidden; background: #fff; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    overflow: hidden; background: #fff; cursor: pointer;
 }
 
-.scan-bg {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, var(--electric-blue) 0%, #005f73 100%); 
-    opacity: 0; z-index: 1; transition: opacity 2s ease-in-out;
-}
+.scanning { background: var(--electric-blue); }
 
-.scanning .scan-bg { opacity: 0.85; }
-.fingerprint-image { width: 110px; height: auto; opacity: 0.15; filter: grayscale(100%); z-index: 2; transition: all 2s ease-in-out; pointer-events: none; }
-.scanning .fingerprint-image { opacity: 1; filter: grayscale(0%) brightness(0.2) contrast(2); }
-.scan-line { position: absolute; width: 100%; height: 5px; background: #fff; box-shadow: 0 0 20px #fff, 0 0 10px var(--electric-blue); left: 0; top: -10px; z-index: 3; display: none; }
-.scanning .scan-line { display: block; animation: moveLine 1.5s infinite ease-in-out; }
-@keyframes moveLine { 0% { top: 0%; } 50% { top: 90%; } 100% { top: 0%; } }
+button { background: var(--primary); color: white; border: none; padding: 18px; font-size: 18px; font-weight: 600; border-radius: 12px; cursor: pointer; width: 100%; }
 
-button { background: var(--primary); color: white; border: none; padding: 18px; font-size: 18px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%; }
-
-/* PANEL TWIN: KUNCI UNTUK JS DISPLAY */
+/* PANEL TWIN (PENTING) */
 #twin-panel {
-    display: none; 
+    display: none;
     text-align: left;
+    background: #f0f4f8;
+    padding: 15px;
+    border-radius: 10px;
     margin: 10px 0;
 }
 
-/* FIX FINAL SERTIFIKAT: KUNCI MATI POSISI 0,0 */
+/* SERTIFIKAT STANDAR SUCCESS */
 #certificate-template {
-    width: 1122px !important;
-    height: 794px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: white !important;
-    overflow: hidden !important;
+    width: 297mm; /* Lebar A4 Landscape */
+    height: 210mm; /* Tinggi A4 Landscape */
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -999;
     display: none; 
-    box-sizing: border-box !important;
-    /* Paksa posisi absolut agar tidak terpengaruh padding body saat render */
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
+    overflow: hidden;
 }
