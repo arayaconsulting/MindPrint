@@ -1,6 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
- * VERSION: 26.0 (LAYOUT FIX & STABLE DOWNLOAD)
+ * OWNER: ALI MAHFUD
+ * VERSION: 27.0 (FINAL SYNC - SUCCESS CASE)
  */
 
 const mindprintDescriptions = {
@@ -16,7 +17,7 @@ const mindprintDescriptions = {
 };
 
 const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
-let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false;
+let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false, scanTimeout;
 
 function populateDateFields() {
     const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
@@ -30,9 +31,14 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
+// LOGIKA MUNCULKAN PANEL TWIN (METODE PAKSA)
 document.getElementById('is-twin').addEventListener('change', function() {
     const panel = document.getElementById('twin-panel');
-    panel.style.display = this.checked ? 'block' : 'none';
+    if(this.checked) {
+        panel.style.display = 'block'; 
+    } else {
+        panel.style.display = 'none';  
+    }
 });
 
 document.getElementById('unknown-time').addEventListener('change', function() {
@@ -49,28 +55,50 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     document.getElementById('scan-text').textContent = `Tempelkan ${fingers[0]} Anda...`;
 });
 
-document.getElementById('fingerprint-scanner').addEventListener('click', () => {
+const scanner = document.getElementById('fingerprint-scanner');
+const scanText = document.getElementById('scan-text');
+
+function startScanning(e) {
+    if(e) e.preventDefault();
     if(isScanning) return;
     isScanning = true;
-    document.getElementById('fingerprint-scanner').classList.add('scanning');
-    document.getElementById('scan-text').textContent = `Memindai ${fingers[currentFingerIndex]}...`;
-    setTimeout(() => {
-        isScanning = false;
-        document.getElementById('fingerprint-scanner').classList.remove('scanning');
-        if (currentFingerIndex < fingers.length - 1) {
-            currentFingerIndex++;
-            document.getElementById('scan-text').textContent = `${fingers[currentFingerIndex-1].toUpperCase()} BERHASIL.`;
-            document.getElementById('next-finger-button').classList.remove('hidden');
-        } else {
-            document.getElementById('scan-text').textContent = "MENGANALISIS DATA...";
-            setTimeout(showResult, 1500);
-        }
-    }, 2000);
-});
+    scanner.classList.add('scanning'); 
+    scanText.textContent = `Memindai ${fingers[currentFingerIndex]}... JANGAN DILEPAS!`;
+    scanTimeout = setTimeout(() => { finishScan(); }, 3000);
+}
+
+function cancelScanning(e) {
+    if(e) e.preventDefault();
+    if(!isScanning) return;
+    clearTimeout(scanTimeout);
+    isScanning = false;
+    scanner.classList.remove('scanning'); 
+    scanText.textContent = "GAGAL! Jari terlepas. Tempelkan kembali.";
+}
+
+if(scanner) {
+    scanner.addEventListener('touchstart', startScanning, {passive: false});
+    scanner.addEventListener('touchend', cancelScanning, {passive: false});
+    scanner.addEventListener('mousedown', startScanning);
+    window.addEventListener('mouseup', cancelScanning);
+}
+
+function finishScan() {
+    isScanning = false;
+    scanner.classList.remove('scanning');
+    if (currentFingerIndex < fingers.length - 1) {
+        currentFingerIndex++;
+        scanText.textContent = `${fingers[currentFingerIndex-1].toUpperCase()} BERHASIL.`;
+        document.getElementById('next-finger-button').classList.remove('hidden');
+    } else {
+        scanText.textContent = "MENGANALISIS DATA...";
+        setTimeout(showResult, 1500);
+    }
+}
 
 document.getElementById('next-finger-button').addEventListener('click', function() {
     this.classList.add('hidden');
-    document.getElementById('scan-text').textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
+    scanText.textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
 });
 
 function calculateNumerology(dateString) {
@@ -85,13 +113,17 @@ function showResult() {
     document.getElementById('result-container').classList.remove('hidden');
     
     let resNum = calculateNumerology(birthDate);
-    if (document.getElementById('is-twin').checked) {
-        if (!document.getElementById('unknown-time').checked) {
+    const isTwin = document.getElementById('is-twin').checked;
+
+    if (isTwin) {
+        const isTimeUnknown = document.getElementById('unknown-time').checked;
+        const order = document.getElementById('twin-order').value;
+        if (!isTimeUnknown) {
             const h = parseInt(document.getElementById('birth-hour').value) || 0;
             const m = parseInt(document.getElementById('birth-minute').value) || 0;
             resNum = (resNum + (h + m)) % 9 || 9;
         }
-        if (document.getElementById('twin-order').value === 'adik') {
+        if (order === 'adik') {
             const pairMap = { 1: 8, 8: 1, 3: 4, 4: 3, 5: 2, 2: 5, 7: 6, 6: 7, 9: 9 };
             resNum = pairMap[resNum] || resNum;
         }
@@ -115,25 +147,35 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
+// DOWNLOAD PDF: POLA PERSONALITY PLUS TERJAMIN
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
-    el.style.left = '0'; // Posisikan sementara agar bisa dipotret
 
     setTimeout(() => {
         const opt = {
             margin: 0,
             filename: `Laporan_MindPrint_${userName}.pdf`,
             image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true, scrollY: 0, letterRendering: true },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                scrollY: 0, 
+                scrollX: 0,
+                letterRendering: true,
+                windowWidth: 1122,
+                windowHeight: 794
+            },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
+        
         html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
             const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
+            for (let i = totalPages; i > 1; i--) { 
+                pdf.deletePage(i); 
+            }
         }).save().then(() => {
             el.style.display = 'none';
-            el.style.left = '-9999px'; // Buang kembali
         });
     }, 500); 
 });
