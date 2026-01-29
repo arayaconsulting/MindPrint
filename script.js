@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 27.0 (FINAL SYNC - SUCCESS CASE)
+ * VERSION: 28.0 (FINAL SYNC & DISPLAY RECOVERY)
  */
 
 const mindprintDescriptions = {
@@ -31,14 +31,10 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// LOGIKA MUNCULKAN PANEL TWIN (METODE PAKSA)
+// 1. FIX LISTENER TWIN PANEL (FORCE BLOCK)
 document.getElementById('is-twin').addEventListener('change', function() {
     const panel = document.getElementById('twin-panel');
-    if(this.checked) {
-        panel.style.display = 'block'; 
-    } else {
-        panel.style.display = 'none';  
-    }
+    panel.style.display = this.checked ? 'block' : 'none';
 });
 
 document.getElementById('unknown-time').addEventListener('change', function() {
@@ -130,6 +126,11 @@ function showResult() {
     }
 
     const data = mindprintDescriptions[resNum];
+    
+    // 2. FIX DISPLAY INTISARI (PASTIKAN ID COCOK)
+    document.getElementById('display-intisari').textContent = data.intisari;
+    document.getElementById('result-title').textContent = data.title;
+
     document.getElementById('cert-name').textContent = userName;
     document.getElementById('cert-result').textContent = data.title;
     document.getElementById('cert-intisari').textContent = data.intisari;
@@ -147,7 +148,6 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// DOWNLOAD PDF: POLA PERSONALITY PLUS TERJAMIN
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -157,23 +157,12 @@ document.getElementById('download-btn').addEventListener('click', () => {
             margin: 0,
             filename: `Laporan_MindPrint_${userName}.pdf`,
             image: { type: 'jpeg', quality: 1 },
-            html2canvas: { 
-                scale: 2, 
-                useCORS: true, 
-                scrollY: 0, 
-                scrollX: 0,
-                letterRendering: true,
-                windowWidth: 1122,
-                windowHeight: 794
-            },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, letterRendering: true, windowWidth: 1122, windowHeight: 794 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
-        
         html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
             const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 1; i--) { 
-                pdf.deletePage(i); 
-            }
+            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
         }).save().then(() => {
             el.style.display = 'none';
         });
