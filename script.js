@@ -1,13 +1,13 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 29.0 (FINAL TWIN FIX & RENDER SOP)
+ * VERSION: 30.0 (FINAL PROTECTED SCAN & UI SYNC)
  */
 
 const mindprintDescriptions = {
     1: { title: "Si Konseptor Reflektif (The Master Strategist)", intisari: "Si Konseptor Reflektif adalah tipe yang paling mandiri dan mendalam secara intelektual dengan dominasi otak kiri atas (Pilar Konseptor) dan kemudi Reflektif. Mereka adalah individu yang sangat logis, objektif, dan perfeksionis dalam hal kebenaran data; segalanya harus melewati filter logika yang ketat. Hebat dalam analisis mendalam membedah masalah kompleks dan konsisten menjaga standar kualitas tinggi. Namun, sering terlihat dingin atau terlalu kritis mengoreksi kesalahan orang lain secara tajam, sulit bekerja dalam tim yang berantakan, serta kurang empati karena terlalu fokus pada fakta objektif.", successHabit: "Mantra: 'Logika dan Otoritas'. Kunci Sukses: Keahlian Teknis and Kekuasaan. Sukses jika memiliki otoritas atau kendali atas sistem. Terus asah otak dengan belajar ilmu-ilmu baru (ta'allum) agar posisi tawar tetap tinggi.", relationship: "Eksklusif dalam memilih teman dan sangat menghargai privasi pikiran.", communication: "Formal, data-driven, dan sangat argumentatif. Gunakan data konkret untuk meyakinkan, bukan perasaan.", positif: "Analisis Mendalam, Kemandirian Tinggi, Objektivitas.", negatif: "Terlalu Kritis, Dingin, Kurang Empati.", motivasi: "Berikan akses terhadap data/ilmu baru, hargai kemandiriannya, dan libatkan dalam perancangan sistem logis.", karir: "Programmer, Ilmuwan, Akuntan Publik, Peneliti, Ahli Strategi.", study: "Belajar melalui Skema dan Struktur (bagan/tabel), studi literatur mandiri yang mendalam, serta Problem Solving kasus logika." },
     2: { title: "Si Empati Ekspresif (The Charismatic Leader)", intisari: "Si Empati Ekspresif didominasi otak kanan bawah dengan kemudi luar (Ekspresif). Sosok 'Magnet Sosial' dengan kemampuan persuasi luar biasa dan kharisma tinggi yang menginspirasi orang lain. Ahli dalam memahami psikologi massa dan membangkitkan semangat tim melalui kata-kata. Energinya meluap saat berada di tengah banyak orang. Namun, tantangannya adalah sangat haus akan pengakuan and apresiasi, bisa menjadi manipulatif jika tanpa integritas, serta suasana hati yang sangat bergantung pada perlakuan orang lain terhadapnya.", successHabit: "Mantra: 'Pengaruh and Cinta'. Kunci Sukses: Popularitas and Relasi. Sukses jika memiliki banyak pengikut/jaringan luas. Latih kemandirian agar tidak terlalu bergantung pada pujian and tetap fokus target nyata.", relationship: "Membutuhkan apresiasi verbal and pengakuan emosional yang hangat.", communication: "Hangat, penuh ekspresi, persuasif, and mahir menggunakan intonasi suara untuk menyentuh emosi.", positif: "Kemampuan Persuasi, Kharisma Tinggi, Pandai Memotivasi.", negatif: "Haus Pengakuan, Manipulatif, Mudah Terpengaruh.", motivasi: "Berikan apresiasi publik (pujian di depan orang), jadikan juru bicara, and berikan dukungan emosional.", karir: "Politisi, Motivator, Public Relations, Sales Manager, Presenter/Trainer.", study: "Diskusi & Tanya Jawab interaktif, Mengajarkan Kembali materi, and menyukai pembelajaran Audio-Visual (storytelling)." },
-    3: { title: "Si Praktisi Reflektif (The Discipline Specialist)", intisari: "Si Praktisi Reflektif adalah sosok yang paling membumi dalam keluarga besar Mindprint. Dominasi otak kiri bawah (Pilar Praktisi) yang digerakkan dari dalam ke luar (Reflektif) menjadikannya seorang pekerja keras yang sangat mandiri. Mereka adalah tipe orang yang lebih suka 'bertindak' daripada sekadar 'berwacana'. Jika ada pekerjaan yang membutuhkan ketelitian tinggi, stamina fisik yang kuat, and kepatuhan pada aturan, mereka adalah jagonya. Memiliki kekuatan utama pada memori yang tajam dalam merekam data, ketangguhan fisik yang stabil, serta kedisiplinan tinggi terhadap SOP. Namun, tantangannya adalah kecenderungan bersikap kaku, kurang spontan, and seringkali mengukur kesuksesan hanya dari angka atau aset yang terlihat (materialistis).", successHabit: "Mantra: 'Berkeringat and Menabung'. Kunci Sukses: Fokus pada spesialisasi. Jangan menjadi Palugada. Pilihlah satu bidang, tekuni sampai menjadi ahli (specialist), and pastikan ada aktivitas fisik rutin untuk menjaga mood tetap stabil.", relationship: "Membangun kepercayaan melalui konsistensi and kejujuran berbasis fakta.", communication: "To-the-point, singkat, and berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", positif: "Disiplin Tinggi, Memori Tajam, Tangguh Fisik.", negatif: "Terlalu Kaku, Materialistis, Kurang Spontan.", motivasi: "Berikan instruksi yang jelas, target realistis, serta apresiasi berupa aset atau jaminan keamanan materi.", karir: "Akuntan, Manajer Operasional, Atlet, Teknisi, Perbankan.", study: "Metode Menghafal & Pengulangan teks/prosedur, Visual-Kinestetik (contoh nyata & praktik langsung), serta latihan mandiri di tempat tenang." },
+    3: { title: "Si Praktisi Reflektif (The Discipline Specialist)", intisari: "Si Praktisi Reflektif adalah sosok yang paling membumi dalam keluarga besar Mindprint. Dominasi otak kiri bawah (Pilar Praktisi) yang digerakkan dari dalam ke luar (Reflektif) menjadikannya seorang pekerja keras yang sangat mandiri. Mereka adalah tipe orang yang lebih suka 'bertindak' daripada sekadar 'berwacana'. Jika ada pekerjaan yang membutuhkan ketelitian tinggi, stamina fisik yang kuat, and kepatuhan pada aturan, mereka adalah jagonya. Memiliki kekuatan utama pada memori yang tajam dalam merekam data, ketangguhan fisik yang stabil, serta kedisiplinan tinggi terhadap SOP. Namun, tantangannya adalah kecenderungan bersikap kaku, kurang sulit, and seringkali mengukur kesuksesan hanya dari angka atau aset yang terlihat (materialistis).", successHabit: "Mantra: 'Berkeringat and Menabung'. Kunci Sukses: Fokus pada spesialisasi. Jangan menjadi Palugada. Pilihlah satu bidang, tekuni sampai menjadi ahli (specialist), and pastikan ada aktivitas fisik rutin untuk menjaga mood tetap stabil.", relationship: "Membangun kepercayaan melalui konsistensi and kejujuran berbasis fakta.", communication: "To-the-point, singkat, and berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", positif: "Disiplin Tinggi, Memori Tajam, Tangguh Fisik.", negatif: "Terlalu Kaku, Materialistis, Kurang Spontan.", motivasi: "Berikan instruksi yang jelas, target realistis, serta apresiasi berupa aset atau jaminan keamanan materi.", karir: "Akuntan, Manajer Operasional, Atlet, Teknisi, Perbankan.", study: "Metode Menghafal & Pengulangan teks/prosedur, Visual-Kinestetik (contoh nyata & praktik langsung), serta latihan mandiri di tempat tenang." },
     4: { title: "Si Praktisi Ekspresif (The Dynamic Performer)", intisari: "Si Praktisi Ekspresif memiliki mesin kecerdasan Pilar Praktisi namun dengan kemudi Ekspresif, di mana energi dipicu oleh tantangan luar, interaksi sosial, and suasana ramai. Mereka adalah tipe orang yang paling gesit, senang berkompetisi, and memiliki kemampuan menikmati hidup dengan panca indra secara maksimal. Memiliki kelincahan and respon lapangan yang cepat serta kemampuan teknis motorik yang hebat. Namun, tantangannya adalah mudah merasa bosan jika suasana monoton, cenderung boros karena sangat menikmati kenyamanan fisik, serta terkadang terburu-buru mengambil tindakan sebelum memikirkan konsekuensi jangka panjang.", successHabit: "Mantra: 'Tantangan adalah Energi'. Kunci Sukses: Skala and Persaingan. Sukses jika berada dalam lingkungan kompetitif. Berikan target atau kuota, maka tenaga akan melipat ganda. Harus 'berkeringat' untuk mendapatkan kemakmuran.", relationship: "Mudah bergaul, membawa suasana ceria, and menghargai hadiah fisik.", communication: "Ekspresif, menggunakan bahasa tubuh yang kuat, and antusias pada hasil nyata.", positif: "Lincah & Cepat, Sportif, Menyenangkan (Easy Going).", negatif: "Cepat Bosan, Boros, Terburu-buru.", motivasi: "Berikan tantangan kompetitif, bonus instan, serta lingkungan kerja yang dinamis and mobilitas tinggi.", karir: "Sales/Marketing, Atlet Profesional, Chef, Pilot, Polisi/Militer.", study: "Praktik Lapangan langsung (bukan sekadar buku), Belajar Kelompok untuk memicu keaktifan otak, and Metode Demonstrasi (modelling)." },
     5: { title: "Si Empati Reflektif (The Principled Soul)", intisari: "Si Empati Reflektif didominasi otak kanan bawah dengan kemudi hati yang sangat kuat (Reflektif). Sosok paling idealis yang digerakkan oleh perasaan and prinsip hidup. Memiliki integritas and loyalitas luar biasa pada janji, peka rasa terhadap suasana hati orang lain, and menjadi penyejuk tim yang berkonflik. Selalu mencari 'makna' atau nilai ibadah di balik pekerjaan. Namun, tantangannya adalah mudah tersinggung (baper) terhadap kritik profesional, cenderung memendam perasaan yang bisa menjadi bom waktu emosional, serta bersikap subjektif jika sudah menyangkut orang yang disayangi.", successHabit: "Mantra: 'Cinta and Keyakinan'. Kunci Sukses: Fokus pada pelayanan and pembangunan karakter. Sukses jika merasa dicintai and dihargai. Latih ketegasan agar perasaan tidak menghalangi profesionalitas.", relationship: "Mencari kesetiaan murni and koneksi jiwa (soulmate) yang mendalam.", communication: "Lembut, mendalam, tulus, and sangat menjaga perasaan lawan bicara.", positif: "Integritas & Loyalitas, Kepekaan Rasa, Pembawa Ketenangan.", negatif: "Mudah Tersinggung (Baper), Tertutup, Subjektif.", motivasi: "Sentuh sisi spiritual/makna kerja, berikan lingkungan harmonis, serta perhatian personal.", karir: "Psikolog, Guru/Dosen, Penulis Puisi, Aktivis Kemanusiaan, Coach.", study: "Sentuhan Emosional (suka dengan pengajarnya), Audio-Mood (suasana tenang), and lingkungan belajar yang harmonis." },
     6: { title: "Si Kreatif Ekspresif (The Trendsetter & Entrepreneur)", intisari: "Si Kreatif Ekspresif didominasi otak kanan atas dengan kemudi luar (Ekspresif). Sosok paling optimis, penuh antusiasme, and selalu terlihat 'kekinian'. Memiliki intuisi bisnis yang sangat tajam dalam melihat peluang keuntungan (money making sense) and inovatif dalam menyelesaikan masalah. Hebat dalam menularkan visi kepada tim agar percaya pada mimpi besar. Namun, tantangannya adalah kurang fokus karena terlalu banyak ide (mudah pindah mainan), meremehkan detail administrasi, serta berani mengambil risiko tinggi tanpa perhitungan matang.", successHabit: "Mantra: 'Inovasi and Investasi'. Kunci Sukses: Networking and Berani Gagal. Sukses jika berada di lingkungan dinamis. Latih ketekunan untuk menuntaskan satu proyek besar sebelum pindah ke proyek lain.", relationship: "Membutuhkan dukungan penuh terhadap mimpi-mimpi besar and ide kreatifnya.", communication: "Ekspresif, penuh semangat, menggunakan analogi masa depan, and sangat persuasif.", positif: "Intuisi Bisnis Kuat, Inovatif & Out of the Box, Penyebar Antusiasme.", negatif: "Kurang Fokus, Abaikan Detail, Risiko Terlalu Tinggi.", motivasi: "Libatkan dalam proyek inovatif, berikan panggung presentasi, serta insentif berbasis profit.", karir: "Pengusaha, Marketing, Desainer, Sutradara, Investor, Konsultan Kreatif.", study: "Brainstorming bebas, penggunaan Visualisasi & Gambar (sketsa), serta belajar dari kasus sukses inovator dunia." },
@@ -58,8 +58,12 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
 const scanner = document.getElementById('fingerprint-scanner');
 const scanText = document.getElementById('scan-text');
 
+// FIX: Proteksi fungsi pemindaian dari intervensi browser
 function startScanning(e) {
-    if(e) e.preventDefault();
+    if(e) {
+        e.preventDefault(); 
+        e.stopPropagation();
+    }
     if(isScanning) return;
     isScanning = true;
     scanner.classList.add('scanning'); 
@@ -68,7 +72,9 @@ function startScanning(e) {
 }
 
 function cancelScanning(e) {
-    if(e) e.preventDefault();
+    if(e) {
+        e.preventDefault();
+    }
     if(!isScanning) return;
     clearTimeout(scanTimeout);
     isScanning = false;
@@ -131,8 +137,7 @@ function showResult() {
 
     const data = mindprintDescriptions[resNum];
     
-    // FIX INTISARI (HITAM DI ATAS PUTIH)
-    document.getElementById('display-intisari').style.color = "#333";
+    // FIX: Tampilkan intisari di layar hasil sebelum unduh
     document.getElementById('display-intisari').textContent = data.intisari;
     document.getElementById('result-title').textContent = data.title;
 
@@ -153,7 +158,7 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// LOGIKA DOWNLOAD PDF PERSONALITY PLUS
+// 3. LOGIKA DOWNLOAD PDF PERSONALITY PLUS TERJAMIN
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     el.style.display = 'block';
@@ -163,12 +168,23 @@ document.getElementById('download-btn').addEventListener('click', () => {
             margin: 0,
             filename: `Laporan_MindPrint_${userName}.pdf`,
             image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, letterRendering: true, windowWidth: 1122, windowHeight: 794 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                scrollY: 0, 
+                scrollX: 0,
+                letterRendering: true,
+                windowWidth: 1122,
+                windowHeight: 794
+            },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
+        
         html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
             const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
+            for (let i = totalPages; i > 1; i--) { 
+                pdf.deletePage(i); 
+            }
         }).save().then(() => {
             el.style.display = 'none';
         });
