@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 13.0 (STABLE RENDER & AUTO-PAGE CLEANUP)
+ * VERSION: 14.0 (ULTRA-STABLE ZERO-COORDINATE RENDER)
  */
 
 const mindprintDescriptions = {
@@ -36,7 +36,7 @@ const mindprintDescriptions = {
         relationship: "Membangun kepercayaan melalui konsistensi and kejujuran berbasis fakta.", 
         communication: "To-the-point, singkat, and berbasis fakta. Tidak menyukai basa-basi yang terlalu panjang.", 
         positif: "Disiplin Tinggi, Memori Tajam, Tangguh Fisik.", 
-        negatif: "Terlalu Kaku, Materialistis, Kurang Spontan.", 
+        negatif: "Terlalu Kaitu, Materialistis, Kurang Spontan.", 
         motivasi: "Berikan instruksi yang jelas, target realistis, serta apresiasi berupa aset atau jaminan keamanan materi.", 
         karir: "Akuntan, Manajer Operasional, Atlet, Teknisi, Perbankan.", 
         study: "Metode Menghafal & Pengulangan teks/prosedur, Visual-Kinestetik (contoh nyata & praktik langsung), serta latihan mandiri di tempat tenang." 
@@ -247,7 +247,7 @@ function showResult() {
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
-// FUNGSI DOWNLOAD PDF: METODE STABIL UNTUK TABLET
+// FUNGSI DOWNLOAD PDF: DENGAN KOORDINAT NOL MUTLAK
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     
@@ -261,24 +261,23 @@ document.getElementById('download-btn').addEventListener('click', () => {
         html2canvas: { 
             scale: 2, 
             useCORS: true, 
-            scrollY: 0, 
-            scrollX: 0
+            scrollY: 0, // MENGUNCI POSISI SCROLL KE ATAS
+            scrollX: 0,
+            x: 0,       // MEMAKSA KOORDINAT X MULAI DARI 0
+            y: 0        // MEMAKSA KOORDINAT Y MULAI DARI 0
         },
+        // Mengunci ukuran PDF agar identik dengan elemen Bapak
         jsPDF: { unit: 'px', format: [1122, 794], orientation: 'landscape' }
     };
     
     // Proses pembuatan PDF
     html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
         const totalPages = pdf.internal.getNumberOfPages();
-        for (let i = totalPages; i > 1; i--) {
+        for (let i = totalPages; i > 1; i--) { 
             pdf.deletePage(i);
         }
     }).save().then(() => {
         el.style.display = 'none';
-        alert("Sertifikat berhasil diunduh!");
-    }).catch(err => {
-        console.error(err);
-        alert("Terjadi kesalahan saat mengunduh. Silakan coba lagi.");
     });
 });
 
