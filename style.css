@@ -68,7 +68,7 @@ button { background: var(--primary); color: white; border: none; padding: 18px; 
     border-radius: 10px;
 }
 
-/* FIX INTISARI AGAR TAMPIL JELAS */
+/* FIX INTISARI AGAR TAMPIL JELAS (HITAM DI ATAS PUTIH) */
 #display-intisari {
     color: #333 !important;
     font-size: 14px;
@@ -78,7 +78,7 @@ button { background: var(--primary); color: white; border: none; padding: 18px; 
     display: block !important;
 }
 
-/* SERTIFIKAT STANDAR */
+/* SERTIFIKAT STANDAR SUCCESS CASE */
 #certificate-template {
     width: 1122px !important;
     height: 794px !important;
