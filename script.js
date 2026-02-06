@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 34.0 (ABSOLUTE ISOLATION RENDER & DATABASE SYNC)
+ * VERSION: 35.0 (THE FINAL CONTAINER - ZERO OFFSET RENDER)
  */
 
 const mindprintDescriptions = {
@@ -164,41 +164,63 @@ function showResult() {
 }
 
 // ============================================================
-// FIX FINAL: STRATEGI ISOLASI MUTLAK (ANTI-SCROLL & ANTI-GESER)
+// FIX FINAL: STRATEGI ISOLASI MUTLAK (THE GHOST CONTAINER)
 // ============================================================
 document.getElementById('download-btn').addEventListener('click', () => {
     const original = document.getElementById('certificate-template');
+    
+    // 1. Ambil scroll saat ini agar layar tidak loncat
     const scrollPos = window.pageYOffset;
 
-    const isolationContainer = document.createElement('div');
-    Object.assign(isolationContainer.style, {
-        position: 'absolute', top: '-10000px', left: '0',
-        width: '1122px', height: '794px', backgroundColor: 'white', zIndex: '-9999'
+    // 2. Buat elemen pembungkus isolasi (Ghost Container)
+    const ghostContainer = document.createElement('div');
+    Object.assign(ghostContainer.style, {
+        position: 'absolute',
+        top: '-10000px', // Pindahkan proses render ke luar jangkauan scroll mata
+        left: '0',
+        width: '1122px', // Ukuran Pixel A4 Landscape
+        height: '794px',
+        backgroundColor: 'white',
+        zIndex: '-9999'
     });
 
-    const ghost = original.cloneNode(true);
-    ghost.style.display = 'block';
-    isolationContainer.appendChild(ghost);
-    document.body.appendChild(isolationContainer);
+    // 3. Kloning sertifikat ke dalam Ghost Container
+    const ghostCert = original.cloneNode(true);
+    ghostCert.style.display = 'block';
+    ghostCert.style.position = 'static'; // Reset posisi ke standar di dalam container
+    
+    ghostContainer.appendChild(ghostCert);
+    document.body.appendChild(ghostContainer);
 
-    const opt = {
-        margin: 0,
-        filename: `Laporan_MindPrint_${userName}.pdf`,
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { 
-            scale: 2, useCORS: true, logging: false,
-            scrollY: 0, windowScrollY: 0, width: 1122, height: 794
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-    };
-
-    html2pdf().set(opt).from(ghost).toPdf().get('pdf').then(function (pdf) {
-        const totalPages = pdf.internal.getNumberOfPages();
-        for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
-    }).save().then(() => {
-        document.body.removeChild(isolationContainer);
-        window.scrollTo(0, scrollPos);
-    });
+    setTimeout(() => {
+        const opt = {
+            margin: 0,
+            filename: `Laporan_MindPrint_${userName}.pdf`,
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                logging: false,
+                // KUNCI KOORDINAT KE CONTAINER GHOST
+                scrollY: 0, 
+                windowScrollY: 0,
+                width: 1122,
+                height: 794
+            },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+        
+        // Render PDF dari elemen GHOST yang sudah terisolasi
+        html2pdf().set(opt).from(ghostCert).toPdf().get('pdf').then(function (pdf) {
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
+        }).save().then(() => {
+            // 4. Bersihkan Ghost Container dari memori
+            document.body.removeChild(ghostContainer);
+            // 5. Kembalikan posisi scroll agar user tetap nyaman
+            window.scrollTo(0, scrollPos);
+        });
+    }, 500); 
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
