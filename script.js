@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 33.0 (GHOSTING RENDER - ANTI-SCROLL PROTECTION)
+ * VERSION: 34.0 (ABSOLUTE ISOLATION RENDER & DATABASE SYNC)
  */
 
 const mindprintDescriptions = {
@@ -160,60 +160,45 @@ function showResult() {
         method: 'POST',
         mode: 'no-cors',
         body: JSON.stringify(payload)
-    })
-    .then(() => console.log("Data Berhasil Diarsipkan"))
-    .catch(err => console.error("Gagal Arsip:", err));
+    }).then(() => console.log("Database Sync Success"));
 }
 
-// ==========================================
-// FIX FINAL: ANTI-SCROLL GHOST RENDER
-// ==========================================
+// ============================================================
+// FIX FINAL: STRATEGI ISOLASI MUTLAK (ANTI-SCROLL & ANTI-GESER)
+// ============================================================
 document.getElementById('download-btn').addEventListener('click', () => {
     const original = document.getElementById('certificate-template');
-    
-    // 1. Buat "Ghost Element" (Kloning sertifikat)
-    const ghost = original.cloneNode(true);
-    ghost.id = "ghost-cert";
-    
-    // 2. Paksa posisi Ghost Element ke titik (0,0) mutlak di luar layar pandang
-    Object.assign(ghost.style, {
-        display: 'block',
-        position: 'fixed',
-        top: '0px',
-        left: '0px',
-        zIndex: '-9999', // Tidak terlihat oleh user tapi ada di DOM
-        margin: '0px',
-        padding: '0px'
-    });
-    
-    document.body.appendChild(ghost);
+    const scrollPos = window.pageYOffset;
 
-    setTimeout(() => {
-        const opt = {
-            margin: 0,
-            filename: `Laporan_MindPrint_${userName}.pdf`,
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { 
-                scale: 2, 
-                useCORS: true, 
-                // Kunci kamera ke ghost element yang ada di posisi 0,0
-                scrollY: 0, 
-                windowScrollY: 0,
-                letterRendering: true,
-                width: 1122,
-                height: 794
-            },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-        };
-        
-        html2pdf().set(opt).from(ghost).toPdf().get('pdf').then(function (pdf) {
-            const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
-        }).save().then(() => {
-            // 3. Bersihkan DOM (hapus kloningan setelah selesai)
-            document.body.removeChild(ghost);
-        });
-    }, 500); 
+    const isolationContainer = document.createElement('div');
+    Object.assign(isolationContainer.style, {
+        position: 'absolute', top: '-10000px', left: '0',
+        width: '1122px', height: '794px', backgroundColor: 'white', zIndex: '-9999'
+    });
+
+    const ghost = original.cloneNode(true);
+    ghost.style.display = 'block';
+    isolationContainer.appendChild(ghost);
+    document.body.appendChild(isolationContainer);
+
+    const opt = {
+        margin: 0,
+        filename: `Laporan_MindPrint_${userName}.pdf`,
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { 
+            scale: 2, useCORS: true, logging: false,
+            scrollY: 0, windowScrollY: 0, width: 1122, height: 794
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    };
+
+    html2pdf().set(opt).from(ghost).toPdf().get('pdf').then(function (pdf) {
+        const totalPages = pdf.internal.getNumberOfPages();
+        for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
+    }).save().then(() => {
+        document.body.removeChild(isolationContainer);
+        window.scrollTo(0, scrollPos);
+    });
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
