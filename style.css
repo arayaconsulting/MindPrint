@@ -12,7 +12,6 @@ body {
     background-color: var(--bg);
     display: flex; justify-content: center; align-items: center;
     min-height: 100vh; margin: 0; padding: 20px;
-    /* FIX: Matikan seleksi teks global agar lebih seperti aplikasi */
     -webkit-user-select: none; user-select: none;
 }
 
@@ -33,15 +32,14 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
 }
 #birth-date-container select { flex: 1; }
 
-/* FIX SCANNER: Matikan menu long-press browser */
+/* SCANNER: Proteksi Sentuhan */
 .fingerprint-scanner {
     width: 160px; height: 220px; margin: 30px auto;
     position: relative; border: 3px solid #eee; 
     border-radius: 50% 50% 45% 45%; 
     display: flex; justify-content: center; align-items: center;
     overflow: hidden; background: #fff; cursor: pointer;
-    touch-action: none; /* Serahkan kontrol sentuh ke JS */
-    -webkit-touch-callout: none; /* IOS: Matikan menu long-press */
+    touch-action: none; -webkit-touch-callout: none;
 }
 
 .scan-bg {
@@ -49,36 +47,44 @@ input, select { padding: 15px; border: 1px solid #ddd; border-radius: 10px; font
     background: radial-gradient(circle, var(--electric-blue) 0%, #005f73 100%); 
     opacity: 0; z-index: 1; transition: opacity 2s ease-in-out;
 }
-
 .scanning .scan-bg { opacity: 0.85; }
 
 .fingerprint-image {
     width: 110px; height: auto; opacity: 0.15; filter: grayscale(100%); 
-    z-index: 2; transition: all 2s ease-in-out; 
-    pointer-events: none; /* Matikan klik pada gambar */
+    z-index: 2; transition: all 2s ease-in-out; pointer-events: none;
 }
-
-.scanning .fingerprint-image { 
-    opacity: 1; filter: grayscale(0%) brightness(0.2) contrast(2); 
-}
+.scanning .fingerprint-image { opacity: 1; filter: grayscale(0%) brightness(0.2) contrast(2); }
 
 .scan-line {
     position: absolute; width: 100%; height: 5px; background: #fff; 
     box-shadow: 0 0 20px #fff, 0 0 10px var(--electric-blue);
     left: 0; top: -10px; z-index: 3; display: none;
 }
-
 .scanning .scan-line { display: block; animation: moveLine 1.5s infinite ease-in-out; }
 
 @keyframes moveLine { 0% { top: 0%; } 50% { top: 90%; } 100% { top: 0%; } }
 
 button { background: var(--primary); color: white; border: none; padding: 18px; font-size: 18px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; width: 100%; }
 
+/* PANEL TWIN */
 #twin-panel {
-    display: none; text-align: left; margin: 10px 0; padding: 15px; background: #f8f9fa; border-radius: 10px; border: 1px solid #ddd;
+    display: none; 
+    text-align: left;
+    margin: 10px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #ddd;
 }
 
+/* SERTIFIKAT STANDAR SUCCESS */
 #certificate-template {
-    width: 1122px !important; height: 794px !important; margin: 0 !important; padding: 0 !important;
-    background-color: white; overflow: hidden; display: none; box-sizing: border-box;
+    width: 1122px !important;
+    height: 794px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: white;
+    overflow: hidden;
+    display: none; 
+    box-sizing: border-box;
 }
