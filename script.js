@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 32.0 (STABLE PDF RENDER & DATABASE SYNC)
+ * VERSION: 33.0 (GHOSTING RENDER - ANTI-SCROLL PROTECTION)
  */
 
 const mindprintDescriptions = {
@@ -31,7 +31,6 @@ function populateDateFields() {
     for(let i=new Date().getFullYear(); i>=1950; i--) y.innerHTML += `<option value="${i}">${i}</option>`;
 }
 
-// 1. FIX LISTENER TWIN PANEL (FORCE BLOCK)
 document.getElementById('is-twin').addEventListener('change', function() {
     const panel = document.getElementById('twin-panel');
     if (this.checked) {
@@ -149,9 +148,6 @@ function showResult() {
     document.getElementById('cert-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
     document.getElementById('cert-id').textContent = `MP/${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
 
-    // ==========================================
-    // LOGIKA KIRIM DATA KE GOOGLE SHEETS BAPAK
-    // ==========================================
     const payload = {
         nama: userName,
         tgl_lahir: birthDate,
@@ -169,10 +165,28 @@ function showResult() {
     .catch(err => console.error("Gagal Arsip:", err));
 }
 
-// 2. LOGIKA DOWNLOAD PDF: ANTI-GESER (KUNCI KOORDINAT)
+// ==========================================
+// FIX FINAL: ANTI-SCROLL GHOST RENDER
+// ==========================================
 document.getElementById('download-btn').addEventListener('click', () => {
-    const el = document.getElementById('certificate-template');
-    el.style.display = 'block';
+    const original = document.getElementById('certificate-template');
+    
+    // 1. Buat "Ghost Element" (Kloning sertifikat)
+    const ghost = original.cloneNode(true);
+    ghost.id = "ghost-cert";
+    
+    // 2. Paksa posisi Ghost Element ke titik (0,0) mutlak di luar layar pandang
+    Object.assign(ghost.style, {
+        display: 'block',
+        position: 'fixed',
+        top: '0px',
+        left: '0px',
+        zIndex: '-9999', // Tidak terlihat oleh user tapi ada di DOM
+        margin: '0px',
+        padding: '0px'
+    });
+    
+    document.body.appendChild(ghost);
 
     setTimeout(() => {
         const opt = {
@@ -182,23 +196,22 @@ document.getElementById('download-btn').addEventListener('click', () => {
             html2canvas: { 
                 scale: 2, 
                 useCORS: true, 
-                // FIX KRUSIAL: Menghilangkan efek scroll tablet saat render
-                scrollY: -window.scrollY, 
+                // Kunci kamera ke ghost element yang ada di posisi 0,0
+                scrollY: 0, 
                 windowScrollY: 0,
                 letterRendering: true,
-                windowWidth: 1122,
-                windowHeight: 794
+                width: 1122,
+                height: 794
             },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
         
-        html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
+        html2pdf().set(opt).from(ghost).toPdf().get('pdf').then(function (pdf) {
             const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 1; i--) { 
-                pdf.deletePage(i); 
-            }
+            for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
         }).save().then(() => {
-            el.style.display = 'none';
+            // 3. Bersihkan DOM (hapus kloningan setelah selesai)
+            document.body.removeChild(ghost);
         });
     }, 500); 
 });
