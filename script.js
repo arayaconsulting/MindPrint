@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 38.0 (MANUAL TRANSITION + SMART DETECTION + LARGE TEXT)
+ * VERSION: 40.0 (SENSOR LOCK & TECH-CALIBRATION LOGIC)
  */
 
 const mindprintDescriptions = {
@@ -18,6 +18,7 @@ const mindprintDescriptions = {
 
 const fingers = ["ibu jari", "telunjuk", "tengah", "manis", "kelingking"];
 let currentFingerIndex = 0, userName = "", birthDate = "", isScanning = false, scanTimeout;
+let isSensorLocked = false; // Kunci biometrik
 
 function populateDateFields() {
     const d = document.getElementById('day'), m = document.getElementById('month'), y = document.getElementById('year');
@@ -51,37 +52,43 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     birthDate = `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`;
     document.getElementById('intro-container').classList.add('hidden');
     document.getElementById('scan-container').classList.remove('hidden');
-    // PANDUAN JELAS: Menggunakan Huruf Kapital Besar
-    document.getElementById('scan-text').innerHTML = `Tempelkan <b style="font-size: 1.2em; color: #1a3a5a;">${fingers[0].toUpperCase()}</b> Anda...`;
+    document.getElementById('scan-text').innerHTML = `Silakan tempelkan <b style="font-size: 1.2em; color: #1a3a5a;">${fingers[0].toUpperCase()}</b> Anda...`;
 });
 
 const scanner = document.getElementById('fingerprint-scanner');
 const scanText = document.getElementById('scan-text');
+const nextBtn = document.getElementById('next-finger-button');
 
 // ==========================================
-// LOGIKA PEMINDAIAN (DENGAN EFEK DETEKSI GAGAL)
+// LOGIKA SENSOR DENGAN KALIBRASI TEKNIS
 // ==========================================
 function startScanning(e) {
     if(e) { e.preventDefault(); e.stopPropagation(); }
+    
+    // CEK APAKAH SENSOR TERKUNCI
+    if(isSensorLocked) {
+        scanText.innerHTML = `<span style="color:#e67e22; font-weight:bold;">Sistem Sedang Kalibrasi...</span><br>Klik 'LANJUTKAN' untuk membuka sensor.`;
+        return;
+    }
+
     if(isScanning) return;
     
     isScanning = true;
     scanner.classList.add('scanning'); 
-    scanText.textContent = `Menganalisis ${fingers[currentFingerIndex].toUpperCase()}...`;
+    scanText.innerHTML = `Menganalisis Pola <b style="color:#1a3a5a">${fingers[currentFingerIndex].toUpperCase()}</b>...`;
     
-    // Memberi jeda 3 detik untuk analisis sidik jari
     scanTimeout = setTimeout(() => { finishScan(); }, 3000);
 }
 
 function cancelScanning(e) {
     if(e) e.preventDefault();
-    if(!isScanning) return;
+    if(!isScanning || isSensorLocked) return;
     
     clearTimeout(scanTimeout);
     isScanning = false;
     scanner.classList.remove('scanning'); 
     
-    // EFEK DETEKSI GAGAL: Memberikan peringatan merah jika jari diangkat terlalu cepat
+    // PERINGATAN GAGAL
     scanText.innerHTML = `<span style="color:red; font-weight:bold;">GAGAL! Jari Terlepas atau Salah Posisi.</span><br>Tempelkan kembali ${fingers[currentFingerIndex].toUpperCase()}.`;
 }
 
@@ -94,23 +101,24 @@ if(scanner) {
 
 function finishScan() {
     isScanning = false;
+    isSensorLocked = true; // KUNCI SENSOR OTOMATIS
     scanner.classList.remove('scanning');
     
     if (currentFingerIndex < fingers.length - 1) {
         currentFingerIndex++;
-        scanText.innerHTML = `<span style="color:green; font-weight:bold;">${fingers[currentFingerIndex-1].toUpperCase()} BERHASIL.</span>`;
-        // Menampilkan tombol lanjut secara manual (Sesuai Permintaan)
-        document.getElementById('next-finger-button').classList.remove('hidden');
+        scanText.innerHTML = `<span style="color:green; font-weight:bold;">DATA ${fingers[currentFingerIndex-1].toUpperCase()} TERSIMPAN.</span><br><span style="font-size:0.9em; color:#666;">Silakan klik 'LANJUTKAN' untuk jari berikutnya.</span>`;
+        nextBtn.classList.remove('hidden');
     } else {
-        scanText.innerHTML = `<span style="color:blue; font-weight:bold;">SELURUH JARI BERHASIL DIPINDAI.</span><br>MENGANALISIS DATA...`;
+        scanText.innerHTML = `<span style="color:blue; font-weight:bold;">ANALISIS BIOMETRIK SELESAI.</span><br>MENYINKRONKAN DATA...`;
         setTimeout(showResult, 2000);
     }
 }
 
-// Handler Tombol Lanjut: Menyiapkan Jari Berikutnya
-document.getElementById('next-finger-button').addEventListener('click', function() {
+// Handler Tombol Lanjut: Reset Sensor
+nextBtn.addEventListener('click', function() {
     this.classList.add('hidden');
-    scanText.innerHTML = `Tempelkan <b style="font-size: 1.2em; color: #1a3a5a;">${fingers[currentFingerIndex].toUpperCase()}</b> Anda...`;
+    isSensorLocked = false; // BUKA KUNCI SENSOR
+    scanText.innerHTML = `Siap memindai <b style="font-size: 1.2em; color: #1a3a5a;">${fingers[currentFingerIndex].toUpperCase()}</b>...<br>Silakan tempelkan jari Anda.`;
 });
 
 function calculateNumerology(dateString) {
@@ -176,7 +184,6 @@ function showResult() {
     }).then(() => console.log("Database Sync Success"));
 }
 
-// LOGIKA DOWNLOAD (METODE AUTO-TOP)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     const scrollPos = window.pageYOffset;
@@ -189,15 +196,8 @@ document.getElementById('download-btn').addEventListener('click', () => {
             filename: `Laporan_MindPrint_${userName}.pdf`,
             image: { type: 'jpeg', quality: 1 },
             html2canvas: { 
-                scale: 2, 
-                useCORS: true, 
-                logging: false,
-                scrollY: 0, 
-                windowScrollY: 0,
-                x: 0,
-                y: 0,
-                width: 1122,
-                height: 794
+                scale: 2, useCORS: true, logging: false,
+                scrollY: 0, windowScrollY: 0, x: 0, y: 0, width: 1122, height: 794
             },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
