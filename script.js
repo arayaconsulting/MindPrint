@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 36.0 (FINAL AUTO-TOP SCROLL LOCK & DATABASE)
+ * VERSION: 38.0 (MANUAL TRANSITION + SMART DETECTION + LARGE TEXT)
  */
 
 const mindprintDescriptions = {
@@ -51,28 +51,38 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     birthDate = `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`;
     document.getElementById('intro-container').classList.add('hidden');
     document.getElementById('scan-container').classList.remove('hidden');
-    document.getElementById('scan-text').textContent = `Tempelkan ${fingers[0]} Anda...`;
+    // PANDUAN JELAS: Menggunakan Huruf Kapital Besar
+    document.getElementById('scan-text').innerHTML = `Tempelkan <b style="font-size: 1.2em; color: #1a3a5a;">${fingers[0].toUpperCase()}</b> Anda...`;
 });
 
 const scanner = document.getElementById('fingerprint-scanner');
 const scanText = document.getElementById('scan-text');
 
+// ==========================================
+// LOGIKA PEMINDAIAN (DENGAN EFEK DETEKSI GAGAL)
+// ==========================================
 function startScanning(e) {
     if(e) { e.preventDefault(); e.stopPropagation(); }
     if(isScanning) return;
+    
     isScanning = true;
     scanner.classList.add('scanning'); 
-    scanText.textContent = `Memindai ${fingers[currentFingerIndex]}... JANGAN DILEPAS!`;
+    scanText.textContent = `Menganalisis ${fingers[currentFingerIndex].toUpperCase()}...`;
+    
+    // Memberi jeda 3 detik untuk analisis sidik jari
     scanTimeout = setTimeout(() => { finishScan(); }, 3000);
 }
 
 function cancelScanning(e) {
     if(e) e.preventDefault();
     if(!isScanning) return;
+    
     clearTimeout(scanTimeout);
     isScanning = false;
     scanner.classList.remove('scanning'); 
-    scanText.textContent = "GAGAL! Jari terlepas. Tempelkan kembali.";
+    
+    // EFEK DETEKSI GAGAL: Memberikan peringatan merah jika jari diangkat terlalu cepat
+    scanText.innerHTML = `<span style="color:red; font-weight:bold;">GAGAL! Jari Terlepas atau Salah Posisi.</span><br>Tempelkan kembali ${fingers[currentFingerIndex].toUpperCase()}.`;
 }
 
 if(scanner) {
@@ -85,19 +95,22 @@ if(scanner) {
 function finishScan() {
     isScanning = false;
     scanner.classList.remove('scanning');
+    
     if (currentFingerIndex < fingers.length - 1) {
         currentFingerIndex++;
-        scanText.textContent = `${fingers[currentFingerIndex-1].toUpperCase()} BERHASIL.`;
+        scanText.innerHTML = `<span style="color:green; font-weight:bold;">${fingers[currentFingerIndex-1].toUpperCase()} BERHASIL.</span>`;
+        // Menampilkan tombol lanjut secara manual (Sesuai Permintaan)
         document.getElementById('next-finger-button').classList.remove('hidden');
     } else {
-        scanText.textContent = "MENGANALISIS DATA...";
-        setTimeout(showResult, 1500);
+        scanText.innerHTML = `<span style="color:blue; font-weight:bold;">SELURUH JARI BERHASIL DIPINDAI.</span><br>MENGANALISIS DATA...`;
+        setTimeout(showResult, 2000);
     }
 }
 
+// Handler Tombol Lanjut: Menyiapkan Jari Berikutnya
 document.getElementById('next-finger-button').addEventListener('click', function() {
     this.classList.add('hidden');
-    scanText.textContent = `Letakkan ${fingers[currentFingerIndex]} Anda.`;
+    scanText.innerHTML = `Tempelkan <b style="font-size: 1.2em; color: #1a3a5a;">${fingers[currentFingerIndex].toUpperCase()}</b> Anda...`;
 });
 
 function calculateNumerology(dateString) {
@@ -163,17 +176,11 @@ function showResult() {
     }).then(() => console.log("Database Sync Success"));
 }
 
-// ============================================================
-// FIX FINAL: METODE PAMUNGKAS (AUTO-TOP & SCROLL LOCK)
-// ============================================================
+// LOGIKA DOWNLOAD (METODE AUTO-TOP)
 document.getElementById('download-btn').addEventListener('click', () => {
     const el = document.getElementById('certificate-template');
     const scrollPos = window.pageYOffset;
-
-    // 1. PAKSA layar kembali ke paling atas untuk menghilangkan offset render
     window.scrollTo(0, 0);
-
-    // 2. Tampilkan elemen sertifikat
     el.style.display = 'block';
 
     setTimeout(() => {
@@ -185,7 +192,6 @@ document.getElementById('download-btn').addEventListener('click', () => {
                 scale: 2, 
                 useCORS: true, 
                 logging: false,
-                // KUNCI KOORDINAT KE TITIK NOL MUTLAK
                 scrollY: 0, 
                 windowScrollY: 0,
                 x: 0,
@@ -200,11 +206,10 @@ document.getElementById('download-btn').addEventListener('click', () => {
             const totalPages = pdf.internal.getNumberOfPages();
             for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
         }).save().then(() => {
-            // 3. Sembunyikan kembali dan kembalikan posisi layar user
             el.style.display = 'none';
             window.scrollTo(0, scrollPos);
         });
-    }, 500); // Jeda 0.5 detik agar iPad selesai memproses scroll ke atas
+    }, 500);
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
