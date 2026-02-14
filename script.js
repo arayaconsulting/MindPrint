@@ -1,7 +1,7 @@
 /**
  * MINDPRINT SYSTEM - ARAYA CONSULTING
  * OWNER: ALI MAHFUD
- * VERSION: 35.0 (THE FINAL CONTAINER - ZERO OFFSET RENDER)
+ * VERSION: 36.0 (FINAL AUTO-TOP SCROLL LOCK & DATABASE)
  */
 
 const mindprintDescriptions = {
@@ -164,33 +164,17 @@ function showResult() {
 }
 
 // ============================================================
-// FIX FINAL: STRATEGI ISOLASI MUTLAK (THE GHOST CONTAINER)
+// FIX FINAL: METODE PAMUNGKAS (AUTO-TOP & SCROLL LOCK)
 // ============================================================
 document.getElementById('download-btn').addEventListener('click', () => {
-    const original = document.getElementById('certificate-template');
-    
-    // 1. Ambil scroll saat ini agar layar tidak loncat
+    const el = document.getElementById('certificate-template');
     const scrollPos = window.pageYOffset;
 
-    // 2. Buat elemen pembungkus isolasi (Ghost Container)
-    const ghostContainer = document.createElement('div');
-    Object.assign(ghostContainer.style, {
-        position: 'absolute',
-        top: '-10000px', // Pindahkan proses render ke luar jangkauan scroll mata
-        left: '0',
-        width: '1122px', // Ukuran Pixel A4 Landscape
-        height: '794px',
-        backgroundColor: 'white',
-        zIndex: '-9999'
-    });
+    // 1. PAKSA layar kembali ke paling atas untuk menghilangkan offset render
+    window.scrollTo(0, 0);
 
-    // 3. Kloning sertifikat ke dalam Ghost Container
-    const ghostCert = original.cloneNode(true);
-    ghostCert.style.display = 'block';
-    ghostCert.style.position = 'static'; // Reset posisi ke standar di dalam container
-    
-    ghostContainer.appendChild(ghostCert);
-    document.body.appendChild(ghostContainer);
+    // 2. Tampilkan elemen sertifikat
+    el.style.display = 'block';
 
     setTimeout(() => {
         const opt = {
@@ -201,26 +185,26 @@ document.getElementById('download-btn').addEventListener('click', () => {
                 scale: 2, 
                 useCORS: true, 
                 logging: false,
-                // KUNCI KOORDINAT KE CONTAINER GHOST
+                // KUNCI KOORDINAT KE TITIK NOL MUTLAK
                 scrollY: 0, 
                 windowScrollY: 0,
+                x: 0,
+                y: 0,
                 width: 1122,
                 height: 794
             },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
         
-        // Render PDF dari elemen GHOST yang sudah terisolasi
-        html2pdf().set(opt).from(ghostCert).toPdf().get('pdf').then(function (pdf) {
+        html2pdf().set(opt).from(el).toPdf().get('pdf').then(function (pdf) {
             const totalPages = pdf.internal.getNumberOfPages();
             for (let i = totalPages; i > 1; i--) { pdf.deletePage(i); }
         }).save().then(() => {
-            // 4. Bersihkan Ghost Container dari memori
-            document.body.removeChild(ghostContainer);
-            // 5. Kembalikan posisi scroll agar user tetap nyaman
+            // 3. Sembunyikan kembali dan kembalikan posisi layar user
+            el.style.display = 'none';
             window.scrollTo(0, scrollPos);
         });
-    }, 500); 
+    }, 500); // Jeda 0.5 detik agar iPad selesai memproses scroll ke atas
 });
 
 document.getElementById('restart-button').addEventListener('click', () => location.reload());
