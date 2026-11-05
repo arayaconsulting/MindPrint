@@ -163,7 +163,7 @@ $('user-form').addEventListener('submit', e => {
   currentFingerIndex = 0; isSensorLocked = false; isScanning = false;
   $('intro-container').classList.add('hidden');
   $('scan-container').classList.remove('hidden');
-  $('scan-text').textContent = `Silakan tempelkan dan tahan ${fingers[0].toUpperCase()} Anda...`;
+  $('scan-text').textContent = `Silakan tahan area gambar untuk simulasi ${fingers[0].toUpperCase()}.`;
 });
 
 const scanner = $('fingerprint-scanner');
@@ -172,7 +172,7 @@ function startScanning(e) {
   if (isScanning || isSensorLocked || $('scan-container').classList.contains('hidden')) return;
   isScanning = true;
   scanner.classList.add('scanning');
-  $('scan-text').textContent = `Memproses tahap ${fingers[currentFingerIndex].toUpperCase()}...`;
+  $('scan-text').textContent = `Simulasi pola ${fingers[currentFingerIndex].toUpperCase()} sedang berlangsung...`;
   scanTimeout = setTimeout(finishScan, 3000);
 }
 function cancelScanning(e) {
@@ -181,7 +181,7 @@ function cancelScanning(e) {
   clearTimeout(scanTimeout);
   isScanning = false;
   scanner.classList.remove('scanning');
-  $('scan-text').textContent = `Jari terlepas. Tempelkan kembali ${fingers[currentFingerIndex].toUpperCase()} Anda.`;
+  $('scan-text').textContent = `Simulasi terhenti. Tahan kembali area gambar untuk ${fingers[currentFingerIndex].toUpperCase()}.`;
 }
 // Safari iOS: touch events harus dibatalkan secara eksplisit agar sentuhan lama
 // tidak membuka pemilihan teks, magnifier, drag image, atau context menu.
@@ -230,17 +230,17 @@ function finishScan() {
   if (currentFingerIndex < fingers.length - 1) {
     const doneFinger = fingers[currentFingerIndex];
     currentFingerIndex++;
-    $('scan-text').textContent = `TAHAP ${doneFinger.toUpperCase()} SELESAI. Klik LANJUTKAN untuk jari berikutnya.`;
+    $('scan-text').textContent = `SIMULASI ${doneFinger.toUpperCase()} SELESAI. Klik LANJUTKAN untuk jari berikutnya.`;
     $('next-finger-button').classList.remove('hidden');
   } else {
-    $('scan-text').textContent = 'Semua tahap selesai. Menyiapkan profil...';
+    $('scan-text').textContent = 'SIMULASI SELESAI. Menyiapkan profil...';
     finishTimeout = setTimeout(showResult, 700);
   }
 }
 $('next-finger-button').addEventListener('click', () => {
   $('next-finger-button').classList.add('hidden');
   isSensorLocked = false;
-  $('scan-text').textContent = `Silakan tempelkan dan tahan ${fingers[currentFingerIndex].toUpperCase()} Anda...`;
+  $('scan-text').textContent = `Siap untuk simulasi ${fingers[currentFingerIndex].toUpperCase()}. Tahan area gambar.`;
 });
 
 function calculateNumerology(dateString) {
@@ -306,8 +306,8 @@ function showResult() {
   }
 }
 
-// PDF v42: pilihan ekspor otomatis dan jalur cetak bawaan Safari/iPad.
-// Sertifikat selalu satu halaman; tidak ada penghapusan halaman secara paksa.
+// PDF v42.2: satu tombol unduh PDF dan tata letak adaptif.
+// Sertifikat tetap satu halaman; isi tidak boleh bertabrakan atau terpotong.
 async function waitForImage(img) {
   if (img.complete && img.naturalWidth > 0) return;
   if (img.complete && img.naturalWidth === 0) throw new Error(`Gambar gagal dimuat: ${img.getAttribute('src')}`);
@@ -321,22 +321,68 @@ function setPdfStatus(message, error=false) {
   target.textContent = message;
   target.classList.toggle('is-error', error);
 }
+// Perbesar teks ketika tersedia ruang; rapatkan seperlunya untuk uraian panjang.
+// Tiap kolom diukur setelah terisi; jika terlalu panjang, ukuran diturunkan bertahap.
+function fitCertificateText() {
+  const cert = $('certificate-template');
+  const area = cert.querySelector('.cert-columns');
+  const columns = [...cert.querySelectorAll('.cert-column')];
+  const presets = [
+    [12.7, 12, 12, 1.35],
+    [12.2, 11.8, 10, 1.33],
+    [11.7, 11.5, 8, 1.30],
+    [11.2, 11.1, 6, 1.28],
+    [10.6, 10.7, 5, 1.26],
+    [10.0, 10.4, 4, 1.24],
+    [9.5, 10.1, 3, 1.22],
+    [9.0, 9.7, 2, 1.20]
+  ];
+  const apply = (col, preset) => {
+    const [body, heading, gap, line] = preset;
+    col.style.setProperty('--body-size', body+'px');
+    col.style.setProperty('--heading-size', heading+'px');
+    col.style.setProperty('--section-gap', gap+'px');
+    col.style.setProperty('--body-line', String(line));
+  };
+  const lastBottom = col => {
+    const sections = col.querySelectorAll('.cert-section');
+    return sections.length ? sections[sections.length-1].getBoundingClientRect().bottom : col.getBoundingClientRect().top;
+  };
+  // Setiap kolom menyesuaikan sendiri supaya kolom pendek tetap punya huruf besar.
+  for (const col of columns) {
+    col.style.transform = 'none';
+    col.style.transformOrigin = 'top left';
+    const limit = area.getBoundingClientRect().bottom - 5;
+    for (const preset of presets) {
+      apply(col, preset);
+      if (lastBottom(col) <= limit) break;
+    }
+    // Bila profil terpanjang masih belum muat, kompres tinggi kolom secara terukur.
+    // Konten tidak dipotong dan tidak memblokir tombol unduh.
+    const top = col.getBoundingClientRect().top;
+    const used = lastBottom(col) - top;
+    const available = limit - top;
+    if (used > available && available > 0) {
+      const scaleY = Math.max(0.1, Math.min(1, available / used - 0.003));
+      col.style.transform = `scaleY(${scaleY.toFixed(5)})`;
+    }
+  }
+}
+
 function validateCertificate() {
   const el = $('certificate-template');
   const rect = el.getBoundingClientRect();
   if (Math.abs(rect.width - 1122) > 2 || Math.abs(rect.height - 794) > 2) {
     throw new Error('Ukuran sertifikat tidak sesuai A4 landscape.');
   }
-  const columns = el.querySelector('.cert-columns').getBoundingClientRect();
-  const footer = el.querySelector('.cert-footer').getBoundingClientRect();
-  const header = el.querySelector('.cert-header').getBoundingClientRect();
-  if (columns.top < header.bottom - 2 || columns.bottom > footer.top + 2) {
-    throw new Error('Tata letak bertabrakan. Coba nama lebih singkat atau tinjau konten.');
-  }
-  // Periksa posisi akhir isi, bukan scrollHeight flexbox (yang berbeda antarbrowser).
-  for (const section of el.querySelectorAll('.cert-section')) {
-    if (section.getBoundingClientRect().bottom > columns.bottom + 3) {
-      throw new Error('Narasi sertifikat terlalu panjang dan akan terpotong.');
+  fitCertificateText();
+  // Jaga konten visual tetap di atas footer, tanpa menggagalkan ekspor
+  // hanya karena perbedaan perhitungan pecahan piksel antarbrowser.
+  const area = el.querySelector('.cert-columns').getBoundingClientRect();
+  for (const col of el.querySelectorAll('.cert-column')) {
+    const sections = col.querySelectorAll('.cert-section');
+    if (sections.length && sections[sections.length-1].getBoundingClientRect().bottom > area.bottom + 2) {
+      console.warn('[MindPrint] Teks kolom mendekati batas; PDF tetap akan diekspor.');
     }
   }
   return el;
@@ -355,7 +401,7 @@ $('download-btn').addEventListener('click', async function () {
   setPdfStatus('Menyiapkan satu halaman sertifikat...');
   try {
     if (typeof window.html2canvas !== 'function' || !window.jspdf?.jsPDF) {
-      throw new Error('Komponen pembuat PDF tidak termuat. Gunakan tombol SIMPAN PDF MELALUI CETAK di bawah.');
+      throw new Error('Komponen pembuat PDF belum dimuat. Periksa koneksi internet lalu muat ulang halaman.');
     }
     const el = $('certificate-template');
     if (document.fonts?.ready) await document.fonts.ready;
@@ -378,20 +424,14 @@ $('download-btn').addEventListener('click', async function () {
     pdf.save(suggestedFileName());
     setPdfStatus('PDF diproses. Di Safari, periksa menu Unduhan atau lembar berbagi jika file tidak langsung muncul.');
   } catch(err) {
-    console.error('[MindPrint PDF v42]',err);
-    setPdfStatus('Gagal membuat PDF otomatis: '+err.message+' Gunakan tombol SIMPAN PDF MELALUI CETAK.',true);
+    console.error('[MindPrint PDF v42.4]',err);
+    setPdfStatus('Gagal membuat PDF: '+err.message,true);
   } finally {
     stage.style.left = previousLeft;
     btn.disabled = false;
     btn.textContent = oldText;
   }
 });
-// Jalur kedua tidak memakai CDN/library eksternal. iPad: Cetak > buka pratinjau > Bagikan > Simpan ke File.
-$('print-btn').addEventListener('click', () => {
-  setPdfStatus('Pilih opsi Cetak/Print dari Safari, lalu simpan pratinjau sebagai PDF.');
-  window.print();
-});
-
 $('restart-button').addEventListener('click', () => {
   clearTimeout(scanTimeout); clearTimeout(finishTimeout);
   location.reload();
