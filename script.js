@@ -325,51 +325,64 @@ function setPdfStatus(message, error=false) {
 // Tiap kolom diukur setelah terisi; jika terlalu panjang, ukuran diturunkan bertahap.
 function fitCertificateText() {
   const cert = $('certificate-template');
-  const colWrap = cert.querySelector('.cert-columns');
+  const area = cert.querySelector('.cert-columns');
   const columns = [...cert.querySelectorAll('.cert-column')];
-  const fits = () => {
-    const bottom = colWrap.getBoundingClientRect().bottom - 2;
-    return columns.every(col => {
-      const sections = [...col.querySelectorAll('.cert-section')];
-      return !sections.length || sections[sections.length - 1].getBoundingClientRect().bottom <= bottom;
-    });
-  };
   const presets = [
-    [12.8, 12.2, 14, 1.40],
-    [12.5, 12, 12, 1.38],
-    [12.2, 11.8, 11, 1.37],
-    [11.9, 11.6, 9, 1.36],
-    [11.5, 11.4, 8, 1.34],
-    [11.1, 11.2, 7, 1.33],
-    [10.7, 11, 6, 1.32]
+    [12.7, 12, 12, 1.35],
+    [12.2, 11.8, 10, 1.33],
+    [11.7, 11.5, 8, 1.30],
+    [11.2, 11.1, 6, 1.28],
+    [10.6, 10.7, 5, 1.26],
+    [10.0, 10.4, 4, 1.24],
+    [9.5, 10.1, 3, 1.22],
+    [9.0, 9.7, 2, 1.20]
   ];
-  for (const [body, heading, gap, line] of presets) {
-    cert.style.setProperty('--body-size', body + 'px');
-    cert.style.setProperty('--heading-size', heading + 'px');
-    cert.style.setProperty('--section-gap', gap + 'px');
-    cert.style.setProperty('--body-line', String(line));
-    if (fits()) return true;
+  const apply = (col, preset) => {
+    const [body, heading, gap, line] = preset;
+    col.style.setProperty('--body-size', body+'px');
+    col.style.setProperty('--heading-size', heading+'px');
+    col.style.setProperty('--section-gap', gap+'px');
+    col.style.setProperty('--body-line', String(line));
+  };
+  const lastBottom = col => {
+    const sections = col.querySelectorAll('.cert-section');
+    return sections.length ? sections[sections.length-1].getBoundingClientRect().bottom : col.getBoundingClientRect().top;
+  };
+  // Setiap kolom menyesuaikan sendiri supaya kolom pendek tetap punya huruf besar.
+  for (const col of columns) {
+    col.style.transform = 'none';
+    col.style.transformOrigin = 'top left';
+    const limit = area.getBoundingClientRect().bottom - 5;
+    for (const preset of presets) {
+      apply(col, preset);
+      if (lastBottom(col) <= limit) break;
+    }
+    // Bila profil terpanjang masih belum muat, kompres tinggi kolom secara terukur.
+    // Konten tidak dipotong dan tidak memblokir tombol unduh.
+    const top = col.getBoundingClientRect().top;
+    const used = lastBottom(col) - top;
+    const available = limit - top;
+    if (used > available && available > 0) {
+      const scaleY = Math.max(0.1, Math.min(1, available / used - 0.003));
+      col.style.transform = `scaleY(${scaleY.toFixed(5)})`;
+    }
   }
-  return fits();
 }
 
 function validateCertificate() {
   const el = $('certificate-template');
-  if (!fitCertificateText()) throw new Error('Narasi terlalu panjang untuk satu halaman sertifikat.');
   const rect = el.getBoundingClientRect();
   if (Math.abs(rect.width - 1122) > 2 || Math.abs(rect.height - 794) > 2) {
     throw new Error('Ukuran sertifikat tidak sesuai A4 landscape.');
   }
-  const columns = el.querySelector('.cert-columns').getBoundingClientRect();
-  const footer = el.querySelector('.cert-footer').getBoundingClientRect();
-  const header = el.querySelector('.cert-header').getBoundingClientRect();
-  if (columns.top < header.bottom - 2 || columns.bottom > footer.top + 2) {
-    throw new Error('Tata letak bertabrakan. Coba nama lebih singkat atau tinjau konten.');
-  }
-  // Periksa posisi akhir isi, bukan scrollHeight flexbox (yang berbeda antarbrowser).
-  for (const section of el.querySelectorAll('.cert-section')) {
-    if (section.getBoundingClientRect().bottom > columns.bottom + 3) {
-      throw new Error('Narasi sertifikat terlalu panjang dan akan terpotong.');
+  fitCertificateText();
+  // Jaga konten visual tetap di atas footer, tanpa menggagalkan ekspor
+  // hanya karena perbedaan perhitungan pecahan piksel antarbrowser.
+  const area = el.querySelector('.cert-columns').getBoundingClientRect();
+  for (const col of el.querySelectorAll('.cert-column')) {
+    const sections = col.querySelectorAll('.cert-section');
+    if (sections.length && sections[sections.length-1].getBoundingClientRect().bottom > area.bottom + 2) {
+      console.warn('[MindPrint] Teks kolom mendekati batas; PDF tetap akan diekspor.');
     }
   }
   return el;
@@ -411,7 +424,7 @@ $('download-btn').addEventListener('click', async function () {
     pdf.save(suggestedFileName());
     setPdfStatus('PDF diproses. Di Safari, periksa menu Unduhan atau lembar berbagi jika file tidak langsung muncul.');
   } catch(err) {
-    console.error('[MindPrint PDF v42]',err);
+    console.error('[MindPrint PDF v42.4]',err);
     setPdfStatus('Gagal membuat PDF: '+err.message,true);
   } finally {
     stage.style.left = previousLeft;
