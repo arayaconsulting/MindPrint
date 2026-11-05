@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MindPrint Analysis - Araya Consulting</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=42.1">
   <!-- Versi library dikunci. Simpan salinan lokal untuk ketahanan jangka panjang. -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script defer src="script.js"></script>
+  <script defer src="script.js?v=42.1"></script>
 </head>
 <body>
   <main class="container" id="intro-container">
@@ -46,6 +46,8 @@
     <h2 id="result-title"></h2>
     <div class="result-box"><p id="display-intisari"></p></div>
     <button id="download-btn" class="download-btn" type="button">UNDUH SERTIFIKAT (PDF)</button>
+    <button id="print-btn" class="print-btn" type="button">SIMPAN PDF MELALUI CETAK</button>
+    <p id="pdf-status" class="pdf-status" role="status" aria-live="polite"></p>
     <button id="restart-button" class="restart-btn" type="button">Tes Lagi</button>
   </section>
 
