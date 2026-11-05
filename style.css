@@ -37,3 +37,14 @@ form{display:flex;flex-direction:column;gap:15px}input,select{padding:14px;borde
  #certificate-template{display:block!important;break-inside:avoid!important;page-break-inside:avoid!important}
  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
 }
+
+/* v42.2 — tipografi sertifikat adaptif, jarak antarbagian rapat dan alami. */
+.cert-content{padding:23px 49px 18px;row-gap:12px;grid-template-rows:auto minmax(0,1fr) auto}
+.cert-columns{gap:20px;align-items:start}
+.cert-column{justify-content:flex-start;gap:var(--section-gap,13px);align-self:start}
+.cert-left{padding-right:20px}
+.cert-right{padding-left:3px}
+.cert-section h4{font-size:var(--heading-size,12px);line-height:1.23;margin:0 0 4px}
+.cert-section p{font-size:var(--body-size,12.6px);line-height:var(--body-line,1.37);margin:0;overflow-wrap:break-word}
+.cert-section .negative{margin-top:4px}
+.cert-footer{min-height:78px}
