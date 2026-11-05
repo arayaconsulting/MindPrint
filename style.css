@@ -48,3 +48,21 @@ form{display:flex;flex-direction:column;gap:15px}input,select{padding:14px;borde
 .cert-section p{font-size:var(--body-size,12.6px);line-height:var(--body-line,1.37);margin:0;overflow-wrap:break-word}
 .cert-section .negative{margin-top:4px}
 .cert-footer{min-height:78px}
+
+/* v42.3: Keterangan teknis tidak memenuhi formulir, tetap tersedia secara terbuka. */
+.method-info{text-align:left;font-size:12px;color:#667180;margin:0;line-height:1.5}
+.method-info summary{display:inline-block;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.method-info p{margin:7px 0 0}
+/* Sertifikat: tambah ruang di bawah header, jaga jarak isi adaptif. */
+.cert-content{padding:18px 42px 17px;row-gap:9px}
+.cert-columns{gap:19px}
+.cert-footer{min-height:72px}
+.cert-logo{height:47px}
+.cert-header h2{font-size:16px}
+.cert-header h3{font-size:22px}
+.cert-type{margin-top:5px;padding:6px 14px;min-height:29px}
+
+/* v42.4: konten sertifikat mengalir natural, tanpa spacer antarseksi. */
+.cert-column{justify-content:flex-start;align-items:stretch;min-height:0}
+.cert-columns{overflow:visible;min-height:0}
+.cert-section{flex:0 0 auto}
