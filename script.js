@@ -306,8 +306,8 @@ function showResult() {
   }
 }
 
-// PDF v42: pilihan ekspor otomatis dan jalur cetak bawaan Safari/iPad.
-// Sertifikat selalu satu halaman; tidak ada penghapusan halaman secara paksa.
+// PDF v42.2: satu tombol unduh PDF dan tata letak adaptif.
+// Sertifikat tetap satu halaman; isi tidak boleh bertabrakan atau terpotong.
 async function waitForImage(img) {
   if (img.complete && img.naturalWidth > 0) return;
   if (img.complete && img.naturalWidth === 0) throw new Error(`Gambar gagal dimuat: ${img.getAttribute('src')}`);
@@ -321,8 +321,41 @@ function setPdfStatus(message, error=false) {
   target.textContent = message;
   target.classList.toggle('is-error', error);
 }
+// Perbesar teks ketika tersedia ruang; rapatkan seperlunya untuk uraian panjang.
+// Tiap kolom diukur setelah terisi; jika terlalu panjang, ukuran diturunkan bertahap.
+function fitCertificateText() {
+  const cert = $('certificate-template');
+  const colWrap = cert.querySelector('.cert-columns');
+  const columns = [...cert.querySelectorAll('.cert-column')];
+  const fits = () => {
+    const bottom = colWrap.getBoundingClientRect().bottom - 2;
+    return columns.every(col => {
+      const sections = [...col.querySelectorAll('.cert-section')];
+      return !sections.length || sections[sections.length - 1].getBoundingClientRect().bottom <= bottom;
+    });
+  };
+  const presets = [
+    [12.8, 12.2, 14, 1.40],
+    [12.5, 12, 12, 1.38],
+    [12.2, 11.8, 11, 1.37],
+    [11.9, 11.6, 9, 1.36],
+    [11.5, 11.4, 8, 1.34],
+    [11.1, 11.2, 7, 1.33],
+    [10.7, 11, 6, 1.32]
+  ];
+  for (const [body, heading, gap, line] of presets) {
+    cert.style.setProperty('--body-size', body + 'px');
+    cert.style.setProperty('--heading-size', heading + 'px');
+    cert.style.setProperty('--section-gap', gap + 'px');
+    cert.style.setProperty('--body-line', String(line));
+    if (fits()) return true;
+  }
+  return fits();
+}
+
 function validateCertificate() {
   const el = $('certificate-template');
+  if (!fitCertificateText()) throw new Error('Narasi terlalu panjang untuk satu halaman sertifikat.');
   const rect = el.getBoundingClientRect();
   if (Math.abs(rect.width - 1122) > 2 || Math.abs(rect.height - 794) > 2) {
     throw new Error('Ukuran sertifikat tidak sesuai A4 landscape.');
@@ -355,7 +388,7 @@ $('download-btn').addEventListener('click', async function () {
   setPdfStatus('Menyiapkan satu halaman sertifikat...');
   try {
     if (typeof window.html2canvas !== 'function' || !window.jspdf?.jsPDF) {
-      throw new Error('Komponen pembuat PDF tidak termuat. Gunakan tombol SIMPAN PDF MELALUI CETAK di bawah.');
+      throw new Error('Komponen pembuat PDF belum dimuat. Periksa koneksi internet lalu muat ulang halaman.');
     }
     const el = $('certificate-template');
     if (document.fonts?.ready) await document.fonts.ready;
@@ -379,19 +412,13 @@ $('download-btn').addEventListener('click', async function () {
     setPdfStatus('PDF diproses. Di Safari, periksa menu Unduhan atau lembar berbagi jika file tidak langsung muncul.');
   } catch(err) {
     console.error('[MindPrint PDF v42]',err);
-    setPdfStatus('Gagal membuat PDF otomatis: '+err.message+' Gunakan tombol SIMPAN PDF MELALUI CETAK.',true);
+    setPdfStatus('Gagal membuat PDF: '+err.message,true);
   } finally {
     stage.style.left = previousLeft;
     btn.disabled = false;
     btn.textContent = oldText;
   }
 });
-// Jalur kedua tidak memakai CDN/library eksternal. iPad: Cetak > buka pratinjau > Bagikan > Simpan ke File.
-$('print-btn').addEventListener('click', () => {
-  setPdfStatus('Pilih opsi Cetak/Print dari Safari, lalu simpan pratinjau sebagai PDF.');
-  window.print();
-});
-
 $('restart-button').addEventListener('click', () => {
   clearTimeout(scanTimeout); clearTimeout(finishTimeout);
   location.reload();
